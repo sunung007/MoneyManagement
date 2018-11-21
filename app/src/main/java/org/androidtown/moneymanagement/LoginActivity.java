@@ -5,6 +5,7 @@ import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
 import android.app.LoaderManager.LoaderCallbacks;
 import android.content.CursorLoader;
+import android.content.Intent;
 import android.content.Loader;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
@@ -93,6 +94,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
         mLoginFormView = findViewById(R.id.login_form);
         mProgressView = findViewById(R.id.login_progress);
+
     }
 
     private void populateAutoComplete() {
@@ -190,8 +192,6 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             mAuthTask = new UserLoginTask(email, password);
             mAuthTask.execute((Void) null);
         }
-
-        Toast.makeText(getApplicationContext(), "로그인 성공", Toast.LENGTH_LONG).show();
     }
 
     private boolean isEmailValid(String email) {
@@ -339,6 +339,11 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             showProgress(false);
 
             if (success) {
+                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+
+                Toast.makeText(getApplicationContext(), "로그인 성공", Toast.LENGTH_LONG).show();
+                startActivity(intent);
+
                 finish();
             } else {
                 mPasswordView.setError(getString(R.string.error_incorrect_password));
