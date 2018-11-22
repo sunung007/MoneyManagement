@@ -46,7 +46,7 @@
             android:layout_weight="0"
             android:gravity="top|center_vertical|center_horizontal|fill_horizontal|center"
             android:orientation="horizontal"
-            android:paddingTop="30dp">
+            android:paddingTop="40dp">
 
             <LinearLayout
                 android:id="@+id/email_login_form"
