@@ -17,6 +17,8 @@
     <string name="blank_id">아이디를 입력하세요</string>
     <string name="blank_password">비밀번호를 입력하세요</string>
     <string name="login_name">로그인</string>
+    <string name="login_bottom_message">[개발자 정보]\n컴퓨터소프트웨어학부 제 9대 학생회 [화합]\n
+        김선웅, 류지범</string>
 
 
 
