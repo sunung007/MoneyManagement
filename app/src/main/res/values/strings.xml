@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">MoneyManagement</string>
+    <string name="app_name">한양대 컴소 학생회비 관리 시스템</string>
     <string name="title_activity_login">Sign in</string>
     <!-- Strings related to login -->
     <string name="prompt_email">Email</string>
@@ -19,7 +19,13 @@
     <string name="login_name">로그인</string>
     <string name="login_bottom_message">[개발자 정보]\n컴퓨터소프트웨어학부 제 9대 학생회 [화합]\n
         김선웅, 류지범</string>
-
+    <string name="title_activity_main">MainActivity</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_title">Android Studio</string>
+    <string name="nav_header_subtitle">android.studio@android.com</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="action_settings">Settings</string>
 
 
 </resources>
