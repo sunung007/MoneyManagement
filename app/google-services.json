@@ -1,27 +1,27 @@
 {
   "project_info": {
-    "project_number": "498370876717",
-    "firebase_url": "https://moneymanagement-40332.firebaseio.com",
-    "project_id": "moneymanagement-40332",
-    "storage_bucket": "moneymanagement-40332.appspot.com"
+    "project_number": "449934145190",
+    "firebase_url": "https://moneymanagement-15e7f.firebaseio.com",
+    "project_id": "moneymanagement-15e7f",
+    "storage_bucket": "moneymanagement-15e7f.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:498370876717:android:3d738368b064a287",
+        "mobilesdk_app_id": "1:449934145190:android:3d738368b064a287",
         "android_client_info": {
           "package_name": "org.androidtown.moneymanagement"
         }
       },
       "oauth_client": [
         {
-          "client_id": "498370876717-mc8rtnijk9cdj2t4r2hj1ftkie1pca2j.apps.googleusercontent.com",
+          "client_id": "449934145190-pq7nole52uej2vf6bkf9u5m537f6b6v5.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyCW2dj6LZws32-_ARUaW1Ns4K1LU4CyJ9U"
+          "current_key": "AIzaSyDiaObdKWXqVCB16yysvOfn3r-CPQzdDj0"
         }
       ],
       "services": {
