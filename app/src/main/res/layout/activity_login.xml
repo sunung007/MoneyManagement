@@ -42,7 +42,7 @@
 
         <LinearLayout
             android:layout_width="wrap_content"
-            android:layout_height="132dp"
+            android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_weight="0"
             android:gravity="top|center_vertical|center_horizontal|fill_horizontal|center"
@@ -67,7 +67,8 @@
                         android:hint="@string/blank_id"
                         android:inputType="textEmailAddress"
                         android:maxLines="1"
-                        android:singleLine="true" />
+                        android:singleLine="true"
+                        android:visibility="visible" />
 
                 </android.support.design.widget.TextInputLayout>
 
@@ -78,7 +79,7 @@
                     <EditText
                         android:id="@+id/password"
                         android:layout_width="230dp"
-                        android:layout_height="wrap_content"
+                        android:layout_height="match_parent"
                         android:autofillHints="@string/blank_password"
                         android:hint="@string/blank_password"
                         android:imeActionId="6"
@@ -86,7 +87,8 @@
                         android:imeOptions="actionUnspecified"
                         android:inputType="textPassword"
                         android:maxLines="1"
-                        android:singleLine="true" />
+                        android:singleLine="true"
+                        android:visibility="visible" />
 
                 </android.support.design.widget.TextInputLayout>
 
