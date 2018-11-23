@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "449934145190-qesosa3aoi3luf49jmuvi3rfg52cciae.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "org.androidtown.moneymanagement",
+            "certificate_hash": "042bdecc593ef2a649ce505cd369eae4b1f8763d"
+          }
+        },
+        {
           "client_id": "449934145190-pq7nole52uej2vf6bkf9u5m537f6b6v5.apps.googleusercontent.com",
           "client_type": 3
         }
@@ -29,8 +37,13 @@
           "status": 1
         },
         "appinvite_service": {
-          "status": 1,
-          "other_platform_oauth_client": []
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "449934145190-pq7nole52uej2vf6bkf9u5m537f6b6v5.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
         },
         "ads_service": {
           "status": 2

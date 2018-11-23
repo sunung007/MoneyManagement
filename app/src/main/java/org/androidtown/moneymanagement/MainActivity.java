@@ -23,6 +23,8 @@ public class MainActivity extends AppCompatActivity
     private Spinner mSid;
     private EditText mSname;
 
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
