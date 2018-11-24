@@ -2,6 +2,7 @@ package org.androidtown.moneymanagement;
 
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.text.TextUtils;
 import android.view.Gravity;
@@ -13,10 +14,14 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 
 
 /**
@@ -176,13 +181,14 @@ public class SearchStudentFragment extends Fragment {
 
 //                finish();
             } else {
+
 //                StudentInfo studentInfo = new StudentInfo("1학기", "1학기만",
 //                        "2019", mSid, mSname);
 //                conditionRef.setValue(studentInfo);
 
-//                conditionRef.addListenerForSingleValueEvent(new ValueEventListener() {
-//                    @Override
-//                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                conditionRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 //                        StudentInfo studentInfo = dataSnapshot.getValue(StudentInfo.class);
 //                        Toast.makeText(getContext(), studentInfo.toString(), Toast.LENGTH_SHORT);
 //
@@ -194,18 +200,26 @@ public class SearchStudentFragment extends Fragment {
 //                                target.add(studentInfo);
 ////                            }
 //                        }
-//                    }
-//
-//                    @Override
-//                    public void onCancelled(@NonNull DatabaseError databaseError) {
-////                    Log.w(TAG, "loadPost:onCancelled", databaseError.toException());
-//                    }
-//                });
+                        Iterator<DataSnapshot> child = dataSnapshot.getChildren().iterator();
+                        String tmp = child.next().child("Sname").getValue().toString();
 
-                int tmp = target.size();
-                Toast toast = Toast.makeText(getContext(), "FALI: " + tmp, Toast.LENGTH_SHORT);
-                toast.setGravity(Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL, 0, 0);
-                toast.show();
+
+                        Toast toast = Toast.makeText(getContext(), "FALI: " + tmp, Toast.LENGTH_SHORT);
+                        toast.setGravity(Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL, 0, 0);
+                        toast.show();
+
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+//                    Log.w(TAG, "loadPost:onCancelled", databaseError.toException());
+                    }
+                });
+
+//                int tmp = target.size();
+//                Toast toast = Toast.makeText(getContext(), "FALI: " + tmp, Toast.LENGTH_SHORT);
+//                toast.setGravity(Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL, 0, 0);
+//                toast.show();
             }
         }
 
