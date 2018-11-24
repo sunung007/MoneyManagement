@@ -1,36 +1,20 @@
 package org.androidtown.moneymanagement;
 
-import android.animation.Animator;
-import android.animation.AnimatorListenerAdapter;
-import android.annotation.TargetApi;
 import android.content.Intent;
-import android.os.AsyncTask;
-import android.os.Build;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.text.TextUtils;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.Spinner;
 import android.widget.Toast;
-
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
-
-import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -38,12 +22,12 @@ public class MainActivity extends AppCompatActivity
     /**
      * Keep track of the login task to ensure we can cancel it if requested.
      */
-    private Students mAuthTask = null;
-
-    private Spinner mSidView;
-    private EditText mSnameView;
-    private View mProgressView;
-    private View mSearchView;
+//    private Students mAuthTask = null;
+//
+//    private Spinner mSidView;
+//    private EditText mSnameView;
+//    private View mProgressView;
+//    private View mSearchView;
 
 
     @Override
@@ -53,9 +37,12 @@ public class MainActivity extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        mSidView = (Spinner) findViewById(R.id.sid);
-        mSnameView = (EditText) findViewById(R.id.sname);
+//        mSidView = (Spinner) findViewById(R.id.sid);
+//        mSnameView = (EditText) findViewById(R.id.sname);
 
+        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+        ft.replace(R.id.main_fragment, new SearchStudentFragment());
+        ft.commit();
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -66,16 +53,16 @@ public class MainActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        Button studentSearchButton = (Button) findViewById(R.id.student_search_button);
-        studentSearchButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                searchStudent();
-            }
-        });
+//        Button studentSearchButton = (Button) findViewById(R.id.student_search_button);
+//        studentSearchButton.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                searchStudent();
+//            }
+//        });
 
-        mSearchView = findViewById(R.id.search_form);
-        mProgressView = findViewById(R.id.search_progress);
+//        mSearchView = findViewById(R.id.search_form);
+//        mProgressView = findViewById(R.id.search_progress);
 
     }
 
@@ -103,16 +90,19 @@ public class MainActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        android.support.v4.app.FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+        Fragment fragment = null;
+        FragmentManager fm = getSupportFragmentManager();
+        FragmentTransaction ft = fm.beginTransaction();
 
-        if (id == R.id.nav_enroll) {
+        if(id == R.id.nav_check) {
+            fragment = new SearchStudentFragment();
+        }
+        else if (id == R.id.nav_enroll) {
 
         } else if (id == R.id.nav_manage) {
 
         } else if (id == R.id.developer) {
-            fragmentTransaction.replace(R.id.developer, new DevelopersFragment());
-            fragmentTransaction.commit();
-
+            fragment = new DevelopersFragment();
         } else if (id == R.id.logout) {
             Toast toast = Toast.makeText(getApplicationContext(), "로그아웃", Toast.LENGTH_SHORT);
             toast.setGravity(Gravity.CENTER_HORIZONTAL|Gravity.BOTTOM, 0, 0);
@@ -124,46 +114,21 @@ public class MainActivity extends AppCompatActivity
             finish();
         }
 
+        if(fragment != null) {
+            ft.replace(R.id.main_fragment, fragment);
+            ft.commit();
+        }
+
+
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
 
-    private void searchStudent() {
-        // Reset errors.
-        mSnameView.setError(null);
-
-        // Store values at the time of the search attempt.
-        String sid = mSidView.getSelectedItem().toString();
-        String sname = mSnameView.getText().toString();
-
-        boolean cancel = false;
-        View focusView = null;
-
-        // Check for a nonempty name.
-        if (TextUtils.isEmpty(sid)) {
-            mSnameView.setError(getString(R.string.error_field_required));
-            focusView = mSnameView;
-            cancel = true;
-        }
-
-        if (cancel) {
-            // There was an error; don't attempt login and focus the first
-            // form field with an error.
-            focusView.requestFocus();
-        } else {
-            // Show a progress spinner, and kick off a background task to
-            // perform the search attempt.
-            showProgress(true);
-            mAuthTask = new Students(sid, sname);
-            mAuthTask.execute((Void) null);
-        }
-    }
-
     /**
      * Shows the progress UI and hides the login form.
      */
-
+/*
     @TargetApi(Build.VERSION_CODES.HONEYCOMB_MR2)
     private void showProgress(final boolean show) {
         // On Honeycomb MR2 we have the ViewPropertyAnimator APIs, which allow
@@ -196,7 +161,6 @@ public class MainActivity extends AppCompatActivity
             mSearchView.setVisibility(show ? View.GONE : View.VISIBLE);
         }
     }
-
 
 
     public class Students extends AsyncTask<Void, Void, Boolean> {
@@ -325,6 +289,7 @@ public class MainActivity extends AppCompatActivity
             return mSname;
         }
     }
+*/
 }
 
 
