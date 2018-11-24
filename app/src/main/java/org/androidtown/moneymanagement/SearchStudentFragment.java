@@ -156,12 +156,40 @@ public class SearchStudentFragment extends Fragment {
         @Override
         protected Boolean doInBackground(Void... params) {
             // Check whether the student is in DB.
+            target.clear();
 
-            return false;
+            conditionRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    Iterator<DataSnapshot> child = dataSnapshot.getChildren().iterator();
+                    DataSnapshot ds;
+                    String tName, tId, tAmount, tType, tYear;
 
-//            if(!target.isEmpty()) return true;
-//            else return false;
 
+                    while(child.hasNext()) {
+                        ds = child.next();
+                        tName = ds.child("Sname").getValue().toString();
+                        tId = ds.child("Sid").getValue().toString();
+
+                        if(mSname.equals(tName) && mSid.equals(tId)) {
+                            tAmount = ds.child("Pamount").getValue().toString();
+                            tType = ds.child("Ptype").getValue().toString();
+                            tYear = ds.child("Pyear").getValue().toString();
+
+                            StudentInfo studentInfo = new StudentInfo(tAmount, tType, tYear, tId, tName);
+                            target.add(studentInfo);
+                        }
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+//                    Log.w(TAG, "loadPost:onCancelled", databaseError.toException());
+                }
+            });
+
+            if(target.size() > 0) return true;
+            else return false;
         }
 
         @Override
@@ -181,50 +209,9 @@ public class SearchStudentFragment extends Fragment {
 
 //                finish();
             } else {
-
-//                StudentInfo studentInfo = new StudentInfo("1학기", "1학기만",
-//                        "2019", mSid, mSname);
-//                conditionRef.setValue(studentInfo);
-
-                conditionRef.addListenerForSingleValueEvent(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                        Iterator<DataSnapshot> child = dataSnapshot.getChildren().iterator();
-                        DataSnapshot ds;
-                        String tName, tId, tAmount, tType, tYear;
-                        target.clear();
-
-                        while(child.hasNext()) {
-                            ds = child.next();
-                            tName = ds.child("Sname").getValue().toString();
-                            tId = ds.child("Sid").getValue().toString();
-
-                            if(mSname.equals(tName) && mSid.equals(tId)) {
-                                tAmount = ds.child("Pamount").getValue().toString();
-                                tType = ds.child("Ptype").getValue().toString();
-                                tYear = ds.child("Pyear").getValue().toString();
-
-                                target.add(new StudentInfo(tAmount, tType, tYear, tId, tName));
-                            }
-                        }
-
-                        int tmp = target.size();
-                        Toast toast = Toast.makeText(getContext(), "FALI: " + tmp, Toast.LENGTH_SHORT);
-                        toast.setGravity(Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL, 0, 0);
-                        toast.show();
-
-                    }
-
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError databaseError) {
-//                    Log.w(TAG, "loadPost:onCancelled", databaseError.toException());
-                    }
-                });
-
-//                int tmp = target.size();
-//                Toast toast = Toast.makeText(getContext(), "FALI: " + tmp, Toast.LENGTH_SHORT);
-//                toast.setGravity(Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL, 0, 0);
-//                toast.show();
+                Toast toast = Toast.makeText(getContext(), "찾는 대상이 없습니다.", Toast.LENGTH_SHORT);
+                toast.setGravity(Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL, 0, 0);
+                toast.show();
             }
         }
 
