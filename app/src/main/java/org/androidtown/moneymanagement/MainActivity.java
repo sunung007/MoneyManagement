@@ -80,7 +80,7 @@ public class MainActivity extends AppCompatActivity
             fragment = new SearchStudentFragment();
         }
         else if (id == R.id.nav_enroll) {
-
+            fragment = new EnrollFragment();
         } else if (id == R.id.nav_manage) {
 
         } else if (id == R.id.developer) {
