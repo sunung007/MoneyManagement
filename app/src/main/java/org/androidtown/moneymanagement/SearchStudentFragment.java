@@ -1,6 +1,5 @@
 package org.androidtown.moneymanagement;
 
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
@@ -34,12 +33,20 @@ public class SearchStudentFragment extends Fragment {
     private String mParam1;
     private String mParam2;
 
-    private Students mAuthTask = null;
 //    private View mProgressView;
 
     private Spinner mSidView;
     private EditText mSnameView;
     private View mSearchView;
+
+    private String mSid;
+    private String mSname;
+
+    private DatabaseReference mRootRef = FirebaseDatabase.getInstance().getReference();
+    private DatabaseReference conditionRef = mRootRef.child("student");
+
+    ArrayList<StudentInfo> target = new ArrayList<>();
+
 
 
     public SearchStudentFragment() {
@@ -88,20 +95,19 @@ public class SearchStudentFragment extends Fragment {
     }
 
 
-
     private void searchStudent() {
         // Reset errors.
         mSnameView.setError(null);
 
         // Store values at the time of the search attempt.
-        String sid = mSidView.getSelectedItem().toString();
-        String sname = mSnameView.getText().toString();
+        mSid = mSidView.getSelectedItem().toString();
+        mSname = mSnameView.getText().toString();
 
         boolean cancel = false;
         View focusView = null;
 
         // Check for a nonempty name.
-        if (TextUtils.isEmpty(sid)) {
+        if (TextUtils.isEmpty(mSid)) {
             mSnameView.setError(getString(R.string.error_field_required));
             focusView = mSnameView;
             cancel = true;
@@ -112,102 +118,42 @@ public class SearchStudentFragment extends Fragment {
             // form field with an error.
             focusView.requestFocus();
         } else {
-            // Show a progress spinner, and kick off a background task to
-            // perform the search attempt.
-//            showProgress(true);
-            mAuthTask = new Students(sid, sname);
-            mAuthTask.execute((Void) null);
-        }
-    }
+            conditionRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    Iterator<DataSnapshot> child = dataSnapshot.getChildren().iterator();
+                    DataSnapshot ds;
+                    String tName, tId, tAmount, tType, tYear;
+                    target.clear();
 
-    public class Students extends AsyncTask<Void, Void, Boolean> {
+                    while(child.hasNext()) {
+                        ds = child.next();
+                        tName = ds.child("Sname").getValue().toString();
+                        tId = ds.child("Sid").getValue().toString();
 
-        private final String mSid;
-        private final String mSname;
+                        if(mSname.equals(tName) && mSid.equals(tId)) {
+                            tAmount = ds.child("Pamount").getValue().toString();
+                            tType = ds.child("Ptype").getValue().toString();
+                            tYear = ds.child("Pyear").getValue().toString();
 
-        private DatabaseReference mRootRef = FirebaseDatabase.getInstance().getReference();
-        private DatabaseReference conditionRef = mRootRef.child("student");
-
-        ArrayList<StudentInfo> target = new ArrayList<>();
-
-        Students(String _sid, String _sname) {
-            this.mSid = _sid;
-            this.mSname = _sname;
-        }
-
-
-        @Override
-        protected Boolean doInBackground(Void... params) {
-            // Check whether the student is in DB.
-
-            return false;
-        }
-
-        @Override
-        protected void onPostExecute(final Boolean success) {
-            mAuthTask = null;
-//            showProgress(false);
-
-            Toast.makeText(getContext(), "mSid: " + mSid + "\nmSname: " + mSname, Toast.LENGTH_SHORT).show();
-
-            if (success) {
-                // I must change this line
-
-                Toast toast = Toast.makeText(getContext(), "SUCCESS", Toast.LENGTH_SHORT);
-
-//                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-//                startActivity(intent);
-
-//                finish();
-            } else {
-                conditionRef.addListenerForSingleValueEvent(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                        Iterator<DataSnapshot> child = dataSnapshot.getChildren().iterator();
-                        DataSnapshot ds;
-                        String tName, tId, tAmount, tType, tYear;
-                        target.clear();
-
-                        while(child.hasNext()) {
-                            ds = child.next();
-                            tName = ds.child("Sname").getValue().toString();
-                            tId = ds.child("Sid").getValue().toString();
-
-                            if(mSname.equals(tName) && mSid.equals(tId)) {
-                                tAmount = ds.child("Pamount").getValue().toString();
-                                tType = ds.child("Ptype").getValue().toString();
-                                tYear = ds.child("Pyear").getValue().toString();
-
-                                target.add(new StudentInfo(tAmount, tType, tYear, tId, tName));
-                            }
+                            target.add(new StudentInfo(tAmount, tType, tYear, tId, tName));
                         }
-
-                        int tmp = target.size();
-                        String tmp2 = null;
-                        if(tmp > 0) {tmp2 = target.get(0).Sname;}
-                        Toast toast = Toast.makeText(getContext(), "FALI: " + tmp + tmp2, Toast.LENGTH_SHORT);
-                        toast.setGravity(Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL, 0, 0);
-                        toast.show();
-
                     }
 
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError databaseError) {
+                    int tmp = target.size();
+                    String tmp2 = null;
+                    if(tmp > 0) {tmp2 = target.get(0).Sname;}
+                    Toast toast = Toast.makeText(getContext(), "FALI: " + tmp + tmp2, Toast.LENGTH_SHORT);
+                    toast.setGravity(Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL, 0, 0);
+                    toast.show();
+
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
 //                    Log.w(TAG, "loadPost:onCancelled", databaseError.toException());
-                    }
-                });
-
-//                int tmp = target.size();
-//                Toast toast = Toast.makeText(getContext(), "FALI: " + tmp, Toast.LENGTH_SHORT);
-//                toast.setGravity(Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL, 0, 0);
-//                toast.show();
-            }
-        }
-
-        @Override
-        protected void onCancelled() {
-            mAuthTask = null;
-//            showProgress(false);
+                }
+            });
         }
     }
 
@@ -227,6 +173,4 @@ public class SearchStudentFragment extends Fragment {
             Sname = _Sname;
         }
     }
-
-
 }
