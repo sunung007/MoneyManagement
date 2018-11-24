@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.text.TextUtils;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -188,37 +189,29 @@ public class SearchStudentFragment extends Fragment {
                 conditionRef.addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-//                        StudentInfo studentInfo = dataSnapshot.getValue(StudentInfo.class);
-//                        Toast.makeText(getContext(), studentInfo.toString(), Toast.LENGTH_SHORT);
-//
-//                        target.clear();
-//
-//                        for(DataSnapshot snapshot : dataSnapshot.getChildren()) {
-//                            studentInfo = snapshot.getValue(StudentInfo.class);
-////                            if(studentInfo.Sname.equals(mSname) && studentInfo.Sid.equals(mSid)) {
-//                                target.add(studentInfo);
-////                            }
-//                        }
                         Iterator<DataSnapshot> child = dataSnapshot.getChildren().iterator();
+                        DataSnapshot ds;
                         String tName, tId, tAmount, tType, tYear;
-                        tName = child.next().child("Sname").getValue().toString();
-                        tId = child.next().child("Sid").getValue().toString();
-
+                        target.clear();
 
                         while(child.hasNext()) {
-                            if(mSname.equals(tName) && mSid.equals(tId)) {
-                                tAmount = child.next().child("Pamount").getValue().toString();
-                                tType = child.next().child("Ptype").getValue().toString();
-                                tYear = child.next().child("Pyear").getValue().toString();
+                            ds = child.next();
+                            tName = ds.child("Sname").getValue().toString();
+                            tId = ds.child("Sid").getValue().toString();
 
-                                StudentInfo studentInfo = new StudentInfo(tAmount, tType, tYear, tId, tName);
+                            if(mSname.equals(tName) && mSid.equals(tId)) {
+                                tAmount = ds.child("Pamount").getValue().toString();
+                                tType = ds.child("Ptype").getValue().toString();
+                                tYear = ds.child("Pyear").getValue().toString();
+
+                                target.add(new StudentInfo(tAmount, tType, tYear, tId, tName));
                             }
                         }
 
-
-//                        Toast toast = Toast.makeText(getContext(), "FALI: " + tmp, Toast.LENGTH_SHORT);
-//                        toast.setGravity(Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL, 0, 0);
-//                        toast.show();
+                        int tmp = target.size();
+                        Toast toast = Toast.makeText(getContext(), "FALI: " + tmp, Toast.LENGTH_SHORT);
+                        toast.setGravity(Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL, 0, 0);
+                        toast.show();
 
                     }
 
