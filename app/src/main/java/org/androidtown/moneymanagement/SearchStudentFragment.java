@@ -1,5 +1,6 @@
 package org.androidtown.moneymanagement;
 
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
@@ -23,40 +24,28 @@ import java.util.ArrayList;
 import java.util.Iterator;
 
 
-/**
- * A simple {@link Fragment} subclass.
- * Activities that contain this fragment must implement the
- * @link SearchStudentFragment.OnFragmentInteractionListener interface
- * to handle interaction events.
- * Use the {@link SearchStudentFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
 public class SearchStudentFragment extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
+    // TODO: Rename and change types of parameters
+    private String mParam1;
+    private String mParam2;
 
-    //    private View mProgressView;
+    private Students mAuthTask = null;
+//    private View mProgressView;
+
     private Spinner mSidView;
     private EditText mSnameView;
     private View mSearchView;
-
-    private String mSid;
-    private String mSname;
-
-    private DatabaseReference mRootRef = FirebaseDatabase.getInstance().getReference();
-    private DatabaseReference conditionRef = mRootRef.child("student");
-
-    ArrayList<StudentInfo> target = new ArrayList<>();
-
-    public int count = 0;
 
 
     public SearchStudentFragment() {
         // Required empty public constructor
     }
+
     public static SearchStudentFragment newInstance(String param1, String param2) {
         SearchStudentFragment fragment = new SearchStudentFragment();
         Bundle args = new Bundle();
@@ -70,8 +59,8 @@ public class SearchStudentFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            mSid = getArguments().getString(ARG_PARAM1);
-            mSname = getArguments().getString(ARG_PARAM2);
+            mParam1 = getArguments().getString(ARG_PARAM1);
+            mParam2 = getArguments().getString(ARG_PARAM2);
         }
     }
 
@@ -99,24 +88,24 @@ public class SearchStudentFragment extends Fragment {
     }
 
 
+
     private void searchStudent() {
         // Reset errors.
         mSnameView.setError(null);
 
         // Store values at the time of the search attempt.
-        mSid = mSidView.getSelectedItem().toString();
-        mSname = mSnameView.getText().toString();
+        String sid = mSidView.getSelectedItem().toString();
+        String sname = mSnameView.getText().toString();
 
         boolean cancel = false;
         View focusView = null;
 
         // Check for a nonempty name.
-        if (TextUtils.isEmpty(mSid)) {
+        if (TextUtils.isEmpty(sid)) {
             mSnameView.setError(getString(R.string.error_field_required));
             focusView = mSnameView;
             cancel = true;
         }
-
 
         if (cancel) {
             // There was an error; don't attempt login and focus the first
@@ -126,52 +115,100 @@ public class SearchStudentFragment extends Fragment {
             // Show a progress spinner, and kick off a background task to
             // perform the search attempt.
 //            showProgress(true);
-            searching();
-
-            if(target.size() > 0) {
-            } else {
-                int tmp = target.size();
-                Toast toast = Toast.makeText(getContext(), "찾는 대상이 없습니다. " + tmp + count, Toast.LENGTH_SHORT);
-                toast.setGravity(Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL, 0, 0);
-                toast.show();
-            }
+            mAuthTask = new Students(sid, sname);
+            mAuthTask.execute((Void) null);
         }
     }
 
-    public void searching() {
-        // Check whether the student is in DB.
-        conditionRef.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-//                Toast.makeText(getContext(), "ddddd", Toast.LENGTH_SHORT).show();
-                target.clear();
+    public class Students extends AsyncTask<Void, Void, Boolean> {
 
-                Iterator<DataSnapshot> child = dataSnapshot.getChildren().iterator();
-                DataSnapshot ds;
-                String tName, tId, tAmount, tType, tYear;
+        private final String mSid;
+        private final String mSname;
 
-                while(child.hasNext()) {
-                    count++;
-                    ds = child.next();
-                    tName = ds.child("Sname").getValue().toString();
-                    tId = ds.child("Sid").getValue().toString();
+        private DatabaseReference mRootRef = FirebaseDatabase.getInstance().getReference();
+        private DatabaseReference conditionRef = mRootRef.child("student");
 
-                    if(mSname.equals(tName) && mSid.equals(tId)) {
-                        tAmount = ds.child("Pamount").getValue().toString();
-                        tType = ds.child("Ptype").getValue().toString();
-                        tYear = ds.child("Pyear").getValue().toString();
+        ArrayList<StudentInfo> target = new ArrayList<>();
 
-                        StudentInfo studentInfo = new StudentInfo(tAmount, tType, tYear, tId, tName);
-                        target.add(studentInfo);
+        Students(String _sid, String _sname) {
+            this.mSid = _sid;
+            this.mSname = _sname;
+        }
+
+
+        @Override
+        protected Boolean doInBackground(Void... params) {
+            // Check whether the student is in DB.
+
+            return false;
+        }
+
+        @Override
+        protected void onPostExecute(final Boolean success) {
+            mAuthTask = null;
+//            showProgress(false);
+
+            Toast.makeText(getContext(), "mSid: " + mSid + "\nmSname: " + mSname, Toast.LENGTH_SHORT).show();
+
+            if (success) {
+                // I must change this line
+
+                Toast toast = Toast.makeText(getContext(), "SUCCESS", Toast.LENGTH_SHORT);
+
+//                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+//                startActivity(intent);
+
+//                finish();
+            } else {
+                conditionRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        Iterator<DataSnapshot> child = dataSnapshot.getChildren().iterator();
+                        DataSnapshot ds;
+                        String tName, tId, tAmount, tType, tYear;
+                        target.clear();
+
+                        while(child.hasNext()) {
+                            ds = child.next();
+                            tName = ds.child("Sname").getValue().toString();
+                            tId = ds.child("Sid").getValue().toString();
+
+                            if(mSname.equals(tName) && mSid.equals(tId)) {
+                                tAmount = ds.child("Pamount").getValue().toString();
+                                tType = ds.child("Ptype").getValue().toString();
+                                tYear = ds.child("Pyear").getValue().toString();
+
+                                target.add(new StudentInfo(tAmount, tType, tYear, tId, tName));
+                            }
+                        }
+
+                        int tmp = target.size();
+                        String tmp2 = null;
+                        if(tmp > 0) {tmp2 = target.get(0).Sname;}
+                        Toast toast = Toast.makeText(getContext(), "FALI: " + tmp + tmp2, Toast.LENGTH_SHORT);
+                        toast.setGravity(Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL, 0, 0);
+                        toast.show();
+
                     }
-                }
-            }
 
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
 //                    Log.w(TAG, "loadPost:onCancelled", databaseError.toException());
+                    }
+                });
+
+//                int tmp = target.size();
+//                Toast toast = Toast.makeText(getContext(), "FALI: " + tmp, Toast.LENGTH_SHORT);
+//                toast.setGravity(Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL, 0, 0);
+//                toast.show();
             }
-        });
+        }
+
+        @Override
+        protected void onCancelled() {
+            mAuthTask = null;
+//            showProgress(false);
+        }
     }
 
     public class StudentInfo {
@@ -190,4 +227,6 @@ public class SearchStudentFragment extends Fragment {
             Sname = _Sname;
         }
     }
+
+
 }
