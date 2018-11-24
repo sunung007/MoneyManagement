@@ -22,13 +22,6 @@ public class MainActivity extends AppCompatActivity
     /**
      * Keep track of the login task to ensure we can cancel it if requested.
      */
-//    private Students mAuthTask = null;
-//
-//    private Spinner mSidView;
-//    private EditText mSnameView;
-//    private View mProgressView;
-//    private View mSearchView;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,9 +29,6 @@ public class MainActivity extends AppCompatActivity
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
-//        mSidView = (Spinner) findViewById(R.id.sid);
-//        mSnameView = (EditText) findViewById(R.id.sname);
 
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
         ft.replace(R.id.main_fragment, new SearchStudentFragment());
@@ -52,14 +42,6 @@ public class MainActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
-
-//        Button studentSearchButton = (Button) findViewById(R.id.student_search_button);
-//        studentSearchButton.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                searchStudent();
-//            }
-//        });
 
 //        mSearchView = findViewById(R.id.search_form);
 //        mProgressView = findViewById(R.id.search_progress);
@@ -159,134 +141,6 @@ public class MainActivity extends AppCompatActivity
             // and hide the relevant UI components.
             mProgressView.setVisibility(show ? View.VISIBLE : View.GONE);
             mSearchView.setVisibility(show ? View.GONE : View.VISIBLE);
-        }
-    }
-
-
-    public class Students extends AsyncTask<Void, Void, Boolean> {
-
-        private final String mSid;
-        private final String mSname;
-
-        private DatabaseReference mRootRef = FirebaseDatabase.getInstance().getReference();
-        private DatabaseReference conditionRef = mRootRef.child("student");
-
-        ArrayList<StudentInfo> target = new ArrayList<>();
-
-        Students(String _sid, String _sname) {
-            this.mSid = _sid;
-            this.mSname = _sname;
-        }
-
-
-        @Override
-        protected Boolean doInBackground(Void... params) {
-            // Check whether the student is in DB.
-
-            conditionRef.addListenerForSingleValueEvent(new ValueEventListener() {
-                @Override
-                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                    target.clear();
-                    for(DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                        if(snapshot.child("Sid").getValue().toString().equals(mSid)
-                                && snapshot.child("Sname").getValue().equals(mSname)) {
-                            StudentInfo st = snapshot.getValue(StudentInfo.class);
-                            target.add(st);
-                        }
-                    }
-                }
-
-                @Override
-                public void onCancelled(@NonNull DatabaseError databaseError) {
-//                    Log.w(TAG, "loadPost:onCancelled", databaseError.toException());
-                }
-            });
-
-            if(target.size() > 0) return true;
-            else return false;
-//
-//            if(conditionRef.child("Sid").equals(mSid)) {
-//
-//                return true;
-//            } else return false;
-        }
-
-        @Override
-        protected void onPostExecute(final Boolean success) {
-            mAuthTask = null;
-            showProgress(false);
-
-            Toast.makeText(getApplicationContext(), "mSid: " + mSid + "\nmSname: " + mSname, Toast.LENGTH_LONG).show();
-
-            if (success) {
-                // I must change this line
-
-//                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-//                startActivity(intent);
-
-//                finish();
-            } else {
-                String tmp = conditionRef.child("0").child("Sname").getRef().toString();
-                Toast toast = Toast.makeText(getApplicationContext(), tmp, Toast.LENGTH_SHORT);
-                toast.setGravity(Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL, 0, 0);
-                toast.show();
-            }
-        }
-
-        @Override
-        protected void onCancelled() {
-            mAuthTask = null;
-//            showProgress(false);
-        }
-
-    }
-
-    public class StudentInfo {
-        private String mPamount;
-        private String mPtype;
-        private String mPyear;
-
-        private String mSid;
-        private String mSname;
-
-        StudentInfo(String _Pamount, String _Ptype, String _Pyear, String _Sid, String _Sname) {
-            mPamount = _Pamount;
-            mPtype = _Ptype;
-            mPyear = _Pyear;
-            mSid = _Sid;
-            mSname = _Sname;
-        }
-
-        public void setmPamount(String mPamount) {
-            this.mPamount = mPamount;
-        }
-        public void setmPtype(String mPtype) {
-            this.mPtype = mPtype;
-        }
-        public void setmPyear(String mPyear) {
-            this.mPyear = mPyear;
-        }
-        public void setmSid(String mSid) {
-            this.mSid = mSid;
-        }
-        public void setmSname(String mSname) {
-            this.mSname = mSname;
-        }
-
-        public String getmPamount() {
-            return mPamount;
-        }
-        public String getmPtype() {
-            return mPtype;
-        }
-        public String getmPyear() {
-            return mPyear;
-        }
-        public String getmSid() {
-            return mSid;
-        }
-        public String getmSname() {
-            return mSname;
         }
     }
 */

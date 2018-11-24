@@ -1,7 +1,10 @@
 package org.androidtown.moneymanagement;
 
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.text.TextUtils;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,11 +13,16 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
+import java.util.ArrayList;
+
 
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link SearchStudentFragment.OnFragmentInteractionListener} interface
+ * @link SearchStudentFragment.OnFragmentInteractionListener interface
  * to handle interaction events.
  * Use the {@link SearchStudentFragment#newInstance} factory method to
  * create an instance of this fragment.
@@ -29,13 +37,13 @@ public class SearchStudentFragment extends Fragment {
     private String mParam1;
     private String mParam2;
 
+    private Students mAuthTask = null;
+//    private View mProgressView;
+
     private Spinner mSidView;
     private EditText mSnameView;
-//    private View mProgressView;
     private View mSearchView;
 
-
-//    private OnFragmentInteractionListener mListener;
 
     public SearchStudentFragment() {
         // Required empty public constructor
@@ -69,66 +77,30 @@ public class SearchStudentFragment extends Fragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(LayoutInflater inflater, final ViewGroup container,
                              Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.fragment_search_student, container, false);
+
+        mSidView = (Spinner) view.findViewById(R.id.sid);
+        mSnameView = (EditText) view.findViewById(R.id.sname);
 
         Button studentSearchButton = (Button) view.findViewById(R.id.student_search_button);
         studentSearchButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(view.getContext(), "Clicked", Toast.LENGTH_LONG);
-//                searchStudent();
+                searchStudent();
             }
         });
 
         mSearchView = view.findViewById(R.id.search_form);
 //        mProgressView = findViewById(R.id.search_progress);
 
-
         return view;
-
     }
 
-    // TODO: Rename method, update argument and hook method into UI event
-    public void onButtonPressed() {
-        Toast.makeText(getActivity(), "Clicked", Toast.LENGTH_LONG);
-    }
-//
-//    @Override
-//    public void onAttach(Context context) {
-//        super.onAttach(context);
-//        if (context instanceof OnFragmentInteractionListener) {
-//            mListener = (OnFragmentInteractionListener) context;
-//        } else {
-//            throw new RuntimeException(context.toString()
-//                    + " must implement OnFragmentInteractionListener");
-//        }
-//    }
-//
-//    @Override
-//    public void onDetach() {
-//        super.onDetach();
-//        mListener = null;
-//    }
-//
-//    /**
-//     * This interface must be implemented by activities that contain this
-//     * fragment to allow an interaction in this fragment to be communicated
-//     * to the activity and potentially other fragments contained in that
-//     * activity.
-//     * <p>
-//     * See the Android Training lesson <a href=
-//     * "http://developer.android.com/training/basics/fragments/communicating.html"
-//     * >Communicating with Other Fragments</a> for more information.
-//     */
-//    public interface OnFragmentInteractionListener {
-//        // TODO: Update argument type and name
-//        void onFragmentInteraction(Uri uri);
-//    }
 
-    /*
+
     private void searchStudent() {
         // Reset errors.
         mSnameView.setError(null);
@@ -154,10 +126,112 @@ public class SearchStudentFragment extends Fragment {
         } else {
             // Show a progress spinner, and kick off a background task to
             // perform the search attempt.
-            showProgress(true);
+//            showProgress(true);
             mAuthTask = new Students(sid, sname);
             mAuthTask.execute((Void) null);
         }
     }
-*/
+
+    public class Students extends AsyncTask<Void, Void, Boolean> {
+
+        private final String mSid;
+        private final String mSname;
+
+        private DatabaseReference mRootRef = FirebaseDatabase.getInstance().getReference("student");
+//        private DatabaseReference conditionRef = mRootRef.child("student");
+
+        ArrayList<StudentInfo> target = new ArrayList<>();
+
+        Students(String _sid, String _sname) {
+            this.mSid = _sid;
+            this.mSname = _sname;
+        }
+
+
+        @Override
+        protected Boolean doInBackground(Void... params) {
+            // Check whether the student is in DB.
+
+            return false;
+
+//            if(!target.isEmpty()) return true;
+//            else return false;
+
+        }
+
+        @Override
+        protected void onPostExecute(final Boolean success) {
+            mAuthTask = null;
+//            showProgress(false);
+
+            Toast.makeText(getContext(), "mSid: " + mSid + "\nmSname: " + mSname, Toast.LENGTH_SHORT).show();
+
+            if (success) {
+                // I must change this line
+
+                Toast toast = Toast.makeText(getContext(), "SUCCESS", Toast.LENGTH_SHORT);
+
+//                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+//                startActivity(intent);
+
+//                finish();
+            } else {
+                StudentInfo studentInfo = new StudentInfo("1학기", "1학기만",
+                        "2019", mSid, mSname);
+                mRootRef.setValue(studentInfo);
+
+//                conditionRef.addListenerForSingleValueEvent(new ValueEventListener() {
+//                    @Override
+//                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+//                        StudentInfo studentInfo = dataSnapshot.getValue(StudentInfo.class);
+//                        Toast.makeText(getContext(), studentInfo.toString(), Toast.LENGTH_SHORT);
+//
+//                        target.clear();
+//
+//                        for(DataSnapshot snapshot : dataSnapshot.getChildren()) {
+//                            studentInfo = snapshot.getValue(StudentInfo.class);
+////                            if(studentInfo.Sname.equals(mSname) && studentInfo.Sid.equals(mSid)) {
+//                                target.add(studentInfo);
+////                            }
+//                        }
+//                    }
+//
+//                    @Override
+//                    public void onCancelled(@NonNull DatabaseError databaseError) {
+////                    Log.w(TAG, "loadPost:onCancelled", databaseError.toException());
+//                    }
+//                });
+
+                int tmp = target.size();
+                Toast toast = Toast.makeText(getContext(), "FALI: " + tmp, Toast.LENGTH_SHORT);
+                toast.setGravity(Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL, 0, 0);
+                toast.show();
+            }
+        }
+
+        @Override
+        protected void onCancelled() {
+            mAuthTask = null;
+//            showProgress(false);
+        }
+    }
+
+    public class StudentInfo {
+        public String Pamount;
+        public String Ptype;
+        public String Pyear;
+
+        public String Sid;
+        public String Sname;
+
+        StudentInfo(String _Pamount, String _Ptype, String _Pyear, String _Sid, String _Sname) {
+            Pamount = _Pamount;
+            Ptype = _Ptype;
+            Pyear = _Pyear;
+            Sid = _Sid;
+            Sname = _Sname;
+        }
+    }
+
+
 }
