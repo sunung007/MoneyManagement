@@ -22,6 +22,8 @@
         김선웅, 류지범</string>
 
     <string name="title_activity_main">학생회비 납부자 검색</string>
+    <string name="title_developers_info">개발자 정보</string>
+
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="nav_header_title">Android Studio</string>
@@ -45,6 +47,17 @@
         - [학생회비 납부자 목록에 없습니다] 학생회비 납부자가 아님을 의미합니다.\n
         - [학생회비 납부자 권한이 만료되었습니다] 일부 학기에 해당하는 학생회비만 납부하였고, 납부에 해당한 학기가 지났음을 의미합니다.\n
     </string>
-    
+
+    <string name="title_about_developers">개발자 정보</string>
+    <string name="about_developers">
+        한양대학교 컴퓨터소프트웨어학부\n
+        17학번 김선웅 sunung007@naver.com\n
+        17학번 류지범 lloadly
+    </string>
+
+    <string name="title_about_version">버전 정보</string>
+    <string name="about_version">
+        [최종 수정일] 2018년 11월 24일
+    </string>
 
 </resources>

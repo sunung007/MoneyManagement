@@ -46,7 +46,6 @@ public class MainActivity extends AppCompatActivity
     private View mSearchView;
 
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -56,7 +55,6 @@ public class MainActivity extends AppCompatActivity
 
         mSidView = (Spinner) findViewById(R.id.sid);
         mSnameView = (EditText) findViewById(R.id.sname);
-
 
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -105,14 +103,15 @@ public class MainActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-//        if (id == R.id.nav_check) {
-//            // Handle the camera action
-//        } else
+        android.support.v4.app.FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+
         if (id == R.id.nav_enroll) {
 
         } else if (id == R.id.nav_manage) {
 
         } else if (id == R.id.developer) {
+            fragmentTransaction.replace(R.id.developer, new DevelopersFragment());
+            fragmentTransaction.commit();
 
         } else if (id == R.id.logout) {
             Toast toast = Toast.makeText(getApplicationContext(), "로그아웃", Toast.LENGTH_SHORT);

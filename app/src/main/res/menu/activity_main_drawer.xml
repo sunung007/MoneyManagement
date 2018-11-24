@@ -21,10 +21,13 @@
 
     <item android:title="기타">
         <menu>
-            <item
-                android:id="@+id/developer"
-                android:icon="@drawable/menu_development"
-                android:title="개발자 정보" />
+            <group android:checkableBehavior="single">
+                <item
+                    android:id="@+id/developer"
+                    android:icon="@drawable/menu_development"
+                    android:title="개발자 정보" />
+            </group>
+
 
             <item
                 android:id="@+id/logout"
