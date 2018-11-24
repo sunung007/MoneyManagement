@@ -137,8 +137,8 @@ public class SearchStudentFragment extends Fragment {
         private final String mSid;
         private final String mSname;
 
-        private DatabaseReference mRootRef = FirebaseDatabase.getInstance().getReference("student");
-//        private DatabaseReference conditionRef = mRootRef.child("student");
+        private DatabaseReference mRootRef = FirebaseDatabase.getInstance().getReference();
+        private DatabaseReference conditionRef = mRootRef.child("student");
 
         ArrayList<StudentInfo> target = new ArrayList<>();
 
@@ -176,9 +176,9 @@ public class SearchStudentFragment extends Fragment {
 
 //                finish();
             } else {
-                StudentInfo studentInfo = new StudentInfo("1학기", "1학기만",
-                        "2019", mSid, mSname);
-                mRootRef.setValue(studentInfo);
+//                StudentInfo studentInfo = new StudentInfo("1학기", "1학기만",
+//                        "2019", mSid, mSname);
+//                conditionRef.setValue(studentInfo);
 
 //                conditionRef.addListenerForSingleValueEvent(new ValueEventListener() {
 //                    @Override
