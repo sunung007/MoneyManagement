@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.text.TextUtils;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -201,12 +200,25 @@ public class SearchStudentFragment extends Fragment {
 ////                            }
 //                        }
                         Iterator<DataSnapshot> child = dataSnapshot.getChildren().iterator();
-                        String tmp = child.next().child("Sname").getValue().toString();
+                        String tName, tId, tAmount, tType, tYear;
+                        tName = child.next().child("Sname").getValue().toString();
+                        tId = child.next().child("Sid").getValue().toString();
 
 
-                        Toast toast = Toast.makeText(getContext(), "FALI: " + tmp, Toast.LENGTH_SHORT);
-                        toast.setGravity(Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL, 0, 0);
-                        toast.show();
+                        while(child.hasNext()) {
+                            if(mSname.equals(tName) && mSid.equals(tId)) {
+                                tAmount = child.next().child("Pamount").getValue().toString();
+                                tType = child.next().child("Ptype").getValue().toString();
+                                tYear = child.next().child("Pyear").getValue().toString();
+
+                                StudentInfo studentInfo = new StudentInfo(tAmount, tType, tYear, tId, tName);
+                            }
+                        }
+
+
+//                        Toast toast = Toast.makeText(getContext(), "FALI: " + tmp, Toast.LENGTH_SHORT);
+//                        toast.setGravity(Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL, 0, 0);
+//                        toast.show();
 
                     }
 
