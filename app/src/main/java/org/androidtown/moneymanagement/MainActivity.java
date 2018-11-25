@@ -23,6 +23,7 @@ public class MainActivity extends AppCompatActivity
      * Keep track of the login task to ensure we can cancel it if requested.
      */
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -107,6 +108,7 @@ public class MainActivity extends AppCompatActivity
         return true;
     }
 
+
     /**
      * Shows the progress UI and hides the login form.
      */
@@ -144,6 +146,7 @@ public class MainActivity extends AppCompatActivity
         }
     }
 */
+
 }
 
 
