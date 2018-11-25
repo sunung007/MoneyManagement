@@ -25,6 +25,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Iterator;
 
 
@@ -114,7 +115,11 @@ public class SearchStudentFragment extends Fragment {
                 // Start searching process.
                 Iterator<DataSnapshot> child = dataSnapshot.getChildren().iterator();
                 DataSnapshot ds;
-                String tName, tId, tAmount, tType, tYear;
+                String tName, tId, tAmount, tType, tYear, cSupport = "NO";
+
+                int currentYear, tmpAll, tmpYear, tmpType;
+                currentYear = Calendar.getInstance().get(Calendar.YEAR);
+
                 target.clear();
 
                 while(child.hasNext()) {
@@ -127,7 +132,22 @@ public class SearchStudentFragment extends Fragment {
                         tType = ds.child("Ptype").getValue().toString();
                         tYear = ds.child("Pyear").getValue().toString();
 
-                        target.add(new StudentInfo(tAmount, tType, tYear, tId, tName));
+                        if(tType.contains("전액")) {
+                            cSupport = "YES";
+                        } else if(tType.contains("미납")) {
+                            cSupport = "NO";
+                        } else if(tType.contains("학기")) {
+                            // The condition is about whether a person can support by student's money.
+                            tmpYear = Integer.parseInt(tYear);
+                            tmpType = Integer.parseInt(tAmount);
+                            tmpAll = tmpYear + tmpType/2;
+
+                            cSupport = (tmpAll >= currentYear) ? "YES" : "NO";
+                        } else {
+                            cSupport = "UNKNOWN";
+                        }
+
+                        target.add(new StudentInfo(tAmount, tType, tYear, tId, tName, cSupport));
                     }
                 }
 
@@ -135,14 +155,6 @@ public class SearchStudentFragment extends Fragment {
                 // then there is not the student who has Sid, and Sname user put in.
                 if(!target.isEmpty()) {
 
-                    // Code about Toast is just for test.
-//                    String tmp2 = target.get(0).Sname;
-//                    Toast toast = Toast.makeText(getContext(), "SUCCESS: " + tmp2, Toast.LENGTH_SHORT);
-//                    toast.setGravity(Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL, 0, 0);
-//                    toast.show();
-
-
-                    // From this line, the code is for real use.
                     // If the result array list is not empty, close keypad and change fragment.
                     // Close keypad.
                     InputMethodManager imm = (InputMethodManager) getActivity().

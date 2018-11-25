@@ -60,17 +60,16 @@ public class SearchResultFragment extends Fragment {
         // Inflate the layout for this fragment
         View view =  inflater.inflate(R.layout.fragment_search_result, container, false);
 
-        students = ((SearchStudentFragment)getParentFragment()).getTarget();
+        students = new ArrayList<>(((SearchStudentFragment)getParentFragment()).getTarget());
+
+//        countStudents();
+
         number = students.size();
         mSid = students.get(0).Sid;
         mSname = students.get(0).Sname;
         mTargetInfo = mSid + " " + mSname;
 
-        // Later, change this line to "총 ~명 중 ~명의 지원대상이 있습니다"
         mResultAll = "총 " + number + "명 있습니다";
-
-//        countStudents();
-
 
         mTargetInfoView = (TextView) view.findViewById(R.id.target_info);
         mResultAllView = (TextView) view.findViewById(R.id.result_all);
@@ -90,28 +89,6 @@ public class SearchResultFragment extends Fragment {
         return view;
     }
 
-//    private void countStudents() {
-//        Calendar calendar = Calendar.getInstance();
-////        int currentYear =   calendar.get(Calendar.YEAR);
-//        int currentYear = 2017;
-//
-//        Toast.makeText(getContext(), String.valueOf(currentYear), Toast.LENGTH_SHORT).show();
-//
-//        for(int i = 0 ; i < number ; i++) {
-//            if(students.get(i).Pyear.contains("전액")) {
-//                students.get(i).Csupport = "YES";
-//                continue;
-//            }
-//
-//            int sYear = Integer.parseInt(students.get(i).Pyear);
-//            int sType = Integer.parseInt(students.get(i).Ptype);
-//            sYear = sYear + (int) (sType / 2);
-//
-//            // The condition is about whether a person can support by student's money.
-//            // Pyear + Ptype/2 is supposed to be limit year for support.
-//            students.get(i).Csupport = (sYear >= currentYear) ? "YES" : "NO";
-//        }
-//    }
 
     @Override
     public void onAttachFragment(Fragment childFragment) {
