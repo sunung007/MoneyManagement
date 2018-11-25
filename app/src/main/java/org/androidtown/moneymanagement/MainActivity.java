@@ -75,7 +75,9 @@ public class MainActivity extends AppCompatActivity
 
         Fragment fragment = null;
         FragmentManager fm = getSupportFragmentManager();
-        FragmentTransaction ft = fm.beginTransaction();
+        FragmentTransaction ft = fm.beginTransaction().
+                setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_left,
+                        R.anim.enter_from_left,R.anim.exit_to_right);
 
         if(id == R.id.nav_check) {
             fragment = new SearchStudentFragment();
@@ -99,6 +101,7 @@ public class MainActivity extends AppCompatActivity
 
         if(fragment != null) {
             ft.replace(R.id.main_fragment, fragment);
+            ft.addToBackStack(null);
             ft.commit();
         }
 
