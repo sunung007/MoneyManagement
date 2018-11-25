@@ -63,13 +63,17 @@ public class SearchResultFragment extends Fragment {
 
         if(mSnumber == 1) {
             if(mSupportNumber == mSnumber) {
-                mResultAll = "해당 학우는 지원 대상입니다";
+                mResultAll = "해당 학우는 지원 대상입니다.";
             } else {
                 mResultAll = "해당 학우는 지원 대상이 아닙니다.";
             }
         } else {
-            mResultAll = "동명이인이 있습니다.\n" +
-                    "총 " + mSnumber + "명 중 " + mSupportNumber + "명 지원 대상입니다.";
+            if(mSupportNumber == mSupportNumber) {
+                mResultAll = "전원 지원 대상입니다.";
+            } else {
+                mResultAll = "지원 대상이 아닌 동명이인이 있습니다.\n" +
+                        "총 " + mSnumber + "명 중 " + mSupportNumber + "명 지원 대상입니다.";
+            }
         }
 
         mTargetInfoView = (TextView) view.findViewById(R.id.target_info);

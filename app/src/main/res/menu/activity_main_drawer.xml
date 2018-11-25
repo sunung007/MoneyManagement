@@ -7,16 +7,16 @@
         <item
             android:id="@+id/nav_check"
             android:icon="@drawable/menu_check"
-            android:title="납부 확인"
+            android:title="@string/title_menu_check"
             />
         <item
             android:id="@+id/nav_enroll"
             android:icon="@drawable/menu_enroll"
-            android:title="신규 등록" />
+            android:title="@string/title_enroll" />
         <item
             android:id="@+id/nav_manage"
             android:icon="@drawable/menu_manage"
-            android:title="전체 관리" />
+            android:title="@string/title_menu_manage" />
     </group>
 
     <item android:title="기타">
