@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:id="@+id/linearLayout3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="3dp"
+        android:orientation="horizontal"
+        android:weightSum="0"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/result_all">
+
+        <TextView
+            android:id="@+id/textView12"
+            android:layout_width="80dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="0dp"
+            android:text="납부년도"
+            android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+            app:layout_constraintEnd_toStartOf="@+id/result_pyear"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/result_all" />
+
+        <TextView
+            android:id="@+id/result_pyear"
+            android:layout_width="80dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="0dp"
+            android:text="2017"
+            android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+            app:layout_constraintEnd_toStartOf="@+id/textView14"
+            app:layout_constraintTop_toBottomOf="@+id/result_all" />
+
+        <TextView
+            android:id="@+id/textView14"
+            android:layout_width="80dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="0dp"
+            android:layout_marginEnd="0dp"
+            android:text="납부형태"
+            android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+            app:layout_constraintEnd_toStartOf="@+id/result_ptype"
+            app:layout_constraintTop_toBottomOf="@+id/result_all" />
+
+        <TextView
+            android:id="@+id/result_ptype"
+            android:layout_width="80dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="0dp"
+            android:text="1학기만"
+            android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/result_all" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/linearLayout6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout3">
+
+        <TextView
+            android:id="@+id/textView13"
+            android:layout_width="80dp"
+            android:layout_height="wrap_content"
+            android:text="납부금액"
+            android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
+
+        <TextView
+            android:id="@+id/result_pamount"
+            android:layout_width="80dp"
+            android:layout_height="wrap_content"
+            android:text="8만원"
+            android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
+
+        <TextView
+            android:id="@+id/textView18"
+            android:layout_width="80dp"
+            android:layout_height="wrap_content"
+            android:text="지원대상"
+            android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
+
+        <TextView
+            android:id="@+id/result_support"
+            android:layout_width="80dp"
+            android:layout_height="wrap_content"
+            android:text="NO"
+            android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
+
+    </LinearLayout>
+</LinearLayout>
