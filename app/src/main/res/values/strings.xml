@@ -67,7 +67,7 @@
     <string name="prompt_semester">납부학기</string>
     <string name="prompt_amount">납부금액</string>
     
-    <string name="title_result">탐색결과</string>
+    <string name="title_result">검색결과</string>
     <string name="title_search">검색할 학우의 정보를 입력하세요</string>
     <string name="title_search_button">검색</string>
     <string name="title_caution">주의사항</string>

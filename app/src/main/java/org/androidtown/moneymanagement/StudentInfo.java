@@ -20,12 +20,23 @@ public class StudentInfo implements Parcelable {
         readFromParcel(in);
     }
 
-    public StudentInfo(String _Pamount, String _Ptype, String _Pyear, String _Sid, String _Sname) {
+    public StudentInfo(String _Pamount, String _Ptype, String _Pyear,
+                       String _Sid, String _Sname) {
         Pamount = _Pamount;
         Ptype = _Ptype;
         Pyear = _Pyear;
         Sid = _Sid;
         Sname = _Sname;
+    }
+
+    public StudentInfo(String _Pamount, String _Ptype, String _Pyear,
+                       String _Sid, String _Sname, String _Csupport) {
+        Pamount = _Pamount;
+        Ptype = _Ptype;
+        Pyear = _Pyear;
+        Sid = _Sid;
+        Sname = _Sname;
+        Csupport = _Csupport;
     }
 
     @Override

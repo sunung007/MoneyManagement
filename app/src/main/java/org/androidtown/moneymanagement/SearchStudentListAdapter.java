@@ -8,9 +8,6 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.GregorianCalendar;
-import java.util.Locale;
 
 public class SearchStudentListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
@@ -35,35 +32,13 @@ public class SearchStudentListAdapter extends RecyclerView.Adapter<RecyclerView.
     SearchStudentListAdapter(ArrayList<StudentInfo> scr) {
         sNumber = scr.size();
         students = new ArrayList<>(scr);
-
-        countStudents();
     }
-
-    private void countStudents() {
-        Calendar calendar = new GregorianCalendar(Locale.KOREA);
-        int currentYear = calendar.get(Calendar.YEAR);
-        for(int i = 0 ; i < sNumber ; i++) {
-            if(students.get(i).Pyear.contains("전액")) {
-                students.get(i).Csupport = "YES";
-                continue;
-            }
-            int sYear = Integer.parseInt(students.get(i).Pyear);
-            int sType = Integer.parseInt(students.get(i).Ptype);
-            sYear = sYear + (int) (sType / 2);
-
-            if(sYear >= currentYear) {
-                students.get(i).Csupport = "YES";
-            } else {
-                students.get(i).Csupport = "NO";
-            }
-        }
-    }
-
 
     @NonNull
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.search_result_lists, parent, false);
+        View v = LayoutInflater.from(parent.getContext())
+                .inflate(R.layout.search_result_lists, parent, false);
 
         return new MyViewHolder(v);
     }
@@ -71,17 +46,17 @@ public class SearchStudentListAdapter extends RecyclerView.Adapter<RecyclerView.
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
         MyViewHolder myViewHolder = (MyViewHolder) holder;
+        StudentInfo studentInfo = students.get(position);
 
-        myViewHolder.mPamountView.setText(students.get(position).Pamount);
-        myViewHolder.mPtypeView.setText(students.get(position).Ptype);
-        myViewHolder.mPyearView.setText(students.get(position).Pyear);
-        myViewHolder.mSupportView.setText(students.get(position).Csupport);
+        myViewHolder.mPamountView.setText(studentInfo.Pamount);
+        myViewHolder.mPtypeView.setText(studentInfo.Ptype);
+        myViewHolder.mPyearView.setText(studentInfo.Pyear);
+        myViewHolder.mSupportView.setText(studentInfo.Csupport);
     }
 
     @Override
     public int getItemCount() {
         return students.size();
     }
-
 
 }

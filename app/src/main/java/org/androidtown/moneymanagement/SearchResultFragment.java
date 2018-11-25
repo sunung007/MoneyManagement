@@ -9,7 +9,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -26,7 +25,7 @@ public class SearchResultFragment extends Fragment {
     private TextView mTargetInfoView;
     private TextView mResultAllView;
 
-    private RecyclerView mSearchResultList;
+    private RecyclerView mRecyclerview;
     private RecyclerView.LayoutManager mLayoutManager;
 
 
@@ -58,6 +57,8 @@ public class SearchResultFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        // Inflate the layout for this fragment
+        View view =  inflater.inflate(R.layout.fragment_search_result, container, false);
 
         students = ((SearchStudentFragment)getParentFragment()).getTarget();
         number = students.size();
@@ -65,29 +66,52 @@ public class SearchResultFragment extends Fragment {
         mSname = students.get(0).Sname;
         mTargetInfo = mSid + " " + mSname;
 
-
-        Toast.makeText(getContext(), mSid, Toast.LENGTH_SHORT).show();
-
-
-        // Inflate the layout for this fragment
-        View view =  inflater.inflate(R.layout.fragment_search_result, container, false);
-
-
         // Later, change this line to "총 ~명 중 ~명의 지원대상이 있습니다"
         mResultAll = "총 " + number + "명 있습니다";
+
+//        countStudents();
+
 
         mTargetInfoView = (TextView) view.findViewById(R.id.target_info);
         mResultAllView = (TextView) view.findViewById(R.id.result_all);
         mTargetInfoView.setText(mTargetInfo);
         mResultAllView.setText(mResultAll);
 
-        mSearchResultList = view.findViewById(R.id.students_list);
-        mSearchResultList.setHasFixedSize(true);
+
+        // Recycler view setting.
+        mRecyclerview = view.findViewById(R.id.students_list);
+//        mSearchResultListView.setHasFixedSize(true);
         mLayoutManager = new LinearLayoutManager(view.getContext());
-        mSearchResultList.setLayoutManager(mLayoutManager);
+        mRecyclerview.setLayoutManager(mLayoutManager);
+
+        SearchStudentListAdapter adapter = new SearchStudentListAdapter(students);
+        mRecyclerview.setAdapter(adapter);
 
         return view;
     }
+
+//    private void countStudents() {
+//        Calendar calendar = Calendar.getInstance();
+////        int currentYear =   calendar.get(Calendar.YEAR);
+//        int currentYear = 2017;
+//
+//        Toast.makeText(getContext(), String.valueOf(currentYear), Toast.LENGTH_SHORT).show();
+//
+//        for(int i = 0 ; i < number ; i++) {
+//            if(students.get(i).Pyear.contains("전액")) {
+//                students.get(i).Csupport = "YES";
+//                continue;
+//            }
+//
+//            int sYear = Integer.parseInt(students.get(i).Pyear);
+//            int sType = Integer.parseInt(students.get(i).Ptype);
+//            sYear = sYear + (int) (sType / 2);
+//
+//            // The condition is about whether a person can support by student's money.
+//            // Pyear + Ptype/2 is supposed to be limit year for support.
+//            students.get(i).Csupport = (sYear >= currentYear) ? "YES" : "NO";
+//        }
+//    }
 
     @Override
     public void onAttachFragment(Fragment childFragment) {
