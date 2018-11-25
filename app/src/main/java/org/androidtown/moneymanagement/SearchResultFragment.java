@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,7 +17,7 @@ import java.util.ArrayList;
 public class SearchResultFragment extends Fragment {
 
     private ArrayList<StudentInfo> students;
-    private int number;
+    private int mSnumber, mSupportNumber = 0;
     private String mSid;
     private String mSname;
     private String mTargetInfo;
@@ -33,21 +34,12 @@ public class SearchResultFragment extends Fragment {
         // Required empty public constructor
     }
 
-
-    public static SearchResultFragment newInstance(ArrayList<StudentInfo> src) {
-        SearchResultFragment fragment = new SearchResultFragment();
-        Bundle args = new Bundle();
-        args.putParcelableArrayList("students", src);
-        fragment.setArguments(args);
-        return fragment;
-    }
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
             students = savedInstanceState.getParcelableArrayList("students");
-            number = students.size();
+            mSnumber = students.size();
             mSid = students.get(0).Sid;
             mSname = students.get(0).Sname;
             mTargetInfo = mSid + " " + mSname;
@@ -62,17 +54,27 @@ public class SearchResultFragment extends Fragment {
 
         students = new ArrayList<>(((SearchStudentFragment)getParentFragment()).getTarget());
 
-//        countStudents();
-
-        number = students.size();
+        mSnumber = students.size();
         mSid = students.get(0).Sid;
         mSname = students.get(0).Sname;
         mTargetInfo = mSid + " " + mSname;
 
-        mResultAll = "총 " + number + "명 있습니다";
+        countStudents();
+
+        if(mSnumber == 1) {
+            if(mSupportNumber == mSnumber) {
+                mResultAll = "해당 학우는 지원 대상입니다";
+            } else {
+                mResultAll = "해당 학우는 지원 대상이 아닙니다.";
+            }
+        } else {
+            mResultAll = "동명이인이 있습니다.\n" +
+                    "총 " + mSnumber + "명 중 " + mSupportNumber + "명 지원 대상입니다.";
+        }
 
         mTargetInfoView = (TextView) view.findViewById(R.id.target_info);
         mResultAllView = (TextView) view.findViewById(R.id.result_all);
+        mResultAllView.setGravity(Gravity.CENTER_HORIZONTAL);
         mTargetInfoView.setText(mTargetInfo);
         mResultAllView.setText(mResultAll);
 
@@ -89,6 +91,13 @@ public class SearchResultFragment extends Fragment {
         return view;
     }
 
+    public void countStudents() {
+        for(int i = 0 ; i < mSnumber ; i++) {
+            if(students.get(i).Csupport.equals("YES")) {
+                mSupportNumber++;
+            }
+        }
+    }
 
     @Override
     public void onAttachFragment(Fragment childFragment) {
