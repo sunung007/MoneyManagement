@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">한양대 컴소 학생회비 관리 시스템</string>
-    <string name="title_activity_login">Sign in</string>
+    <string name="title_activity_login">CSE 학생회</string>
+
     <!-- Strings related to login -->
     <string name="prompt_email">Email</string>
     <string name="prompt_password">Password (optional)</string>
@@ -21,7 +22,7 @@
     <string name="login_bottom_message">[개발자 정보]\n컴퓨터소프트웨어학부 제 9대 학생회 [화합]\n
         김선웅, 류지범</string>
 
-    <string name="title_activity_main">학생회비 납부자 검색</string>
+    <string name="title_activity_main">한양대 컴퓨터소프트웨어학부 학생회</string>
     <string name="title_developers_info">개발자 정보</string>
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
@@ -56,7 +57,7 @@
         <item>6학기만</item>
         <item>7학기만</item>
     </string-array>
-    
+
     <string-array name="array_amount">
         <item>8만원</item>
         <item>7만원</item>
@@ -121,5 +122,7 @@
 
     <string name="name_account">한양대 컴소</string>
     <string name="subname_account">학생회</string>
+
+    <string name="hello_blank_fragment">아직 준비중입니다.</string>
 
 </resources>

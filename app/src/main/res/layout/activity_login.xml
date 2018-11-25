@@ -21,8 +21,8 @@
 
     <ImageView
         android:id="@+id/imageView"
-        android:layout_width="305dp"
-        android:layout_height="227dp"
+        android:layout_width="332dp"
+        android:layout_height="255dp"
         android:layout_gravity="center"
         android:layout_marginTop="70dp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -36,7 +36,7 @@
         android:layout_width="230dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="50dp"
         android:gravity="center_vertical|fill_vertical"
         android:orientation="vertical"
         app:layout_constraintEnd_toStartOf="@+id/email_sign_in_button"

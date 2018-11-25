@@ -85,7 +85,7 @@ public class MainActivity extends AppCompatActivity
         else if (id == R.id.nav_enroll) {
             fragment = new EnrollFragment();
         } else if (id == R.id.nav_manage) {
-
+            fragment = new ManageStudentFragment();
         } else if (id == R.id.developer) {
             fragment = new DevelopersFragment();
         } else if (id == R.id.logout) {
