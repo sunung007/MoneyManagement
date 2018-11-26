@@ -46,22 +46,14 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
     private static final String masterName = "hyucseadmin";
     private static final String subName = "admin";  // Later, must change to "hyucse".
-    /**
-     * Id to identity READ_CONTACTS permission request.
-     */
+
     private static final int REQUEST_READ_CONTACTS = 0;
 
-
-    /**
-     * Keep track of the login task to ensure we can cancel it if requested.
-     */
     private UserLoginTask mAuthTask = null;
-
-    // UI references.
     private AutoCompleteTextView mEmailView;
     private EditText mPasswordView;
-//    private View mProgressView;
     private View mLoginFormView;
+//    private View mProgressView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -95,6 +87,28 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         mLoginFormView = findViewById(R.id.login_form);
 //        mProgressView = findViewById(R.id.login_progress);
 
+        mPasswordView.setOnKeyListener(new View.OnKeyListener() {
+            @Override
+            public boolean onKey(View view, int i, KeyEvent keyEvent) {
+                if ((keyEvent.getAction() == KeyEvent.ACTION_DOWN)
+                        && (i == KeyEvent.KEYCODE_ENTER)) {
+                    attemptLogin();
+                }
+                return false;
+            }
+        });
+
+//        mLoginFormView.setOnKeyListener(new View.OnKeyListener() {
+//            @Override
+//            public boolean onKey(View view, int i, KeyEvent keyEvent) {
+//                InputMethodManager inputMethodManager =
+//                        (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
+//                if(inputMethodManager.isActive()) {
+//                    inputMethodManager.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
+//                }
+//                return false;
+//            }
+//        });
     }
 
     private void populateAutoComplete() {
@@ -172,7 +186,11 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 //        }
 
         // Check for a valid password, if the user entered one.
-        if (!TextUtils.isEmpty(password) && !isPasswordValid(password)) {
+        if(TextUtils.isEmpty(password)) {
+            mPasswordView.setError(getString(R.string.error_field_required));
+            focusView = mPasswordView;
+            cancel = true;
+        } else if (!TextUtils.isEmpty(password) && !isPasswordValid(password)) {
             mPasswordView.setError(getString(R.string.error_invalid_password));
             focusView = mPasswordView;
             cancel = true;

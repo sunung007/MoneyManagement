@@ -9,6 +9,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.text.TextUtils;
 import android.view.Gravity;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -55,7 +56,7 @@ public class SearchStudentFragment extends Fragment {
 
         mSidView = (Spinner) view.findViewById(R.id.sid);
         mSnameView = (EditText) view.findViewById(R.id.sname);
-        mSearchView = view.findViewById(R.id.search_form);
+        mSearchView = view.findViewById(R.id.student_search_view);
 
         Button studentSearchButton = (Button) view.findViewById(R.id.student_search_button);
         studentSearchButton.setOnClickListener(new View.OnClickListener() {
@@ -72,6 +73,34 @@ public class SearchStudentFragment extends Fragment {
                 }
 
                 searchStudent(view);
+            }
+        });
+
+        // If user push enter.
+        mSnameView.setOnKeyListener(new View.OnKeyListener() {
+            @Override
+            public boolean onKey(View view, int i, KeyEvent keyEvent) {
+                if ((keyEvent.getAction() == KeyEvent.ACTION_DOWN)
+                        && (i == KeyEvent.KEYCODE_ENTER)) {
+                    searchStudent(view);
+                    return true;
+                }
+                return false;
+            }
+        });
+
+        mSearchView.setOnKeyListener(new View.OnKeyListener() {
+            @Override
+            public boolean onKey(View view, int i, KeyEvent keyEvent) {
+                InputMethodManager inputMethodManager =
+                        (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+
+                if(inputMethodManager.isActive()) {
+                    inputMethodManager.hideSoftInputFromWindow(
+                            getActivity().getCurrentFocus().getWindowToken(), 0);
+                }
+
+                return false;
             }
         });
 

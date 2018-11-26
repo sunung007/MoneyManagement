@@ -44,6 +44,19 @@ public class MainActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
+//        navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+//            @Override
+//            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+//                InputMethodManager inputMethodManager =
+//                        (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
+//
+//                if(inputMethodManager.isActive()) {
+//                    inputMethodManager.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
+//                }
+//                return false
+//            }
+//        });
+
 //        mSearchView = findViewById(R.id.search_form);
 //        mProgressView = findViewById(R.id.search_progress);
 
@@ -99,7 +112,8 @@ public class MainActivity extends AppCompatActivity
             finish();
         }
 
-        if(fragment != null) {
+
+        if(fragment != null && fm.findFragmentById(R.id.main_fragment) != fragment) {
             ft.replace(R.id.main_fragment, fragment);
             ft.addToBackStack(null);
             ft.commit();
