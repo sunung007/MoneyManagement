@@ -117,8 +117,11 @@ public class SearchStudentFragment extends Fragment {
                 DataSnapshot ds;
                 String tName, tId, tAmount, tType, tYear, cSupport = "NO";
 
-                int currentYear, tmpAll, tmpYear, tmpType;
-                currentYear = Calendar.getInstance().get(Calendar.YEAR);
+
+                int currentYear, tmpAll;
+                int tmpYear, tmpType;
+                currentYear = Calendar.getInstance().get(Calendar.YEAR)
+                        + Calendar.getInstance().get(Calendar.MONTH)/6;
 
                 target.clear();
 
@@ -138,11 +141,16 @@ public class SearchStudentFragment extends Fragment {
                             cSupport = "NO";
                         } else if(tType.contains("학기")) {
                             // The condition is about whether a person can support by student's money.
-                            tmpYear = Integer.parseInt(tYear);
-                            tmpType = Integer.parseInt(tAmount);
-                            tmpAll = tmpYear + tmpType/2;
+                            try {
+                                tmpYear = Integer.parseInt(tYear.substring(0, 2), 10) + 2000;
+                                tmpType = Integer.parseInt(tAmount.substring(0, 1), 10);
 
-                            cSupport = (tmpAll >= currentYear) ? "YES" : "NO";
+                                tmpAll = tmpYear + tmpType/2;
+
+                                cSupport = (tmpAll >= currentYear) ? "YES" : "NO";
+                            } catch (Exception e) {
+                                cSupport = "UNKNOWN";
+                            }
                         } else {
                             cSupport = "UNKNOWN";
                         }
