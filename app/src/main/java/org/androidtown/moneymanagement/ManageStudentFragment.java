@@ -3,17 +3,19 @@ package org.androidtown.moneymanagement;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
-import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -32,7 +34,12 @@ public class ManageStudentFragment extends Fragment {
 
     private DatabaseReference mRootRef = FirebaseDatabase.getInstance().getReference();
     private DatabaseReference conditionRef = mRootRef.child("student");
+
+    private RecyclerView mRecyclerView;
+    private RecyclerView.LayoutManager mLayoutManage;
+
     private ArrayList<StudentInfo> students = new ArrayList<>();
+    private int sNumber = 0;
 
     public ManageStudentFragment() {
         // Required empty public constructor
@@ -62,15 +69,25 @@ public class ManageStudentFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_manage_student, container, false);
 
-//        loadStudentsList();
+        loadStudentsList();
+
+        String tmp = "" + sNumber;
+        Toast.makeText(getContext(), tmp, Toast.LENGTH_SHORT).show();
+
+        mRecyclerView = (RecyclerView) view.findViewById(R.id.all_students_list);
+        mLayoutManage = new LinearLayoutManager(view.getContext());
+        mRecyclerView.setLayoutManager(mLayoutManage);
+
+        ManageStudentListAdapter adapter = new ManageStudentListAdapter(students);
+        mRecyclerView.setAdapter(adapter);
 
         return view;
     }
 
     public void loadStudentsList() {
-        conditionRef.addChildEventListener(new ChildEventListener() {
+        conditionRef.addValueEventListener(new ValueEventListener() {
             @Override
-            public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 // Load all children process.
                 students.clear();
 
@@ -83,54 +100,47 @@ public class ManageStudentFragment extends Fragment {
                 currentYear = Calendar.getInstance().get(Calendar.YEAR)
                         + Calendar.getInstance().get(Calendar.MONTH)/6;
 
-                while(child.hasNext()) {
+                try {
                     ds = child.next();
-                    tName = ds.child("Sname").getValue().toString();
-                    tId = ds.child("Sid").getValue().toString();
-
-                    tAmount = ds.child("Pamount").getValue().toString();
-                    tType = ds.child("Ptype").getValue().toString();
-                    tYear = ds.child("Pyear").getValue().toString();
-
-                    if(tType.contains("전액")) {
-                        cSupport = "YES";
-                    } else if(tType.contains("미납")) {
-                        cSupport = "NO";
-                    } else if(tType.contains("학기")) {
-                        // The condition is about whether a person can support by student's money.
-                        try {
-                            tmpYear = Integer.parseInt(tYear.substring(0, 2), 10) + 2000;
-                            tmpType = Integer.parseInt(tAmount.substring(0, 1), 10);
-
-                            tmpAll = tmpYear + tmpType/2;
-
-                            cSupport = (tmpAll >= currentYear) ? "YES" : "NO";
-                        } catch (Exception e) {
-                            cSupport = "UNKNOWN";
-                        }
-                    } else {
-                        cSupport = "UNKNOWN";
-                    }
-
-                    students.add(i, new StudentInfo(tAmount, tType, tYear, tId, tName, cSupport));
-                    i++;
+                    sNumber = Integer.parseInt(ds.child("Sid").getValue().toString());
+                } catch (Exception e) {
+                    sNumber = -1;
                 }
 
-            }
-
-            @Override
-            public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-
-            }
-
-            @Override
-            public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
-
-            }
-
-            @Override
-            public void onChildMoved(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-
+//                while(child.hasNext()) {
+//                    ds = child.next();
+//
+//                    tName = ds.child("Sname").getValue().toString();
+//                    tId = ds.child("Sid").getValue().toString();
+//                    tAmount = ds.child("Pamount").getValue().toString();
+//                    tType = ds.child("Ptype").getValue().toString();
+//                    tYear = ds.child("Pyear").getValue().toString();
+//
+//                    if(tType.contains("전액")) {
+//                        cSupport = "YES";
+//                    } else if(tType.contains("미납")) {
+//                        cSupport = "NO";
+//                    } else if(tType.contains("학기")) {
+//                        // The condition is about whether a person can support by student's money.
+//                        try {
+//                            tmpYear = Integer.parseInt(tYear.substring(0, 2), 10) + 2000;
+//                            tmpType = Integer.parseInt(tAmount.substring(0, 1), 10);
+//
+//                            tmpAll = tmpYear + tmpType/2;
+//
+//                            cSupport = (tmpAll >= currentYear) ? "YES" : "NO";
+//                        } catch (Exception e) {
+//                            cSupport = "UNKNOWN";
+//                        }
+//                    } else {
+//                        cSupport = "UNKNOWN";
+//                    }
+//
+//                    students.add(i, new StudentInfo(tAmount, tType, tYear, tId, tName, cSupport));
+//                    i++;
+//                }
+//
+//                sNumber = students.size();
             }
 
             @Override
@@ -138,7 +148,6 @@ public class ManageStudentFragment extends Fragment {
 
             }
         });
-
     }
 
 }

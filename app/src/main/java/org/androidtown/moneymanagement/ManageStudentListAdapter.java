@@ -7,29 +7,37 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import org.androidtown.moneymanagement.R;
+import org.androidtown.moneymanagement.StudentInfo;
+
 import java.util.ArrayList;
 
-public class SearchStudentListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+public class ManageStudentListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+
 
     public static class MyViewHolder extends RecyclerView.ViewHolder {
-        private TextView mPyearView;
-        private TextView mPtypeView;
-        private TextView mPamountView;
+        private TextView mSidView;
+        private TextView mNameView;
+        private TextView mYearView;
+        private TextView mTypeView;
+        private TextView mAmountView;
         private TextView mSupportView;
 
         MyViewHolder(View view) {
             super(view);
-            mPyearView = (TextView) view.findViewById(R.id.result_pyear);
-            mPtypeView = (TextView) view.findViewById(R.id.result_ptype);
-            mPamountView = (TextView) view.findViewById(R.id.result_pamount);
-            mSupportView = (TextView) view.findViewById(R.id.result_support);
+            mSidView = (TextView) view.findViewById(R.id.sid);
+            mNameView = (TextView) view.findViewById(R.id.name);
+            mYearView = (TextView) view.findViewById(R.id.year);
+            mTypeView = (TextView) view.findViewById(R.id.type);
+            mAmountView = (TextView) view.findViewById(R.id.amount);
+            mSupportView = (TextView) view.findViewById(R.id.support);
         }
     }
 
     private ArrayList<StudentInfo> students;
     private int sNumber;
 
-    public SearchStudentListAdapter(ArrayList<StudentInfo> scr) {
+    public ManageStudentListAdapter(ArrayList<StudentInfo> scr) {
         sNumber = scr.size();
         students = new ArrayList<>(scr);
     }
@@ -38,7 +46,7 @@ public class SearchStudentListAdapter extends RecyclerView.Adapter<RecyclerView.
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.search_result_lists, parent, false);
+                .inflate(R.layout.fragment_manage_student, parent, false);
 
         return new MyViewHolder(v);
     }
@@ -48,10 +56,13 @@ public class SearchStudentListAdapter extends RecyclerView.Adapter<RecyclerView.
         MyViewHolder myViewHolder = (MyViewHolder) holder;
         StudentInfo studentInfo = students.get(position);
 
-        myViewHolder.mPamountView.setText(studentInfo.Pamount);
-        myViewHolder.mPtypeView.setText(studentInfo.Ptype);
-        myViewHolder.mPyearView.setText(studentInfo.Pyear);
+        myViewHolder.mSidView.setText(studentInfo.Sid);
+        myViewHolder.mNameView.setText(studentInfo.Sname);
+        myViewHolder.mYearView.setText(studentInfo.Pyear);
+        myViewHolder.mTypeView.setText(studentInfo.Ptype);
+        myViewHolder.mAmountView.setText(studentInfo.Pamount);
         myViewHolder.mSupportView.setText(studentInfo.Csupport);
+
     }
 
     @Override

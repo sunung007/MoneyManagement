@@ -109,13 +109,11 @@ public class MainActivity extends AppCompatActivity
             finish();
         }
 
-
-        if(fragment != null && fm.findFragmentById(R.id.main_fragment) != fragment) {
+        if(fragment != null) {
             ft.replace(R.id.main_fragment, fragment);
             ft.addToBackStack(null);
             ft.commit();
         }
-
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
