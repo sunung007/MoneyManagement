@@ -93,6 +93,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                 if ((keyEvent.getAction() == KeyEvent.ACTION_DOWN)
                         && (i == KeyEvent.KEYCODE_ENTER)) {
                     attemptLogin();
+                    return true;
                 }
                 return false;
             }

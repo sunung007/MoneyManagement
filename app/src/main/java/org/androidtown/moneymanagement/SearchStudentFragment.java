@@ -98,8 +98,8 @@ public class SearchStudentFragment extends Fragment {
                 if(inputMethodManager.isActive()) {
                     inputMethodManager.hideSoftInputFromWindow(
                             getActivity().getCurrentFocus().getWindowToken(), 0);
+                    return true;
                 }
-
                 return false;
             }
         });
