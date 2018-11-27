@@ -21,6 +21,7 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.inputmethod.EditorInfo;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
@@ -358,6 +359,15 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 //            showProgress(false);
 
             if (success) {
+                // Close soft key.
+                InputMethodManager inputMethodManager =
+                        (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
+
+                if(inputMethodManager.isActive()) {
+                    inputMethodManager.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
+                }
+
+                // Change intent
                 Intent intent = new Intent(getApplicationContext(), MainActivity.class);
 
                 Toast toast = Toast.makeText(getApplicationContext(), "로그인 성공", Toast.LENGTH_SHORT);

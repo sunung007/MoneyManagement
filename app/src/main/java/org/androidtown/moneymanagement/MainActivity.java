@@ -14,6 +14,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity
@@ -44,19 +45,6 @@ public class MainActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-//        navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
-//            @Override
-//            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-//                InputMethodManager inputMethodManager =
-//                        (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
-//
-//                if(inputMethodManager.isActive()) {
-//                    inputMethodManager.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
-//                }
-//                return false
-//            }
-//        });
-
 //        mSearchView = findViewById(R.id.search_form);
 //        mProgressView = findViewById(R.id.search_progress);
 
@@ -72,6 +60,7 @@ public class MainActivity extends AppCompatActivity
         }
     }
 
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -85,6 +74,14 @@ public class MainActivity extends AppCompatActivity
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
         int id = item.getItemId();
+
+        // Close soft key.
+        InputMethodManager inputMethodManager =
+                (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
+
+        if(inputMethodManager.isActive()) {
+            inputMethodManager.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
+        }
 
         Fragment fragment = null;
         FragmentManager fm = getSupportFragmentManager();

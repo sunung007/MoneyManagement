@@ -144,7 +144,7 @@ public class SearchStudentFragment extends Fragment {
                 // Start searching process.
                 Iterator<DataSnapshot> child = dataSnapshot.getChildren().iterator();
                 DataSnapshot ds;
-                String tName, tId, tAmount, tType, tYear, cSupport = "NO";
+                String tName, tId, tAmount, tType, tYear, cSupport;
 
 
                 int currentYear, tmpAll;
