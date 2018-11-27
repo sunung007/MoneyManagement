@@ -11,7 +11,7 @@ public class StudentInfo implements Parcelable {
     public String Sid;
     public String Sname;
 
-    public String Csupport = null;  // Could support now?
+    public String Csupport = "UNKNOWN";  // Could support now?
 
     public StudentInfo() {
     }

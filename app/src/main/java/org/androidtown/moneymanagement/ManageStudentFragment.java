@@ -72,6 +72,8 @@ public class ManageStudentFragment extends Fragment {
             @Override
             public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
                 // Load all children process.
+                students.clear();
+
                 Iterator<DataSnapshot> child = dataSnapshot.getChildren().iterator();
                 DataSnapshot ds;
                 String tName, tId, tAmount, tType, tYear, cSupport;
@@ -80,8 +82,6 @@ public class ManageStudentFragment extends Fragment {
                 int tmpYear, tmpType;
                 currentYear = Calendar.getInstance().get(Calendar.YEAR)
                         + Calendar.getInstance().get(Calendar.MONTH)/6;
-
-                students.clear();
 
                 while(child.hasNext()) {
                     ds = child.next();

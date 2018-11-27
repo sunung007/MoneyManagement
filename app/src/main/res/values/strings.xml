@@ -94,12 +94,12 @@
     <string name="about_developers">
         한양대학교 컴퓨터소프트웨어학부\n
         17학번 김선웅 sunung007@naver.com\n
-        17학번 류지범 lloadly
+        17학번 류지범 lloadly\n
     </string>
 
     <string name="title_about_version">버전 정보</string>
     <string name="about_version">
-        [최종 수정일] 2018년 11월 24일
+        [최종 수정일] 2018년 11월 27일
     </string>
 
     <string name="title_enroll">학생회비 납부자 신규 등록</string>

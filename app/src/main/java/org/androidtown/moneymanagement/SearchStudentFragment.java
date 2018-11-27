@@ -140,19 +140,18 @@ public class SearchStudentFragment extends Fragment {
         conditionRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                // Initialize array.
+                target.clear();
 
                 // Start searching process.
                 Iterator<DataSnapshot> child = dataSnapshot.getChildren().iterator();
                 DataSnapshot ds;
                 String tName, tId, tAmount, tType, tYear, cSupport;
 
-
                 int currentYear, tmpAll;
                 int tmpYear, tmpType;
                 currentYear = Calendar.getInstance().get(Calendar.YEAR)
                         + Calendar.getInstance().get(Calendar.MONTH)/6;
-
-                target.clear();
 
                 while(child.hasNext()) {
                     ds = child.next();
