@@ -93,7 +93,7 @@ public class SearchResultFragment extends Fragment {
 
         return view;
     }
-//
+
     public void countStudents() {
         for(int i = 0 ; i < mSnumber ; i++) {
             if(students.get(i).Csupport.equals("YES")) {

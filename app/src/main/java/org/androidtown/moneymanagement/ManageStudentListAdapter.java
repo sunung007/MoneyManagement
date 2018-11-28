@@ -15,21 +15,15 @@ public class ManageStudentListAdapter extends RecyclerView.Adapter<RecyclerView.
 
     public static class MyManageViewHolder extends RecyclerView.ViewHolder {
 
-        public TextView mSidView;
-        public TextView mNameView;
-        public TextView mYearView;
+        public TextView mSidNameView;
         public TextView mTypeView;
-        public TextView mAmountView;
         public TextView mSupportView;
 
         public MyManageViewHolder(View view) {
             super(view);
 
-            mSidView = (TextView) view.findViewById(R.id.manager_sid);
-            mNameView = (TextView) view.findViewById(R.id.manager_name);
-            mYearView = (TextView) view.findViewById(R.id.manager_year);
+            mSidNameView = (TextView) view.findViewById(R.id.manager_sid_name);
             mTypeView = (TextView) view.findViewById(R.id.manager_type);
-            mAmountView = (TextView) view.findViewById(R.id.manager_amount);
             mSupportView = (TextView) view.findViewById(R.id.manager_support);
         }
     }
@@ -52,11 +46,8 @@ public class ManageStudentListAdapter extends RecyclerView.Adapter<RecyclerView.
         MyManageViewHolder myViewHolder = (MyManageViewHolder) holder;
         StudentInfo studentInfo = students.get(position);
 
-        myViewHolder.mSidView.setText(studentInfo.Sid);
-        myViewHolder.mNameView.setText(studentInfo.Sname);
-        myViewHolder.mYearView.setText(studentInfo.Pyear);
+        myViewHolder.mSidNameView.setText(studentInfo.Sid + " " + studentInfo.Sname);
         myViewHolder.mTypeView.setText(studentInfo.Ptype);
-        myViewHolder.mAmountView.setText(studentInfo.Pamount);
         myViewHolder.mSupportView.setText(studentInfo.Csupport);
     }
 
