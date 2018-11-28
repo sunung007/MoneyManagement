@@ -85,7 +85,6 @@ public class SearchResultFragment extends Fragment {
 
         // Recycler view setting.
         mRecyclerview = view.findViewById(R.id.students_list);
-//        mSearchResultListView.setHasFixedSize(true);
         mLayoutManager = new LinearLayoutManager(view.getContext());
         mRecyclerview.setLayoutManager(mLayoutManager);
 
@@ -94,7 +93,7 @@ public class SearchResultFragment extends Fragment {
 
         return view;
     }
-
+//
     public void countStudents() {
         for(int i = 0 ; i < mSnumber ; i++) {
             if(students.get(i).Csupport.equals("YES")) {

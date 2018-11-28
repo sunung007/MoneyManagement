@@ -82,9 +82,6 @@ public class SearchStudentFragment extends Fragment {
                     ft.remove(fragment);
                     ft.commit();
                 }
-
-                mProgressBar.setVisibility(View.VISIBLE);
-
                 searchStudent();
             }
         });
@@ -123,6 +120,9 @@ public class SearchStudentFragment extends Fragment {
 
 
     private void searchStudent() {
+        // Set progress bar to visible.
+        mProgressBar.setVisibility(View.VISIBLE);
+
         // Reset errors.
         mSnameView.setError(null);
 

@@ -17,7 +17,7 @@ public class SearchStudentListAdapter extends RecyclerView.Adapter<RecyclerView.
         private TextView mPamountView;
         private TextView mSupportView;
 
-        MyViewHolder(View view) {
+        public MyViewHolder(View view) {
             super(view);
             mPyearView = (TextView) view.findViewById(R.id.result_pyear);
             mPtypeView = (TextView) view.findViewById(R.id.result_ptype);
@@ -27,10 +27,8 @@ public class SearchStudentListAdapter extends RecyclerView.Adapter<RecyclerView.
     }
 
     private ArrayList<StudentInfo> students;
-    private int sNumber;
 
     public SearchStudentListAdapter(ArrayList<StudentInfo> scr) {
-        sNumber = scr.size();
         students = new ArrayList<>(scr);
     }
 

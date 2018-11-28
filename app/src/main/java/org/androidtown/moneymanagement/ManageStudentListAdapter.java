@@ -11,31 +11,30 @@ import java.util.ArrayList;
 
 public class ManageStudentListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
+    private ArrayList<StudentInfo> students;
 
     public static class MyManageViewHolder extends RecyclerView.ViewHolder {
-        private TextView mSidView;
-        private TextView mNameView;
-        private TextView mYearView;
-        private TextView mTypeView;
-        private TextView mAmountView;
-        private TextView mSupportView;
 
-        MyManageViewHolder(View view) {
+        public TextView mSidView;
+        public TextView mNameView;
+        public TextView mYearView;
+        public TextView mTypeView;
+        public TextView mAmountView;
+        public TextView mSupportView;
+
+        public MyManageViewHolder(View view) {
             super(view);
-            mSidView = (TextView) view.findViewById(R.id.sid);
-            mNameView = (TextView) view.findViewById(R.id.name);
-            mYearView = (TextView) view.findViewById(R.id.year);
-            mTypeView = (TextView) view.findViewById(R.id.type);
-            mAmountView = (TextView) view.findViewById(R.id.amount);
-            mSupportView = (TextView) view.findViewById(R.id.support);
+
+            mSidView = (TextView) view.findViewById(R.id.manager_sid);
+            mNameView = (TextView) view.findViewById(R.id.manager_name);
+            mYearView = (TextView) view.findViewById(R.id.manager_year);
+            mTypeView = (TextView) view.findViewById(R.id.manager_type);
+            mAmountView = (TextView) view.findViewById(R.id.manager_amount);
+            mSupportView = (TextView) view.findViewById(R.id.manager_support);
         }
     }
 
-    private ArrayList<StudentInfo> students;
-    private int sNumber;
-
     public ManageStudentListAdapter(ArrayList<StudentInfo> scr) {
-        sNumber = scr.size();
         students = new ArrayList<>(scr);
     }
 
@@ -43,7 +42,7 @@ public class ManageStudentListAdapter extends RecyclerView.Adapter<RecyclerView.
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.fragment_manage_student, parent, false);
+                .inflate(R.layout.manage_student_list, parent, false);
 
         return new MyManageViewHolder(v);
     }
@@ -59,12 +58,10 @@ public class ManageStudentListAdapter extends RecyclerView.Adapter<RecyclerView.
         myViewHolder.mTypeView.setText(studentInfo.Ptype);
         myViewHolder.mAmountView.setText(studentInfo.Pamount);
         myViewHolder.mSupportView.setText(studentInfo.Csupport);
-
     }
 
     @Override
     public int getItemCount() {
         return students.size();
     }
-
 }

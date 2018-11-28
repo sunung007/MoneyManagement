@@ -43,6 +43,7 @@ public class ManageStudentFragment extends Fragment {
 
     private RecyclerView mRecyclerView;
     private RecyclerView.LayoutManager mLayoutManage;
+    private RecyclerView.Adapter adapter;
     private ProgressBar mProgressBar;
 
     private ArrayList<StudentInfo> students;
@@ -85,12 +86,6 @@ public class ManageStudentFragment extends Fragment {
         mProgressBar.setVisibility(View.GONE);
 
         loadStudentsList();
-
-        mRecyclerView = (RecyclerView) view.findViewById(R.id.all_students_list);
-        mLayoutManage = new LinearLayoutManager(view.getContext());
-        mRecyclerView.setLayoutManager(mLayoutManage);
-
-
 
         return view;
     }
@@ -170,7 +165,6 @@ public class ManageStudentFragment extends Fragment {
 
             try {
                 // Simulate network access.
-//                Thread.sleep(4000);
                 while(true) {
                     if(!studentInfos.isEmpty()) {
                         return true;
@@ -179,11 +173,6 @@ public class ManageStudentFragment extends Fragment {
             } catch (Exception e) {
                 return false;
             }
-
-//            if(!studentInfos.isEmpty()) {
-//                return true;
-//            }
-//            return false;
         }
 
         @Override
@@ -193,12 +182,13 @@ public class ManageStudentFragment extends Fragment {
 
             if (success) {
                 setStudents(studentInfos);
+                mRecyclerView = getView().findViewById(R.id.all_students_list);
+                mRecyclerView.setHasFixedSize(false);
+                mLayoutManage = new LinearLayoutManager(getContext());
+                mRecyclerView.setLayoutManager(mLayoutManage);
 
-                String tmp = "" + sNumber;
-                Toast.makeText(getContext(), tmp, Toast.LENGTH_SHORT).show();
-
-//                ManageStudentListAdapter adapter = new ManageStudentListAdapter(students);
-//                mRecyclerView.setAdapter(adapter);
+                adapter = new ManageStudentListAdapter(studentInfos);
+                mRecyclerView.setAdapter(adapter);
 
             } else {
                 // If the result array list is empty, which means
