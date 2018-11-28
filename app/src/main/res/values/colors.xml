@@ -9,6 +9,8 @@
 
     <!--<color name="colorLine">#4a4a4a</color>-->
     <color name="colorLine">#003366</color>
+    
+    <color name="colorNoColor">#00ffffff</color>
 
     <color name="colorAccent">#D81B60</color>
     <color name="colorActionBarText">#FFFFFF</color>
