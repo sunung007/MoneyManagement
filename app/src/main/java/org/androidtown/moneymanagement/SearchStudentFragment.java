@@ -61,6 +61,7 @@ public class SearchStudentFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_search_student, container, false);
         Button studentSearchButton = (Button) view.findViewById(R.id.student_search_button);
 
+        // Set views.
         mSidView = (Spinner) view.findViewById(R.id.sid);
         mSnameView = (EditText) view.findViewById(R.id.sname);
         mSearchView = view.findViewById(R.id.student_search_view);
@@ -68,6 +69,7 @@ public class SearchStudentFragment extends Fragment {
 
         mProgressBar.setVisibility(View.GONE);
 
+        // When search button is pushed.
         studentSearchButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -87,7 +89,7 @@ public class SearchStudentFragment extends Fragment {
             }
         });
 
-        // If user push enter.
+        // When user push enter.
         mSnameView.setOnKeyListener(new View.OnKeyListener() {
             @Override
             public boolean onKey(View view, int i, KeyEvent keyEvent) {
@@ -100,6 +102,7 @@ public class SearchStudentFragment extends Fragment {
             }
         });
 
+        // When this fragment is opened, close soft key.
         mSearchView.setOnKeyListener(new View.OnKeyListener() {
             @Override
             public boolean onKey(View view, int i, KeyEvent keyEvent) {
@@ -226,15 +229,18 @@ public class SearchStudentFragment extends Fragment {
                     }
                 }
 
+                // Just formal.
                 @Override
                 public void onCancelled(@NonNull DatabaseError databaseError) {
-
+                    target.clear();
                 }
 
             };
 
+            // Add event listener of DB.
             conditionRef.addListenerForSingleValueEvent(valueEventListener);
 
+            // Sync the code with DB server.
             try {
                 // Simulate network access.
                 Thread.sleep(1000);
@@ -242,6 +248,7 @@ public class SearchStudentFragment extends Fragment {
                 return false;
             }
 
+            // Go to onPostExecute().
             if(!target.isEmpty()) {
                 return true;
             }
@@ -253,6 +260,7 @@ public class SearchStudentFragment extends Fragment {
             mAuthTask = null;
             mProgressBar.setVisibility(View.GONE);
 
+            // Whether work in doInBackground() is success.
             if (success) {
                 // If the result array list is not empty, close keypad and change fragment.
                 // Close keypad.
@@ -269,14 +277,17 @@ public class SearchStudentFragment extends Fragment {
             } else {
                 // If the result array list is empty, which means
                 // the student that user put in is not in DB, just float Toast.
-                Toast toast = Toast.makeText(getContext(), "찾는 대상이 납부자 명단에 없습니다.", Toast.LENGTH_SHORT);
+                Toast toast = Toast.makeText(getContext(),
+                        "찾는 대상이 납부자 명단에 없습니다.", Toast.LENGTH_SHORT);
                 toast.setGravity(Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL, 0, 0);
                 toast.show();
             }
 
-        conditionRef.removeEventListener(valueEventListener);
+            // Remove event listener to reuse another fragments.
+            conditionRef.removeEventListener(valueEventListener);
         }
 
+        // Just formal.
         @Override
         protected void onCancelled() {
             mAuthTask = null;

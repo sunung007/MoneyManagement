@@ -7,15 +7,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import org.androidtown.moneymanagement.R;
-import org.androidtown.moneymanagement.StudentInfo;
-
 import java.util.ArrayList;
 
 public class ManageStudentListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
 
-    public static class MyViewHolder extends RecyclerView.ViewHolder {
+    public static class MyManageViewHolder extends RecyclerView.ViewHolder {
         private TextView mSidView;
         private TextView mNameView;
         private TextView mYearView;
@@ -23,7 +20,7 @@ public class ManageStudentListAdapter extends RecyclerView.Adapter<RecyclerView.
         private TextView mAmountView;
         private TextView mSupportView;
 
-        MyViewHolder(View view) {
+        MyManageViewHolder(View view) {
             super(view);
             mSidView = (TextView) view.findViewById(R.id.sid);
             mNameView = (TextView) view.findViewById(R.id.name);
@@ -48,12 +45,12 @@ public class ManageStudentListAdapter extends RecyclerView.Adapter<RecyclerView.
         View v = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.fragment_manage_student, parent, false);
 
-        return new MyViewHolder(v);
+        return new MyManageViewHolder(v);
     }
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
-        MyViewHolder myViewHolder = (MyViewHolder) holder;
+        MyManageViewHolder myViewHolder = (MyManageViewHolder) holder;
         StudentInfo studentInfo = students.get(position);
 
         myViewHolder.mSidView.setText(studentInfo.Sid);
