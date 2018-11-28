@@ -196,8 +196,8 @@ public class SearchStudentFragment extends Fragment {
 
                     while(child.hasNext()) {
                         ds = child.next();
-                        tName = ds.child("Sname").getValue().toString();
-                        tId = ds.child("Sid").getValue().toString();
+                        tName = ds.child("Sname").getValue().toString().trim();
+                        tId = ds.child("Sid").getValue().toString().trim();
 
                         if(mSname.equals(tName) && mSid.equals(tId)) {
                             tAmount = ds.child("Pamount").getValue().toString();
@@ -242,17 +242,26 @@ public class SearchStudentFragment extends Fragment {
 
             // Sync the code with DB server.
             try {
-                // Simulate network access.
-                Thread.sleep(1000);
-            } catch (InterruptedException e) {
+                long startTime = System.currentTimeMillis();
+                long progressTime;
+
+                Thread.sleep(500);
+
+                while(true) {
+                    if(!target.isEmpty()) {
+                        return true;
+                    }
+
+                    Thread.sleep(500);
+                    progressTime = System.currentTimeMillis();
+                    if(progressTime - startTime > 2500) {
+                        return false;
+                    }
+                }
+            } catch (Exception e) {
+//                target.clear();
                 return false;
             }
-
-            // Go to onPostExecute().
-            if(!target.isEmpty()) {
-                return true;
-            }
-            return false;
         }
 
         @Override
