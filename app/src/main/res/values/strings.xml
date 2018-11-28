@@ -2,7 +2,7 @@
     <string name="app_name">CSE 학생회</string>
     <string name="title_activity_login">CSE 학생회</string>
     <string name="title_activity_main">한양대 컴소 학생회</string>
-    <string name="title_activity_start">CES 학생회</string>
+    <string name="title_activity_start">CSE 학생회</string>
 
     <!-- Strings related to login -->
     <string name="prompt_email">Email</string>

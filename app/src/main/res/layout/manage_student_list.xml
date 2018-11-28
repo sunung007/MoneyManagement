@@ -7,7 +7,19 @@
     android:background="@color/colorNoColor"
     android:gravity="center_vertical|center_horizontal|center"
     android:orientation="vertical"
-    app:cardBackgroundColor="@color/colorNoColor">
+    >
+
+    <View
+        android:id="@+id/view4"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:background="@drawable/gradiant"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView3"></View>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -15,23 +27,19 @@
         android:baselineAligned="false"
         android:gravity="center_vertical|start"
         android:orientation="horizontal"
-        android:paddingStart="16dp"
+        android:paddingStart="24dp"
         android:paddingTop="8dp"
-        android:paddingEnd="0dp"
+        android:paddingEnd="12dp"
         android:paddingBottom="8dp">
 
         <TextView
             android:id="@+id/manager_sid_name"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_weight="1"
             android:text="@string/prompt_sid"
             android:textAppearance="@style/TextAppearance.AppCompat.SearchResult.Subtitle"
             android:textStyle="bold" />
-
-        <Space
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1" />
 
         <TextView
             android:id="@+id/textView14"
@@ -39,6 +47,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="0dp"
             android:layout_marginEnd="0dp"
+            android:paddingStart="8dp"
             android:paddingEnd="4dp"
             android:text="@string/prompt_type"
             android:textAppearance="@style/TextAppearance.AppCompat.Body1"
@@ -72,15 +81,5 @@
             android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
 
     </LinearLayout>
-
-    <!--<View-->
-        <!--android:id="@+id/view4"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="1dp"-->
-        <!--android:background="@drawable/gradiant"-->
-        <!--app:layout_constraintHorizontal_bias="0.0"-->
-        <!--app:layout_constraintLeft_toLeftOf="parent"-->
-        <!--app:layout_constraintRight_toRightOf="parent"-->
-        <!--app:layout_constraintTop_toBottomOf="@+id/textView3"></View>-->
 
 </android.support.v7.widget.CardView>

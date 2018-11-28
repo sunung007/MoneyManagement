@@ -1,5 +1,6 @@
 package org.androidtown.moneymanagement;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
@@ -14,11 +15,14 @@ import android.support.v7.widget.Toolbar;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
+
+    private int previousFragmentID = R.id.nav_check;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,6 +46,19 @@ public class MainActivity extends AppCompatActivity
         // Set navigation view
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        navigationView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                InputMethodManager inputMethodManager =
+                        (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+
+                if (inputMethodManager.isActive()) {
+                    inputMethodManager.hideSoftInputFromWindow(
+                            getCurrentFocus().getWindowToken(), 0);
+                }
+            }
+        });
     }
 
     @Override
@@ -105,7 +122,11 @@ public class MainActivity extends AppCompatActivity
             finish();
         }
 
-        if(fragment != null) {
+
+        // If fragment to open is same with current fragment,
+        // do not change.
+        if(previousFragmentID != id && fragment != null) {
+            previousFragmentID = id;
             ft.replace(R.id.main_fragment, fragment);
             ft.addToBackStack(null);
             ft.commit();

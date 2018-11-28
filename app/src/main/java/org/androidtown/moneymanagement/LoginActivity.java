@@ -2,6 +2,7 @@ package org.androidtown.moneymanagement;
 
 import android.annotation.TargetApi;
 import android.app.LoaderManager.LoaderCallbacks;
+import android.content.Context;
 import android.content.CursorLoader;
 import android.content.Intent;
 import android.content.Loader;
@@ -100,6 +101,19 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                     return true;
                 }
                 return false;
+            }
+        });
+
+        mLoginFormView.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                InputMethodManager inputMethodManager =
+                        (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+
+                if (inputMethodManager.isActive()) {
+                    inputMethodManager.hideSoftInputFromWindow(
+                            getCurrentFocus().getWindowToken(), 0);
+                }
             }
         });
     }

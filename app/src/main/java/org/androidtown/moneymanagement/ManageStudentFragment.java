@@ -12,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
+import android.widget.SearchView;
 import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
@@ -45,6 +46,7 @@ public class ManageStudentFragment extends Fragment {
     private RecyclerView.LayoutManager mLayoutManage;
     private RecyclerView.Adapter adapter;
     private ProgressBar mProgressBar;
+    private SearchView mSearchView;
 
     private ArrayList<StudentInfo> students;
     private int sNumber = 0;
@@ -84,6 +86,8 @@ public class ManageStudentFragment extends Fragment {
 
         mProgressBar = (ProgressBar) view.findViewById(R.id.manage_progressBar);
         mProgressBar.setVisibility(View.GONE);
+        mSearchView = (SearchView) view.findViewById(R.id.manage_searchBar);
+        // Write codes about search view
 
         loadStudentsList();
 

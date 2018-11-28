@@ -34,7 +34,6 @@
             android:textAppearance="@style/TextAppearance.AppCompat.Large"
             android:textColor="@color/colorBlack"
             android:textSize="@dimen/sname_size"
-
             />
 
         <TextView

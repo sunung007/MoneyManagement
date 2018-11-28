@@ -100,20 +100,19 @@ public class SearchStudentFragment extends Fragment {
         });
 
         // When this fragment is opened, close soft key.
-        mSearchView.setOnKeyListener(new View.OnKeyListener() {
+        mSearchView.setOnClickListener(new View.OnClickListener() {
             @Override
-            public boolean onKey(View view, int i, KeyEvent keyEvent) {
+            public void onClick(View view) {
                 InputMethodManager inputMethodManager =
                         (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
 
-                if(inputMethodManager.isActive()) {
+                if (inputMethodManager.isActive()) {
                     inputMethodManager.hideSoftInputFromWindow(
                             getActivity().getCurrentFocus().getWindowToken(), 0);
-                    return true;
                 }
-                return false;
             }
         });
+
 
         return view;
     }
