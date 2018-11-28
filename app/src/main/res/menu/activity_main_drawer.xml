@@ -26,6 +26,11 @@
                     android:id="@+id/developer"
                     android:icon="@drawable/menu_development"
                     android:title="@string/title_menu_developer" />
+
+                <!--<item-->
+                    <!--android:id="@+id/caution"-->
+                    <!--android:icon="@drawable/menu_development"-->
+                    <!--android:title="@string/title_menu_developer" />-->
             </group>
 
 

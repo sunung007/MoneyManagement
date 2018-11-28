@@ -3,14 +3,21 @@
     <!--<color name="colorPrimary">#008577</color>-->
     <!--<color name="colorPrimaryDark">#00574B</color>-->
     <!--<color name="colorPrimary">#0F39A1</color>-->
-    <color name="colorPrimary">#189CF7</color>
+    <!--<color name="colorPrimary">#189CF7</color>-->
+    <color name="colorPrimary">#003366</color>
     <color name="colorPrimaryDark">#09215E</color>
+
+    <!--<color name="colorLine">#4a4a4a</color>-->
+    <color name="colorLine">#003366</color>
+
     <color name="colorAccent">#D81B60</color>
     <color name="colorActionBarText">#FFFFFF</color>
 
+    <color name="colorSearchBackground">#c6d2df</color>
 
     <color name="colorWhite">#FFFFFF</color>
     <color name="colorGray">#4a4a4a</color>
+    <color name="colorGrayLight">#bfbfbf</color>
     <color name="colorBlack">#000000</color>
 
 

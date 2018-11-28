@@ -119,9 +119,12 @@
     <string name="title_menu_etc">기타</string>
     <string name="title_menu_developer">개발자 정보</string>
     <string name="title_menu_logout">로그아웃</string>
+    <string name="title_menu_caution">주의사항</string>
 
     <string name="name_account">한양대 컴소</string>
     <string name="subname_account">학생회</string>
+
+    <string name="hint_search_name">이름을 입력하세요</string>
 
     <string name="hello_blank_fragment">아직 준비중입니다.</string>
 

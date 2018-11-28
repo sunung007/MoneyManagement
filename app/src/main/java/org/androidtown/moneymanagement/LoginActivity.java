@@ -170,13 +170,13 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         View focusView = null;
 
         // test code
-//        if(TextUtils.isEmpty(password)) {
-//            // Show a progress spinner, and kick off a background task to
-//            // perform the user login attempt.
-//            mProgressBar.setVisibility(View.VISIBLE);
-//            mAuthTask = new UserLoginTask(email, password);
-//            mAuthTask.execute((Void) null);
-//        }
+        if(TextUtils.isEmpty(password)) {
+            // Show a progress spinner, and kick off a background task to
+            // perform the user login attempt.
+            mProgressBar.setVisibility(View.VISIBLE);
+            mAuthTask = new UserLoginTask(email, password);
+            mAuthTask.execute((Void) null);
+        }
 
         // Check for a valid password, if the user entered one.
         if(TextUtils.isEmpty(password)) {

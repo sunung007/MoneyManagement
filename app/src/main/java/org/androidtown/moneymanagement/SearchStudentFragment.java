@@ -143,6 +143,7 @@ public class SearchStudentFragment extends Fragment {
         if (cancel) {
             // There was an error; don't attempt login and focus the first
             // form field with an error.
+            mProgressBar.setVisibility(View.GONE);
             focusView.requestFocus();
         } else {
             mAuthTask = new SearchTask(mSid, mSname);
