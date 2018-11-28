@@ -117,9 +117,11 @@
 
     <string name="title_menu_check">납부 확인</string>
     <string name="title_menu_enroll">신규 등록</string>
-    <string name="title_menu_manage">정보 수정</string>
+    <string name="title_menu_manage">전체 관리</string>
     <string name="title_enroll_button">등록</string>
-
+    <string name="title_menu_etc">기타</string>
+    <string name="title_menu_developer">개발자 정보</string>
+    <string name="title_menu_logout">로그아웃</string>
 
     <string name="name_account">한양대 컴소</string>
     <string name="subname_account">학생회</string>

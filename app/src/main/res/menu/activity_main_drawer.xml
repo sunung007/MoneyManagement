@@ -19,20 +19,20 @@
             android:title="@string/title_menu_manage" />
     </group>
 
-    <item android:title="기타">
+    <item android:title="@string/title_menu_etc">
         <menu>
             <group android:checkableBehavior="single">
                 <item
                     android:id="@+id/developer"
                     android:icon="@drawable/menu_development"
-                    android:title="개발자 정보" />
+                    android:title="@string/title_menu_developer" />
             </group>
 
 
             <item
                 android:id="@+id/logout"
                 android:icon="@drawable/logout"
-                android:title="로그아웃" />
+                android:title="@string/title_menu_logout" />
         </menu>
     </item>
 
