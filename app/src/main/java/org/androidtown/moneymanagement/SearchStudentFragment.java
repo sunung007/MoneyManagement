@@ -128,7 +128,7 @@ public class SearchStudentFragment extends Fragment {
 
         // Store values at the time of the search attempt.
         mSid = mSidView.getSelectedItem().toString().substring(0, 2);
-        mSname = mSnameView.getText().toString();
+        mSname = mSnameView.getText().toString().trim();
 
         boolean cancel = false;
         View focusView = null;

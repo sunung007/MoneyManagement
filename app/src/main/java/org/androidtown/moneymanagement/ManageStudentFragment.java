@@ -161,7 +161,7 @@ public class ManageStudentFragment extends Fragment {
 
                 @Override
                 public void onCancelled(@NonNull DatabaseError databaseError) {
-
+                    studentInfos.clear();
                 }
 
             };
