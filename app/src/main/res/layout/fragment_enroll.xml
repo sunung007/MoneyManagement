@@ -7,6 +7,7 @@
     tools:context=".EnrollFragment">
 
     <android.support.constraint.ConstraintLayout
+        android:id="@+id/student_enroll_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -45,7 +46,7 @@
                 app:layout_constraintStart_toStartOf="parent" />
 
             <EditText
-                android:id="@+id/editText"
+                android:id="@+id/enroll_name"
                 android:layout_width="200dp"
                 android:layout_height="wrap_content"
                 android:ems="10"
@@ -77,7 +78,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/textView10" />
 
             <Spinner
-                android:id="@+id/spinner"
+                android:id="@+id/enroll_sid"
                 android:layout_width="200dp"
                 android:layout_height="wrap_content"
                 android:entries="@array/array_sid"
@@ -106,7 +107,7 @@
                 android:textAppearance="@style/TextAppearance.AppCompat.Subhead" />
 
             <Spinner
-                android:id="@+id/spinner2"
+                android:id="@+id/enroll_pyear"
                 android:layout_width="200dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -133,7 +134,7 @@
                 android:textAppearance="@style/TextAppearance.AppCompat.Subhead" />
 
             <Spinner
-                android:id="@+id/spinner3"
+                android:id="@+id/enroll_ptype"
                 android:layout_width="200dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -161,7 +162,7 @@
                 android:textAppearance="@style/TextAppearance.AppCompat.Subhead" />
 
             <Spinner
-                android:id="@+id/spinner4"
+                android:id="@+id/enroll_pamount"
                 android:layout_width="200dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -182,7 +183,7 @@
             app:layout_constraintTop_toBottomOf="@+id/linearLayout10">
 
             <Button
-                android:id="@+id/button"
+                android:id="@+id/enroll_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/title_enroll_button"
