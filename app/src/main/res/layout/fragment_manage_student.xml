@@ -12,7 +12,9 @@
         android:layout_height="wrap_content"
         android:queryHint="@string/prompt_name"
         android:background="@color/colorSearchBackground"
-        />
+        >
+
+    </SearchView>
 
     <FrameLayout
         android:layout_width="match_parent"

@@ -22,14 +22,16 @@
             android:textAppearance="@style/TextAppearance.AppCompat.Title"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            android:textStyle="bold"
+            />
 
         <LinearLayout
             android:id="@+id/linearLayout4"
             android:layout_width="wrap_content"
             android:layout_height="48dp"
             android:layout_marginStart="8dp"
-            android:layout_marginTop="24dp"
+            android:layout_marginTop="16dp"
             android:layout_marginEnd="8dp"
             android:gravity="bottom"
             android:orientation="horizontal"
@@ -43,6 +45,7 @@
                 android:layout_height="wrap_content"
                 android:text="@string/prompt_name"
                 android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
+                android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent" />
 
             <EditText
@@ -75,7 +78,9 @@
                 android:text="@string/prompt_sid"
                 android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView10" />
+                app:layout_constraintTop_toBottomOf="@+id/textView10"
+                android:textStyle="bold"
+                />
 
             <Spinner
                 android:id="@+id/enroll_sid"
@@ -104,7 +109,9 @@
                 android:layout_width="90dp"
                 android:layout_height="wrap_content"
                 android:text="@string/prompt_year"
-                android:textAppearance="@style/TextAppearance.AppCompat.Subhead" />
+                android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
+                android:textStyle="bold"
+                />
 
             <Spinner
                 android:id="@+id/enroll_pyear"
@@ -131,7 +138,9 @@
                 android:layout_width="90dp"
                 android:layout_height="wrap_content"
                 android:text="@string/prompt_type"
-                android:textAppearance="@style/TextAppearance.AppCompat.Subhead" />
+                android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
+                android:textStyle="bold"
+                />
 
             <Spinner
                 android:id="@+id/enroll_ptype"
@@ -159,7 +168,9 @@
                 android:layout_width="90dp"
                 android:layout_height="wrap_content"
                 android:text="@string/prompt_amount"
-                android:textAppearance="@style/TextAppearance.AppCompat.Subhead" />
+                android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
+                android:textStyle="bold"
+                />
 
             <Spinner
                 android:id="@+id/enroll_pamount"
@@ -191,8 +202,22 @@
                 android:textAppearance="@style/TextAppearance.AppCompat.Menu"
                 android:textColor="@color/colorWhite"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/linearLayout10" />
+                app:layout_constraintTop_toBottomOf="@+id/linearLayout10"
+                android:textStyle="bold"
+                />
         </LinearLayout>
+
+        <TextView
+            android:id="@+id/textView17"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="8dp"
+            android:text="@string/title_caution"
+            android:textAppearance="@style/TextAppearance.AppCompat.Title"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/linearLayout11" />
 
         <TextView
             android:id="@+id/textView16"
@@ -209,17 +234,6 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView17"
             app:layout_constraintVertical_bias="0.0" />
-
-        <TextView
-            android:id="@+id/textView17"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="24dp"
-            android:layout_marginTop="8dp"
-            android:text="@string/title_caution"
-            android:textAppearance="@style/TextAppearance.AppCompat.Title"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/linearLayout11" />
 
     </android.support.constraint.ConstraintLayout>
 

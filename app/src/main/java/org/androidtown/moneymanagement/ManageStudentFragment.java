@@ -50,6 +50,7 @@ public class ManageStudentFragment extends Fragment {
 
     private ArrayList<StudentInfo> students;
     private int sNumber = 0;
+    String tmp;
 
     public ManageStudentFragment() {
         // Required empty public constructor
@@ -86,7 +87,14 @@ public class ManageStudentFragment extends Fragment {
 
         mProgressBar = (ProgressBar) view.findViewById(R.id.manage_progressBar);
         mProgressBar.setVisibility(View.GONE);
+
         mSearchView = (SearchView) view.findViewById(R.id.manage_searchBar);
+        mSearchView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(getContext(), "Clicked", Toast.LENGTH_SHORT).show();
+            }
+        });
         // Write codes about search view
 
         loadStudentsList();
@@ -126,6 +134,7 @@ public class ManageStudentFragment extends Fragment {
 
                     while(child.hasNext()) {
                         ds = child.next();
+
                         tName = ds.child("Sname").getValue().toString();
                         tId = ds.child("Sid").getValue().toString();
 
@@ -153,8 +162,8 @@ public class ManageStudentFragment extends Fragment {
                             cSupport = "UNKNOWN";
                         }
 
-                        studentInfos.add(i, new StudentInfo(tAmount, tType, tYear, tId, tName, cSupport));
-                        i++;
+                        studentInfos.add(Integer.parseInt(ds.getKey()),
+                                new StudentInfo(tAmount, tType, tYear, tId, tName, cSupport));
                     }
                 }
 

@@ -120,6 +120,10 @@
     <string name="title_menu_developer">개발자 정보</string>
     <string name="title_menu_logout">로그아웃</string>
     <string name="title_menu_caution">주의사항</string>
+    <string name="title_enroll_popup">현재 등록된 학우</string>
+
+    <string name="button_enroll_accept">등록</string>
+    <string name="button_enroll_cancel">취소</string>
 
     <string name="name_account">한양대 컴소</string>
     <string name="subname_account">학생회</string>
