@@ -10,7 +10,6 @@ import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
-import android.system.Os;
 import android.text.TextUtils;
 import android.view.Gravity;
 import android.view.KeyEvent;
@@ -20,6 +19,7 @@ import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.Toast;
 
@@ -63,6 +63,7 @@ public class EnrollFragment extends Fragment {
     private Spinner mPtypeView;
     private Spinner mPamountView;
     private View mEnrollView;
+    private ProgressBar mProgressBar;
 
     private int totalNum;
 
@@ -115,8 +116,10 @@ public class EnrollFragment extends Fragment {
         mPyearView = (Spinner) view.findViewById(R.id.enroll_pyear);
         mPtypeView = (Spinner) view.findViewById(R.id.enroll_ptype);
         mPamountView = (Spinner) view.findViewById(R.id.enroll_pamount);
-
         mEnrollView = view.findViewById(R.id.student_enroll_view);
+        mProgressBar = (ProgressBar) view.findViewById(R.id.enroll_progressBar);
+
+        mProgressBar.setVisibility(View.GONE);
 
         // When search button is pushed.
         studentSearchButton.setOnClickListener(new View.OnClickListener() {
@@ -168,6 +171,7 @@ public class EnrollFragment extends Fragment {
     }
 
     private void searchStudent() {
+        mProgressBar.setVisibility(View.VISIBLE);
 
         // Reset errors.
         mSnameView.setError(null);
@@ -192,6 +196,7 @@ public class EnrollFragment extends Fragment {
         if (cancel) {
             // There was an error; don't attempt login and focus the first
             // form field with an error.
+            mProgressBar.setVisibility(View.GONE);
             focusView.requestFocus();
         } else {
             mAuthTask = new SearchTask(mSid, mSname);
@@ -228,34 +233,32 @@ public class EnrollFragment extends Fragment {
                     DataSnapshot ds;
                     String tName, tId, tAmount, tType, tYear, cSupport;
 
-                    totalNum = (int) dataSnapshot.getChildrenCount();
-
                     int currentYear, tmpAll;
                     int tmpYear, tmpType;
                     currentYear = Calendar.getInstance().get(Calendar.YEAR)
-                            + Calendar.getInstance().get(Calendar.MONTH)/6;
+                            + Calendar.getInstance().get(Calendar.MONTH) / 6;
 
-                    while(child.hasNext()) {
+                    while (child.hasNext()) {
                         ds = child.next();
                         tName = ds.child("Sname").getValue().toString().trim();
                         tId = ds.child("Sid").getValue().toString().trim();
 
-                        if(mSname.equals(tName) && mSid.equals(tId)) {
+                        if (mSname.equals(tName) && mSid.equals(tId)) {
                             tAmount = ds.child("Pamount").getValue().toString();
                             tType = ds.child("Ptype").getValue().toString();
                             tYear = ds.child("Pyear").getValue().toString();
 
-                            if(tType.contains("전액")) {
+                            if (tType.contains("전액")) {
                                 cSupport = "YES";
-                            } else if(tType.contains("미납")) {
+                            } else if (tType.contains("미납")) {
                                 cSupport = "NO";
-                            } else if(tType.contains("학기")) {
+                            } else if (tType.contains("학기")) {
                                 // The condition is about whether a person can support by student's money.
                                 try {
                                     tmpYear = Integer.parseInt(tYear.substring(0, 2), 10) + 2000;
                                     tmpType = Integer.parseInt(tAmount.substring(0, 1), 10);
 
-                                    tmpAll = tmpYear + tmpType/2;
+                                    tmpAll = tmpYear + tmpType / 2;
 
                                     cSupport = (tmpAll >= currentYear) ? "YES" : "NO";
                                 } catch (Exception e) {
@@ -283,24 +286,34 @@ public class EnrollFragment extends Fragment {
 
             // Sync the code with DB server.
             try {
-                // Simulate network access.
-                Thread.sleep(2000);
-            } catch (InterruptedException e) {
+                long startTime = System.currentTimeMillis();
+                long progressTime;
+
+                Thread.sleep(500);
+
+                while (true) {
+                    if (!target.isEmpty()) {
+                        return true;
+                    }
+
+                    Thread.sleep(500);
+                    progressTime = System.currentTimeMillis();
+                    if (progressTime - startTime > 2500) {
+                        return false;
+                    }
+                }
+            } catch (Exception e) {
                 return false;
             }
-
-            // Go to onPostExecute().
-            if(!target.isEmpty()) {
-                return true;
-            }
-            return false;
         }
 
         @Override
         protected void onPostExecute(final Boolean success) {
             mAuthTask = null;
+            mProgressBar.setVisibility(View.GONE);
 
-            // Whether work in doInBackground() is success.
+            // Whether work in doInBackground() is success, which is
+            // the same students were already in DB.
             if (success) {
                 // If the result array list is not empty, close keypad and change fragment.
                 // Close keypad.
@@ -308,12 +321,16 @@ public class EnrollFragment extends Fragment {
                         getSystemService(Activity.INPUT_METHOD_SERVICE);
                 imm.hideSoftInputFromWindow(getView().getWindowToken(), 0);
 
-                Intent intent = new Intent(getActivity().getApplicationContext(), EnrollPopupActivity.class);
+                Intent intent = new Intent(getActivity().getApplicationContext(),
+                        EnrollPopupActivity.class);
+//                intent.putParcelableArrayListExtra("students", target);
+//                intent.putExtra("tmp", "hihihi");
                 intent.putParcelableArrayListExtra("students", target);
+                startActivityForResult(intent, 1);
 
             } else {
                 // If the result array list is empty, which means
-                // the student that user put in is not in DB, just float Toast.
+                // the student that user put in is not in DB, that is new student.
                 String totalNumIndex = String.valueOf(totalNum);
                 conditionRef.child(totalNumIndex).setValue(totalNumIndex);
 
@@ -338,6 +355,7 @@ public class EnrollFragment extends Fragment {
         @Override
         protected void onCancelled() {
             mAuthTask = null;
+            mProgressBar.setVisibility(View.GONE);
         }
     }
 }

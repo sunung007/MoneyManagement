@@ -7,10 +7,8 @@ public class StudentInfo implements Parcelable {
     public String Pamount;
     public String Ptype;
     public String Pyear;
-
     public String Sid;
     public String Sname;
-
     public String Csupport = "UNKNOWN";  // Could support now?
 
     public StudentInfo() {
@@ -72,7 +70,8 @@ public class StudentInfo implements Parcelable {
         Csupport = in.readString();
     }
 
-    public final Creator<StudentInfo> CREATOR = new Creator<StudentInfo>() {
+    @SuppressWarnings("rawtypes")
+    public static final Parcelable.Creator CREATOR = new Parcelable.Creator() {
         @Override
         public StudentInfo createFromParcel(Parcel in) {
             return new StudentInfo(in);

@@ -259,7 +259,6 @@ public class SearchStudentFragment extends Fragment {
                     }
                 }
             } catch (Exception e) {
-//                target.clear();
                 return false;
             }
         }

@@ -105,6 +105,7 @@
     <string name="prompt_type">납부유형</string>
     <string name="prompt_semester">납부학기</string>
     <string name="prompt_amount">납부금액</string>
+    <string name="prompt_auto_login">자동 로그인</string>
 
     <string name="title_result">검색결과</string>
     <string name="title_search">검색할 학우의 정보를 입력하세요</string>
@@ -120,7 +121,7 @@
     <string name="title_menu_developer">개발자 정보</string>
     <string name="title_menu_logout">로그아웃</string>
     <string name="title_menu_caution">주의사항</string>
-    <string name="title_enroll_popup">현재 등록된 학우</string>
+    <string name="title_enroll_popup">이미 등록된 학우가 있습니다</string>
 
     <string name="button_enroll_accept">등록</string>
     <string name="button_enroll_cancel">취소</string>
