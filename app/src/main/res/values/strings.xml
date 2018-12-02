@@ -121,7 +121,6 @@
     <string name="title_menu_developer">개발자 정보</string>
     <string name="title_menu_logout">로그아웃</string>
     <string name="title_menu_caution">주의사항</string>
-    <string name="title_enroll_popup">이미 등록된 학우가 있습니다</string>
 
     <string name="button_enroll_accept">등록</string>
     <string name="button_enroll_cancel">취소</string>

@@ -33,7 +33,10 @@
             android:name=".MainActivity"
             android:label="@string/title_activity_main"
             android:theme="@style/AppTheme.NoActionBar"></activity>
-        <activity android:name=".EnrollPopupActivity"></activity>
+        <activity
+            android:name=".EnrollPopupActivity"
+            android:theme="@style/AppTheme.NoActionBar.Dialog"
+            ></activity>
     </application>
 
 </manifest>

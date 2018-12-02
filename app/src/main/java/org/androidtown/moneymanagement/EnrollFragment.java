@@ -11,7 +11,6 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.text.TextUtils;
-import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,7 +20,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.Spinner;
-import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -68,6 +66,7 @@ public class EnrollFragment extends Fragment {
     private int totalNum;
 
     private ArrayList<StudentInfo> target = new ArrayList<>();
+    private String title;
 
     private DatabaseReference mRootRef = FirebaseDatabase.getInstance().getReference();
     private DatabaseReference conditionRef = mRootRef.child("student");
@@ -233,6 +232,8 @@ public class EnrollFragment extends Fragment {
                     DataSnapshot ds;
                     String tName, tId, tAmount, tType, tYear, cSupport;
 
+                    totalNum = (int) dataSnapshot.getChildrenCount();
+
                     int currentYear, tmpAll;
                     int tmpYear, tmpType;
                     currentYear = Calendar.getInstance().get(Calendar.YEAR)
@@ -312,38 +313,40 @@ public class EnrollFragment extends Fragment {
             mAuthTask = null;
             mProgressBar.setVisibility(View.GONE);
 
+            // Close keypad.
+            InputMethodManager imm = (InputMethodManager) getActivity().
+                    getSystemService(Activity.INPUT_METHOD_SERVICE);
+            imm.hideSoftInputFromWindow(getView().getWindowToken(), 0);
+
+            // Set intent.
+            Intent intent = new Intent(getActivity().getApplicationContext(),
+                    EnrollPopupActivity.class);
+
+            StudentInfo studentInfo = setNewStudent();
+
             // Whether work in doInBackground() is success, which is
             // the same students were already in DB.
             if (success) {
-                // If the result array list is not empty, close keypad and change fragment.
-                // Close keypad.
-                InputMethodManager imm = (InputMethodManager) getActivity().
-                        getSystemService(Activity.INPUT_METHOD_SERVICE);
-                imm.hideSoftInputFromWindow(getView().getWindowToken(), 0);
+                title = "이미 등록된 학우가 있습니다";
 
-                Intent intent = new Intent(getActivity().getApplicationContext(),
-                        EnrollPopupActivity.class);
-//                intent.putParcelableArrayListExtra("students", target);
-//                intent.putExtra("tmp", "hihihi");
-                intent.putParcelableArrayListExtra("students", target);
+                intent.putParcelableArrayListExtra("already_students", target);
+                intent.putExtra("new_student", studentInfo);
+                intent.putExtra("total_num", totalNum);
+                intent.putExtra("title", title);
+
+
                 startActivityForResult(intent, 1);
-
             } else {
                 // If the result array list is empty, which means
                 // the student that user put in is not in DB, that is new student.
-                String totalNumIndex = String.valueOf(totalNum);
-                conditionRef.child(totalNumIndex).setValue(totalNumIndex);
+                title = "등록하시겠습니까";
 
-                conditionRef.child(totalNumIndex).child("Sname").setValue(mSname);
-                conditionRef.child(totalNumIndex).child("Sid").setValue(mSid);
-                conditionRef.child(totalNumIndex).child("Pamount").setValue(mPamount);
-                conditionRef.child(totalNumIndex).child("Pyear").setValue(mPyear);
-                conditionRef.child(totalNumIndex).child("Ptype").setValue(mPtype);
+                intent.putParcelableArrayListExtra("already_students", target);
+                intent.putExtra("new_student", studentInfo);
+                intent.putExtra("total_num", totalNum);
+                intent.putExtra("title", title);
 
-                Toast toast = Toast.makeText(getContext(),
-                        "등록되었습니다.", Toast.LENGTH_SHORT);
-                toast.setGravity(Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL, 0, 0);
-                toast.show();
+                startActivityForResult(intent, 1);
             }
 
             // Remove event listener to reuse another fragments.
@@ -356,6 +359,40 @@ public class EnrollFragment extends Fragment {
         protected void onCancelled() {
             mAuthTask = null;
             mProgressBar.setVisibility(View.GONE);
+        }
+
+        public StudentInfo setNewStudent() {
+            StudentInfo studentInfo = new StudentInfo(mPamount, mPtype, mPyear, mSid, mSname);
+
+            String cSupport;
+            int currentYear, tmpAll;
+            int tmpYear, tmpType;
+            currentYear = Calendar.getInstance().get(Calendar.YEAR)
+                    + Calendar.getInstance().get(Calendar.MONTH) / 6;
+
+            if (mPtype.contains("전액")) {
+                cSupport = "YES";
+            } else if (mPtype.contains("미납")) {
+                cSupport = "NO";
+            } else if (mPtype.contains("학기")) {
+                // The condition is about whether a person can support by student's money.
+                try {
+                    tmpYear = Integer.parseInt(mPyear.substring(0, 2), 10) + 2000;
+                    tmpType = Integer.parseInt(mPamount.substring(0, 1), 10);
+
+                    tmpAll = tmpYear + tmpType / 2;
+
+                    cSupport = (tmpAll >= currentYear) ? "YES" : "NO";
+                } catch (Exception e) {
+                    cSupport = "UNKNOWN";
+                }
+            } else {
+                cSupport = "UNKNOWN";
+            }
+
+            studentInfo.Csupport = cSupport;
+
+            return studentInfo;
         }
     }
 }
