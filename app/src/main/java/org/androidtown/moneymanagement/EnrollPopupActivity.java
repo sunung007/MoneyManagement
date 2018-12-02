@@ -50,7 +50,7 @@ public class EnrollPopupActivity extends AppCompatActivity {
             finish();
         }
 
-        mTitle = findViewById(R.id.title_enroll_popup);
+        mTitle = findViewById(R.id.title_detail_info);
         mTitle.setText(title);
 
         mRecyclerView = findViewById(R.id.already_enrolleds_students);
@@ -62,8 +62,8 @@ public class EnrollPopupActivity extends AppCompatActivity {
         adapter = new EnrollAlreadyStudentsListAdapter(alreadyStudents);
         mRecyclerView.setAdapter(adapter);
 
-        Button buttonEnroll = findViewById(R.id.button_enroll_enroll);
-        Button buttonCancle = findViewById(R.id.button_enroll_cancel);
+        Button buttonEnroll = findViewById(R.id.button_detail_modify);
+        Button buttonCancle = findViewById(R.id.button_detail_ok);
 
         buttonEnroll.setOnClickListener(new View.OnClickListener() {
             @Override

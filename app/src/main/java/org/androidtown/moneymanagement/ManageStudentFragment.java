@@ -95,6 +95,7 @@ public class ManageStudentFragment extends Fragment {
                 Toast.makeText(getContext(), "Clicked", Toast.LENGTH_SHORT).show();
             }
         });
+
         // Write codes about search view
 
         loadStudentsList();
@@ -199,6 +200,7 @@ public class ManageStudentFragment extends Fragment {
                 mRecyclerView.setHasFixedSize(false);
                 mLayoutManage = new LinearLayoutManager(getContext());
                 mRecyclerView.setLayoutManager(mLayoutManage);
+                mRecyclerView.setClickable(true);
 
                 adapter = new ManageStudentListAdapter(studentInfos);
                 mRecyclerView.setAdapter(adapter);

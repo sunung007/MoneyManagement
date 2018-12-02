@@ -1,6 +1,8 @@
 package org.androidtown.moneymanagement;
 
+import android.content.Intent;
 import android.support.annotation.NonNull;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,6 +20,7 @@ public class ManageStudentListAdapter extends RecyclerView.Adapter<RecyclerView.
         public TextView mSidNameView;
         public TextView mTypeView;
         public TextView mSupportView;
+        public CardView mListView;
 
         public MyManageViewHolder(View view) {
             super(view);
@@ -25,6 +28,7 @@ public class ManageStudentListAdapter extends RecyclerView.Adapter<RecyclerView.
             mSidNameView = (TextView) view.findViewById(R.id.manager_sid_name);
             mTypeView = (TextView) view.findViewById(R.id.manager_type);
             mSupportView = (TextView) view.findViewById(R.id.manager_support);
+            mListView = view.findViewById(R.id.manager_student_list);
         }
     }
 
@@ -44,11 +48,21 @@ public class ManageStudentListAdapter extends RecyclerView.Adapter<RecyclerView.
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
         MyManageViewHolder myViewHolder = (MyManageViewHolder) holder;
-        StudentInfo studentInfo = students.get(position);
+
+        final StudentInfo studentInfo = students.get(position);
 
         myViewHolder.mSidNameView.setText(studentInfo.Sid + " " + studentInfo.Sname);
         myViewHolder.mTypeView.setText(studentInfo.Ptype);
         myViewHolder.mSupportView.setText(studentInfo.Csupport);
+
+        myViewHolder.mListView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(view.getContext(), DetailStudentInfoPopup.class);
+                intent.putExtra("student", studentInfo);
+                view.getContext().startActivity(intent);
+            }
+        });
     }
 
     @Override

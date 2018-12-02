@@ -8,7 +8,7 @@
     tools:context=".EnrollPopupActivity">
 
     <TextView
-        android:id="@+id/title_enroll_popup"
+        android:id="@+id/title_detail_info"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:background="@color/colorPrimary"
@@ -28,7 +28,7 @@
         android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/title_enroll_popup"
+        app:layout_constraintTop_toBottomOf="@+id/title_detail_info"
         android:maxHeight="200dp"
         >
 
@@ -39,28 +39,28 @@
     </FrameLayout>
 
     <Button
-        android:id="@+id/button_enroll_enroll"
+        android:id="@+id/button_detail_modify"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:background="@color/colorPrimary"
         android:text="@string/button_enroll_accept"
         android:textAppearance="@style/TextAppearance.AppCompat.Menu"
         android:textColor="@color/colorWhite"
-        app:layout_constraintEnd_toStartOf="@+id/button_enroll_cancel"
+        app:layout_constraintEnd_toStartOf="@+id/button_detail_ok"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/frameLayout" />
 
     <Button
-        android:id="@+id/button_enroll_cancel"
+        android:id="@+id/button_detail_ok"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:background="@color/colorPrimary"
         android:text="@string/button_enroll_cancel"
         android:textAppearance="@style/TextAppearance.AppCompat.Menu"
-        app:layout_constraintBottom_toBottomOf="@+id/button_enroll_enroll"
+        app:layout_constraintBottom_toBottomOf="@+id/button_detail_modify"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/button_enroll_enroll"
-        app:layout_constraintTop_toTopOf="@+id/button_enroll_enroll"
+        app:layout_constraintStart_toEndOf="@+id/button_detail_modify"
+        app:layout_constraintTop_toTopOf="@+id/button_detail_modify"
         android:textColor="@color/colorWhite"
         />
 </android.support.constraint.ConstraintLayout>

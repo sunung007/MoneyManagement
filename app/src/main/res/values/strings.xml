@@ -96,14 +96,13 @@
 
     <string name="title_about_version">버전 정보</string>
     <string name="about_version">
-        [최종 수정일] 2018년 11월 28일
+        [최종 수정일] 2018년 12월 2일
     </string>
 
     <string name="title_enroll">학생회비 납부자 신규 등록</string>
     <string name="prompt_sid">학번</string>
     <string name="prompt_year">납부년도</string>
     <string name="prompt_type">납부유형</string>
-    <string name="prompt_semester">납부학기</string>
     <string name="prompt_amount">납부금액</string>
     <string name="prompt_auto_login">자동 로그인</string>
 
@@ -124,6 +123,9 @@
 
     <string name="button_enroll_accept">등록</string>
     <string name="button_enroll_cancel">취소</string>
+    
+    <string name="button_detail_modify">수정</string>
+    <string name="button_detail_ok">확인</string>
 
     <string name="name_account">한양대 컴소</string>
     <string name="subname_account">학생회</string>
