@@ -38,7 +38,8 @@
             android:theme="@style/AppTheme.NoActionBar.Dialog" />
         <activity
             android:name=".DetailStudentInfoPopup"
-            android:theme="@style/AppTheme.NoActionBar.Dialog" ></activity>
+            android:theme="@style/AppTheme.NoActionBar.Dialog" />
+        <activity android:name=".DetailStudentDeleteCheck"></activity>
     </application>
 
 </manifest>

@@ -111,6 +111,7 @@
     <string name="title_search_button">검색</string>
     <string name="title_caution">주의사항</string>
     <string name="title_support">지원대상</string>
+    <string name="title_detail_student_delete_check">정말 삭제하시겠습니까</string>
 
     <string name="title_menu_check">납부 확인</string>
     <string name="title_menu_enroll">신규 등록</string>
@@ -123,9 +124,11 @@
 
     <string name="button_enroll_accept">등록</string>
     <string name="button_enroll_cancel">취소</string>
-    
+
     <string name="button_detail_modify">수정</string>
     <string name="button_detail_ok">확인</string>
+    <string name="button_detail_delete">삭제</string>
+    <string name="button_detail_cancel">취소</string>
 
     <string name="name_account">한양대 컴소</string>
     <string name="subname_account">학생회</string>

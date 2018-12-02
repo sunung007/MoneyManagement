@@ -50,12 +50,21 @@ public class DetailStudentInfoPopup extends AppCompatActivity {
 
         Button mModifyButton = findViewById(R.id.button_detail_modify);
         Button mOkButton = findViewById(R.id.button_detail_ok);
+        Button mDeleteButton = findViewById(R.id.button_detail_delete);
 
         mModifyButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Toast.makeText(getApplicationContext(),
                         "아직 준비되지 않았습니다.", Toast.LENGTH_SHORT).show();
+            }
+        });
+        mDeleteButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), DetailStudentDeleteCheck.class);
+                intent.putExtra("student", studentInfo);
+                startActivityForResult(intent, 1);
             }
         });
         mOkButton.setOnClickListener(new View.OnClickListener() {
