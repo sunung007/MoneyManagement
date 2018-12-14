@@ -46,7 +46,7 @@ public class ManageStudentListAdapter extends RecyclerView.Adapter<RecyclerView.
     }
 
     @Override
-    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, final int position) {
         MyManageViewHolder myViewHolder = (MyManageViewHolder) holder;
 
         final StudentInfo studentInfo = students.get(position);
@@ -60,6 +60,8 @@ public class ManageStudentListAdapter extends RecyclerView.Adapter<RecyclerView.
             public void onClick(View view) {
                 Intent intent = new Intent(view.getContext(), DetailStudentInfoPopup.class);
                 intent.putExtra("student", studentInfo);
+                intent.putExtra("position", position);
+                intent.putExtra("size", getItemCount());
                 view.getContext().startActivity(intent);
             }
         });

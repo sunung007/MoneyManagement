@@ -39,7 +39,7 @@
     </FrameLayout>
 
     <Button
-        android:id="@+id/button_detail_modify"
+        android:id="@+id/button_search_result_ok"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:background="@color/colorPrimary"
@@ -57,10 +57,10 @@
         android:background="@color/colorPrimary"
         android:text="@string/button_enroll_cancel"
         android:textAppearance="@style/TextAppearance.AppCompat.Menu"
-        app:layout_constraintBottom_toBottomOf="@+id/button_detail_modify"
+        app:layout_constraintBottom_toBottomOf="@+id/button_search_result_ok"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/button_detail_modify"
-        app:layout_constraintTop_toTopOf="@+id/button_detail_modify"
+        app:layout_constraintStart_toEndOf="@+id/button_search_result_ok"
+        app:layout_constraintTop_toTopOf="@+id/button_search_result_ok"
         android:textColor="@color/colorWhite"
         />
 </android.support.constraint.ConstraintLayout>

@@ -130,7 +130,7 @@
         app:layout_constraintVertical_bias="0.333" />
 
     <Button
-        android:id="@+id/button_detail_modify"
+        android:id="@+id/button_search_result_ok"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
@@ -151,8 +151,8 @@
         android:textAppearance="@style/TextAppearance.AppCompat.Menu"
         android:textColor="@color/colorWhite"
         app:layout_constraintEnd_toStartOf="@+id/button_detail_ok"
-        app:layout_constraintStart_toEndOf="@+id/button_detail_modify"
-        app:layout_constraintTop_toTopOf="@+id/button_detail_modify" />
+        app:layout_constraintStart_toEndOf="@+id/button_search_result_ok"
+        app:layout_constraintTop_toTopOf="@+id/button_search_result_ok" />
 
     <Button
         android:id="@+id/button_detail_ok"
@@ -162,7 +162,7 @@
         android:text="@string/button_detail_ok"
         android:textAppearance="@style/TextAppearance.AppCompat.Menu"
         android:textColor="@color/colorWhite"
-        app:layout_constraintBottom_toBottomOf="@+id/button_detail_modify"
+        app:layout_constraintBottom_toBottomOf="@+id/button_search_result_ok"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/button_detail_delete"
         app:layout_constraintTop_toTopOf="@+id/button_detail_delete"

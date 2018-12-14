@@ -8,8 +8,6 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.text.TextUtils;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -125,14 +123,14 @@ public class EnrollFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 // If there is already child fragment, remove it.
-                FragmentManager fm = getChildFragmentManager();
-                FragmentTransaction ft = fm.beginTransaction();
-                Fragment fragment = fm.findFragmentById(R.id.student_search_result);
-
-                if(fragment != null) {
-                    ft.remove(fragment);
-                    ft.commit();
-                }
+//                FragmentManager fm = getChildFragmentManager();
+//                FragmentTransaction ft = fm.beginTransaction();
+//                Fragment fragment = fm.findFragmentById(R.id.student_search_result);
+//
+//                if(fragment != null) {
+//                    ft.remove(fragment);
+//                    ft.commit();
+//                }
                 searchStudent();
             }
         });

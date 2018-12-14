@@ -130,6 +130,8 @@
     <string name="button_detail_delete">삭제</string>
     <string name="button_detail_cancel">취소</string>
 
+    <string name="button_search_result_ok">확인</string>
+
     <string name="name_account">한양대 컴소</string>
     <string name="subname_account">학생회</string>
 

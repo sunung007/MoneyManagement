@@ -1,5 +1,7 @@
 package org.androidtown.moneymanagement;
 
+import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -12,6 +14,8 @@ import android.widget.Toast;
 public class DetailStudentInfoPopup extends AppCompatActivity {
 
     private StudentInfo studentInfo;
+    private int position;
+    private int totalNum;
 
     private TextView mTitleView;
     private TextView mYearView;
@@ -19,16 +23,25 @@ public class DetailStudentInfoPopup extends AppCompatActivity {
     private TextView mAmountView;
     private TextView mSupportView;
 
+    public static Activity mActivity;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_detail_student_info_popup);
 
+        mActivity = DetailStudentInfoPopup.this;
         Intent intent = getIntent();
 
         try {
             studentInfo = intent.getParcelableExtra("student");
+            position = intent.getIntExtra("position", -1);
+            totalNum = intent.getIntExtra("size", -1);
+
+            if(position < 0 || totalNum < 1) {
+                throw new Exception();
+            }
         } catch (Exception e) {
             Toast.makeText(getApplicationContext(),
                     "Loading failed", Toast.LENGTH_SHORT).show();
@@ -48,7 +61,7 @@ public class DetailStudentInfoPopup extends AppCompatActivity {
         mAmountView.setText(studentInfo.Pamount);
         mSupportView.setText(studentInfo.Csupport);
 
-        Button mModifyButton = findViewById(R.id.button_detail_modify);
+        Button mModifyButton = findViewById(R.id.button_search_result_ok);
         Button mOkButton = findViewById(R.id.button_detail_ok);
         Button mDeleteButton = findViewById(R.id.button_detail_delete);
 
@@ -64,7 +77,9 @@ public class DetailStudentInfoPopup extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent = new Intent(getApplicationContext(), DetailStudentDeleteCheck.class);
                 intent.putExtra("student", studentInfo);
-                startActivityForResult(intent, 1);
+                intent.putExtra("position", position);
+                intent.putExtra("size", totalNum);
+                startActivity(intent);
             }
         });
         mOkButton.setOnClickListener(new View.OnClickListener() {
@@ -73,5 +88,9 @@ public class DetailStudentInfoPopup extends AppCompatActivity {
                 finish();
             }
         });
+    }
+
+    public Context getContext() {
+        return this.getApplicationContext();
     }
 }

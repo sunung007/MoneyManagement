@@ -20,21 +20,19 @@
 
         <TextView
             android:id="@+id/textView12"
-            android:layout_width="80dp"
+            android:layout_width="60dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="0dp"
             android:text="@string/prompt_year"
             android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+            android:textStyle="bold"
             app:layout_constraintEnd_toStartOf="@+id/result_pyear"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/result_all"
-            android:textStyle="bold"
-            />
+            app:layout_constraintTop_toBottomOf="@+id/result_all" />
 
         <TextView
             android:id="@+id/result_pyear"
-            android:layout_width="80dp"
+            android:layout_width="60dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="0dp"
             android:textAppearance="@style/TextAppearance.AppCompat.Body1"
@@ -43,16 +41,15 @@
 
         <TextView
             android:id="@+id/textView14"
-            android:layout_width="80dp"
+            android:layout_width="60dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="0dp"
             android:layout_marginEnd="0dp"
             android:text="@string/prompt_type"
             android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-            app:layout_constraintEnd_toStartOf="@+id/result_ptype"
-            app:layout_constraintTop_toBottomOf="@+id/result_all"
             android:textStyle="bold"
-            />
+            app:layout_constraintEnd_toStartOf="@+id/result_ptype"
+            app:layout_constraintTop_toBottomOf="@+id/result_all" />
 
         <TextView
             android:id="@+id/result_ptype"
@@ -76,27 +73,25 @@
 
         <TextView
             android:id="@+id/textView13"
-            android:layout_width="80dp"
+            android:layout_width="60dp"
             android:layout_height="wrap_content"
             android:text="@string/prompt_amount"
             android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-            android:textStyle="bold"
-            />
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/result_pamount"
-            android:layout_width="80dp"
+            android:layout_width="60dp"
             android:layout_height="wrap_content"
             android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
 
         <TextView
             android:id="@+id/textView18"
-            android:layout_width="80dp"
+            android:layout_width="60dp"
             android:layout_height="wrap_content"
             android:text="@string/title_support"
             android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-            android:textStyle="bold"
-            />
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/result_support"

@@ -2,12 +2,11 @@ package org.androidtown.moneymanagement;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.text.TextUtils;
 import android.view.Gravity;
 import android.view.KeyEvent;
@@ -74,14 +73,14 @@ public class SearchStudentFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 // If there is already child fragment, remove it.
-                FragmentManager fm = getChildFragmentManager();
-                FragmentTransaction ft = fm.beginTransaction();
-                Fragment fragment = fm.findFragmentById(R.id.student_search_result);
-
-                if(fragment != null) {
-                    ft.remove(fragment);
-                    ft.commit();
-                }
+//                FragmentManager fm = getChildFragmentManager();
+//                FragmentTransaction ft = fm.beginTransaction();
+//                Fragment fragment = fm.findFragmentById(R.id.student_search_result);
+//
+//                if(fragment != null) {
+//                    ft.remove(fragment);
+//                    ft.commit();
+//                }
                 searchStudent();
             }
         });
@@ -276,12 +275,12 @@ public class SearchStudentFragment extends Fragment {
                         getSystemService(Activity.INPUT_METHOD_SERVICE);
                 imm.hideSoftInputFromWindow(getView().getWindowToken(), 0);
 
-                // Change fragment.
-                Fragment fragment = new SearchResultFragment();
-                FragmentTransaction ft = getChildFragmentManager().beginTransaction();
-                ft.replace(R.id.student_search_result, fragment);
-                ft.commit();
+                // Open popup activity.
+                Intent intent = new Intent(getActivity().getApplicationContext(),
+                        SearchResultPopup.class);
+                intent.putParcelableArrayListExtra("result", target);
 
+                startActivityForResult(intent, 1);
             } else {
                 // If the result array list is empty, which means
                 // the student that user put in is not in DB, just float Toast.
