@@ -72,15 +72,6 @@ public class SearchStudentFragment extends Fragment {
         studentSearchButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                // If there is already child fragment, remove it.
-//                FragmentManager fm = getChildFragmentManager();
-//                FragmentTransaction ft = fm.beginTransaction();
-//                Fragment fragment = fm.findFragmentById(R.id.student_search_result);
-//
-//                if(fragment != null) {
-//                    ft.remove(fragment);
-//                    ft.commit();
-//                }
                 searchStudent();
             }
         });
@@ -121,8 +112,9 @@ public class SearchStudentFragment extends Fragment {
         // Set progress bar to visible.
         mProgressBar.setVisibility(View.VISIBLE);
 
-        // Reset errors.
+        // Reset errors and array.
         mSnameView.setError(null);
+        target.clear();
 
         // Store values at the time of the search attempt.
         mSid = mSidView.getSelectedItem().toString().substring(0, 2);
@@ -176,7 +168,12 @@ public class SearchStudentFragment extends Fragment {
 
         @Override
         protected Boolean doInBackground(Void... params) {
-            // TODO: attempt authentication against a network service.
+            try {
+                Thread.sleep(500);
+            } catch (Exception e) {
+                return false;
+            }
+
             valueEventListener = new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {

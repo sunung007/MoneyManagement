@@ -46,7 +46,7 @@ public class SearchResultPopup extends AppCompatActivity {
         mSnumber = resultStudent.size();
         mSid = resultStudent.get(0).Sid;
         mSname = resultStudent.get(0).Sname;
-        mTargetInfo = mSid + " " + mSname + "검색결과";
+        mTargetInfo = mSid + " " + mSname + " 검색결과";
 
         countStudents();
 

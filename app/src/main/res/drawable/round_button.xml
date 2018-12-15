@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:state_pressed="true">
+        <shape>
+            <solid
+                android:color="@color/colorPrimaryLight"
+                />
+            <corners
+                android:bottomLeftRadius="@dimen/round_button_angle"
+                android:bottomRightRadius="@dimen/round_button_angle"
+                android:topLeftRadius="@dimen/round_button_angle"
+                android:topRightRadius="@dimen/round_button_angle" />
+        </shape>
+    </item>
+    <item android:state_pressed="false">
+        <shape>
+            <solid
+                android:color="@color/colorPrimary"
+                />
+            <corners
+                android:bottomLeftRadius="@dimen/round_button_angle"
+                android:bottomRightRadius="@dimen/round_button_angle"
+                android:topLeftRadius="@dimen/round_button_angle"
+                android:topRightRadius="@dimen/round_button_angle" />
+        </shape>
+    </item>
+</selector>

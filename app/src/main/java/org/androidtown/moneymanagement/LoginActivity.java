@@ -10,6 +10,7 @@ import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.WindowManager;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
@@ -57,6 +58,9 @@ public class LoginActivity extends AppCompatActivity {
 
         // First, progress bar must not be seen.
         mProgressBar.setVisibility(View.GONE);
+
+        // Set soft keyboard not to hide when it is up.
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
 
         // Login button listener
         mEmailSignInButton.setOnClickListener(new OnClickListener() {
