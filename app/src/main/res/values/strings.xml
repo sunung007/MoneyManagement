@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">CSE 학생회</string>
+    <string name="app_name">컴소 학생회</string>
     <string name="title_activity_login">CSE 학생회</string>
     <string name="title_activity_main">한양대 컴소 학생회</string>
     <string name="title_activity_start">CSE 학생회</string>

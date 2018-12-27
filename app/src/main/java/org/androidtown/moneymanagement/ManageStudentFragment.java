@@ -27,14 +27,6 @@ import java.util.Iterator;
 
 
 public class ManageStudentFragment extends Fragment {
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
 
     private LoadAllStudents mAuthTask;
 
@@ -42,15 +34,14 @@ public class ManageStudentFragment extends Fragment {
     private DatabaseReference conditionRef = mRootRef.child("student");
     private ValueEventListener valueEventListener;
 
-    private RecyclerView mRecyclerView;
-    private RecyclerView.LayoutManager mLayoutManage;
-    private RecyclerView.Adapter adapter;
-    private ProgressBar mProgressBar;
-    private SearchView mSearchView;
+    RecyclerView mRecyclerView;
+    RecyclerView.LayoutManager mLayoutManage;
+    RecyclerView.Adapter adapter;
+    ProgressBar mProgressBar;
+    SearchView mSearchView;
 
     private ArrayList<StudentInfo> students;
     private int sNumber = 0;
-    String tmp;
 
     public ManageStudentFragment() {
         // Required empty public constructor
@@ -59,24 +50,6 @@ public class ManageStudentFragment extends Fragment {
     public void setStudents(ArrayList<StudentInfo> _students) {
         students = new ArrayList<>(_students);
         sNumber = _students.size();
-    }
-
-    public static ManageStudentFragment newInstance(String param1, String param2) {
-        ManageStudentFragment fragment = new ManageStudentFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
     }
 
     @Override
@@ -115,7 +88,6 @@ public class ManageStudentFragment extends Fragment {
 
         @Override
         protected Boolean doInBackground(Void... params) {
-            // TODO: attempt authentication against a network service.
             valueEventListener = new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {

@@ -104,17 +104,16 @@ public class EnrollFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-
         View view = inflater.inflate(R.layout.fragment_enroll, container, false);
-        Button studentSearchButton = (Button) view.findViewById(R.id.enroll_button);
 
-        mSnameView = (EditText) view.findViewById(R.id.enroll_name);
-        mSidView = (Spinner) view.findViewById(R.id.enroll_sid);
-        mPyearView = (Spinner) view.findViewById(R.id.enroll_pyear);
-        mPtypeView = (Spinner) view.findViewById(R.id.enroll_ptype);
-        mPamountView = (Spinner) view.findViewById(R.id.enroll_pamount);
+        Button studentSearchButton = view.findViewById(R.id.enroll_button);
+        mSnameView = view.findViewById(R.id.enroll_name);
+        mSidView = view.findViewById(R.id.enroll_sid);
+        mPyearView = view.findViewById(R.id.enroll_pyear);
+        mPtypeView = view.findViewById(R.id.enroll_ptype);
+        mPamountView = view.findViewById(R.id.enroll_pamount);
         mEnrollView = view.findViewById(R.id.student_enroll_view);
-        mProgressBar = (ProgressBar) view.findViewById(R.id.enroll_progressBar);
+        mProgressBar = view.findViewById(R.id.enroll_progressBar);
 
         mProgressBar.setVisibility(View.GONE);
 
@@ -122,15 +121,6 @@ public class EnrollFragment extends Fragment {
         studentSearchButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                // If there is already child fragment, remove it.
-//                FragmentManager fm = getChildFragmentManager();
-//                FragmentTransaction ft = fm.beginTransaction();
-//                Fragment fragment = fm.findFragmentById(R.id.student_search_result);
-//
-//                if(fragment != null) {
-//                    ft.remove(fragment);
-//                    ft.commit();
-//                }
                 searchStudent();
             }
         });
@@ -200,11 +190,6 @@ public class EnrollFragment extends Fragment {
             mAuthTask.execute((Void) null);
         }
     }
-
-//    public class PushTask extends AsyncTask<Void, Void, Boolean>{
-//
-//    }
-
 
     public class SearchTask extends AsyncTask<Void, Void, Boolean> {
 

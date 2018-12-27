@@ -25,9 +25,9 @@ public class ManageStudentListAdapter extends RecyclerView.Adapter<RecyclerView.
         public MyManageViewHolder(View view) {
             super(view);
 
-            mSidNameView = (TextView) view.findViewById(R.id.manager_sid_name);
-            mTypeView = (TextView) view.findViewById(R.id.manager_type);
-            mSupportView = (TextView) view.findViewById(R.id.manager_support);
+            mSidNameView = view.findViewById(R.id.manager_sid_name);
+            mTypeView = view.findViewById(R.id.manager_type);
+            mSupportView = view.findViewById(R.id.manager_support);
             mListView = view.findViewById(R.id.manager_student_list);
         }
     }

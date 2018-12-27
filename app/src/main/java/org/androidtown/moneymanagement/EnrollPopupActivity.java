@@ -63,7 +63,7 @@ public class EnrollPopupActivity extends AppCompatActivity {
         mRecyclerView.setAdapter(adapter);
 
         Button buttonEnroll = findViewById(R.id.button_search_result_ok);
-        Button buttonCancle = findViewById(R.id.button_detail_ok);
+        Button buttonCancel = findViewById(R.id.button_detail_ok);
 
         buttonEnroll.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -86,7 +86,7 @@ public class EnrollPopupActivity extends AppCompatActivity {
             }
         });
 
-        buttonCancle.setOnClickListener(new View.OnClickListener() {
+        buttonCancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 finish();

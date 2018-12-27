@@ -7,7 +7,8 @@
     android:layout_height="60dp"
     android:background="@color/colorNoColor"
     android:gravity="center_vertical|center_horizontal|center"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    app:cardBackgroundColor="@color/cardview_light_background">
 
     <View
         android:id="@+id/view4"

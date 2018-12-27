@@ -168,17 +168,13 @@ public class SearchStudentFragment extends Fragment {
 
         @Override
         protected Boolean doInBackground(Void... params) {
-            try {
-                Thread.sleep(500);
-            } catch (Exception e) {
-                return false;
-            }
+
+            // Initialize array.
+            target.clear();
 
             valueEventListener = new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                    // Initialize array.
-                    target.clear();
 
                     // Start searching process.
                     Iterator<DataSnapshot> child = dataSnapshot.getChildren().iterator();

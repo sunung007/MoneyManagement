@@ -40,16 +40,14 @@
             android:hint="@string/blank_id"
             android:inputType="textEmailAddress"
             android:maxLines="1"
-            android:paddingStart="12dp"
-            android:paddingEnd="12dp"
             android:singleLine="true"
+            android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+            android:textSize="@dimen/costom_edit_text_size"
             android:visibility="visible"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/imageView"
-            android:textSize="@dimen/costom_edit_text_size"
-            />
+            app:layout_constraintTop_toBottomOf="@+id/imageView" />
 
         <EditText
             android:id="@+id/password"
@@ -63,15 +61,13 @@
             android:imeOptions="actionUnspecified"
             android:inputType="textPassword"
             android:maxLines="1"
-            android:paddingStart="12dp"
-            android:paddingEnd="12dp"
             android:singleLine="true"
+            android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+            android:textSize="@dimen/costom_edit_text_size"
             android:visibility="visible"
             app:layout_constraintEnd_toEndOf="@+id/email"
             app:layout_constraintStart_toStartOf="@+id/email"
-            app:layout_constraintTop_toBottomOf="@+id/email"
-            android:textSize="@dimen/costom_edit_text_size"
-            />
+            app:layout_constraintTop_toBottomOf="@+id/email" />
 
 
         <Button

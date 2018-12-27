@@ -9,7 +9,7 @@ public class StudentInfo implements Parcelable {
     public String Pyear;
     public String Sid;
     public String Sname;
-    public String Csupport = "UNKNOWN";  // Could support now?
+    public String Csupport = "UNKNOWN";
 
     public StudentInfo() {
     }

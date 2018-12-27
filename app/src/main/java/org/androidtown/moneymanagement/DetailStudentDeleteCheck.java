@@ -69,7 +69,7 @@ public class DetailStudentDeleteCheck extends AppCompatActivity {
             public void onClick(View view) {
                 mProgressBar.setVisibility(View.VISIBLE);
                 mAuthTask = new DeleteStudent(position, totalNum);
-//                mAuthTask.execute((Void) null);
+                mAuthTask.execute((Void) null);
             }
         });
 
@@ -96,56 +96,47 @@ public class DetailStudentDeleteCheck extends AppCompatActivity {
         }
         @Override
         protected Boolean doInBackground(Void... voids) {
-            try {
-                String curIter, nextIter;
-                StudentInfo curStu = new StudentInfo();
-                StudentInfo nextStu = new StudentInfo();
 
-                valueEventListener = new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                        Iterator<DataSnapshot> child = dataSnapshot.getChildren().iterator();
-                        DataSnapshot ds;
-                        String tName, tId, tAmount, tType, tYear, cSupport;
+            valueEventListener = new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    Iterator<DataSnapshot> child = dataSnapshot.getChildren().iterator();
+                    DataSnapshot ds;
+                    DatabaseReference curRef;
 
+                    int i;
+                    for(i = 0 ; i <= index ; i++) {
+                        ds = child.next();
                     }
 
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError databaseError) {
+                    i = index;
+                    while(child.hasNext()) {
+                        ds = child.next();
 
+                        curRef = conditionRef.child(String.valueOf(i));
+
+                        curRef.child("Sname").setValue(ds.child("Sname").getValue().toString());
+                        curRef.child("Sid").setValue(ds.child("Sid").getValue().toString());
+                        curRef.child("Pamount").setValue(ds.child("Pamount").getValue().toString());
+                        curRef.child("Ptype").setValue(ds.child("Ptype").getValue().toString());
+                        curRef.child("Pyear").setValue(ds.child("Pyear").getValue().toString());
+
+                        i++;
                     }
-                };
-                for(int i = index ; i < totalIndex ; i++) {
-                    curIter = String.valueOf(i);
-                    nextIter = String.valueOf(i + 1);
-                    nextStu.Pamount = conditionRef.child(nextIter).child("Pamount").getKey();
-                    nextStu.Ptype = conditionRef.child(nextIter).child("Ptype").getKey();
-                    nextStu.Pyear = conditionRef.child(nextIter).child("Pyear").getKey();
-                    nextStu.Sid = conditionRef.child(nextIter).child("Sid").getKey();
-                    nextStu.Sname = conditionRef.child(nextIter).child("Sname").getKey();
-//                    conditionRef.child(curIter).child("Pamount")
-//                            .setValue(conditionRef.child(nextIter).child("Pamount"));
-//                    conditionRef.child(curIter).child("Ptype")
-//                            .setValue(conditionRef.child(nextIter).child("Ptype"));
-//                    conditionRef.child(curIter).child("Pyear")
-//                            .setValue(conditionRef.child(nextIter).child("Pyear"));
-//                    conditionRef.child(curIter).child("Sid")
-//                            .setValue(conditionRef.child(nextIter).child("Sid"));
-//                    conditionRef.child(curIter).child("Sname")
-//                            .setValue(conditionRef.child(nextIter).child("Sname"));
-//                    conditionRef.child(curIter).setValue(
-//                            conditionRef.child(nextIter));
+
+                    curRef = conditionRef.child(String.valueOf(totalIndex));
+                    curRef.removeValue();
                 }
 
-                tmp = nextStu.Sname;
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) { }
+            };
 
-//                conditionRef.child(endIndex).removeValue();
-            } catch (Exception e) {
-                return false;
-            }
+            conditionRef.addListenerForSingleValueEvent(valueEventListener);
+
 
             try {
-                Thread.sleep(2000);
+                Thread.sleep(500);
             } catch (Exception e) {
                 return false;
             }
@@ -158,26 +149,15 @@ public class DetailStudentDeleteCheck extends AppCompatActivity {
             mAuthTask = null;
 
             if (success) {
-                Toast.makeText(getApplicationContext(), tmp, Toast.LENGTH_SHORT).show();
-//                Toast.makeText(getApplicationContext(), "삭제되었습니다", Toast.LENGTH_SHORT).show();
-                previousActivity.finish();
-
-
-
-//                finish();
-
-//                Fragment fragment = new ManageStudentFragment();
-//                FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-//                ft.replace(R.id.main_fragment, fragment);
-//                ft.commit();
-//                ft.detach(fragment).attach(fragment).commit();
-
+                Toast.makeText(getApplicationContext(), "삭제되었습니다", Toast.LENGTH_SHORT).show();
             } else {
                 Toast.makeText(getApplicationContext(), "Delete failed", Toast.LENGTH_SHORT).show();
             }
 
-            finish();
+            conditionRef.removeEventListener(valueEventListener);
 
+            previousActivity.finish();
+            finish();
         }
 
         @Override

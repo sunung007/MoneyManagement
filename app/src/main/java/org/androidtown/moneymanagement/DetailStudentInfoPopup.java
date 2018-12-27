@@ -17,11 +17,11 @@ public class DetailStudentInfoPopup extends AppCompatActivity {
     private int position;
     private int totalNum;
 
-    private TextView mTitleView;
-    private TextView mYearView;
-    private TextView mTypeView;
-    private TextView mAmountView;
-    private TextView mSupportView;
+    TextView mTitleView;
+    TextView mYearView;
+    TextView mTypeView;
+    TextView mAmountView;
+    TextView mSupportView;
 
     public static Activity mActivity;
 
