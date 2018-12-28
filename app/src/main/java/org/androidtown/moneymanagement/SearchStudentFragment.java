@@ -162,62 +162,122 @@ public class SearchStudentFragment extends Fragment {
             // Initialize array.
             target.clear();
 
-            valueEventListener = new ValueEventListener() {
-                @Override
-                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+            if(mSid.equals("전체")) {
+                valueEventListener = new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
-                    // Start searching process.
-                    Iterator<DataSnapshot> child = dataSnapshot.getChildren().iterator();
-                    DataSnapshot ds;
-                    String tName, tId, tAmount, tType, tYear, cSupport;
+                        // Start searching process.
+                        Iterator<DataSnapshot> child = dataSnapshot.getChildren().iterator();
+                        DataSnapshot ds;
+                        String tName, tId, tAmount, tType, tYear, cSupport;
 
-                    int currentYear, tmpAll;
-                    int tmpYear, tmpType;
-                    currentYear = Calendar.getInstance().get(Calendar.YEAR)
-                            + Calendar.getInstance().get(Calendar.MONTH)/6;
+                        int currentYear, tmpAll;
+                        int tmpYear, tmpType;
+                        currentYear = Calendar.getInstance().get(Calendar.YEAR)
+                                + Calendar.getInstance().get(Calendar.MONTH)/6;
 
-                    while(child.hasNext()) {
-                        ds = child.next();
-                        tName = ds.child("Sname").getValue().toString().trim();
-                        tId = ds.child("Sid").getValue().toString().trim();
+                        while(child.hasNext()) {
+                            ds = child.next();
+                            tName = ds.child("Sname").getValue().toString().trim();
+                            tId = ds.child("Sid").getValue().toString().trim();
 
-                        if(mSname.equals(tName) && mSid.equals(tId)) {
-                            tAmount = ds.child("Pamount").getValue().toString();
-                            tType = ds.child("Ptype").getValue().toString();
-                            tYear = ds.child("Pyear").getValue().toString();
+                            if(mSname.equals(tName)) {
+                                tAmount = ds.child("Pamount").getValue().toString();
+                                tType = ds.child("Ptype").getValue().toString();
+                                tYear = ds.child("Pyear").getValue().toString();
 
-                            if(tType.contains("전액")) {
-                                cSupport = "YES";
-                            } else if(tType.contains("미납")) {
-                                cSupport = "NO";
-                            } else if(tType.contains("학기")) {
-                                // The condition is about whether a person can support by student's money.
-                                try {
-                                    tmpYear = Integer.parseInt(tYear.substring(0, 2), 10) + 2000;
-                                    tmpType = Integer.parseInt(tAmount.substring(0, 1), 10);
+                                if(tType.contains("전액")) {
+                                    cSupport = "YES";
+                                } else if(tType.contains("미납")) {
+                                    cSupport = "NO";
+                                } else if(tType.contains("학기")) {
+                                    // The condition is about whether a person can support by student's money.
+                                    try {
+                                        tmpYear = Integer.parseInt(tYear.substring(0, 2), 10) + 2000;
+                                        tmpType = Integer.parseInt(tAmount.substring(0, 1), 10);
 
-                                    tmpAll = tmpYear + tmpType/2;
+                                        tmpAll = tmpYear + tmpType/2;
 
-                                    cSupport = (tmpAll >= currentYear) ? "YES" : "NO";
-                                } catch (Exception e) {
+                                        cSupport = (tmpAll >= currentYear) ? "YES" : "NO";
+                                    } catch (Exception e) {
+                                        cSupport = "UNKNOWN";
+                                    }
+                                } else {
                                     cSupport = "UNKNOWN";
                                 }
-                            } else {
-                                cSupport = "UNKNOWN";
-                            }
 
-                            target.add(new StudentInfo(tAmount, tType, tYear, tId, tName, cSupport));
+                                target.add(new StudentInfo(tAmount, tType, tYear, tId, tName, cSupport));
+                            }
                         }
                     }
-                }
 
-                // Just formal.
-                @Override
-                public void onCancelled(@NonNull DatabaseError databaseError) {
-                    target.clear();
-                }
+                    // Just formal.
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+                        target.clear();
+                    }
 
-            };
+                };
+
+            } else {
+                valueEventListener = new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                        // Start searching process.
+                        Iterator<DataSnapshot> child = dataSnapshot.getChildren().iterator();
+                        DataSnapshot ds;
+                        String tName, tId, tAmount, tType, tYear, cSupport;
+
+                        int currentYear, tmpAll;
+                        int tmpYear, tmpType;
+                        currentYear = Calendar.getInstance().get(Calendar.YEAR)
+                                + Calendar.getInstance().get(Calendar.MONTH)/6;
+
+                        while(child.hasNext()) {
+                            ds = child.next();
+                            tName = ds.child("Sname").getValue().toString().trim();
+                            tId = ds.child("Sid").getValue().toString().trim();
+
+                            if(mSname.equals(tName) && mSid.equals(tId)) {
+                                tAmount = ds.child("Pamount").getValue().toString();
+                                tType = ds.child("Ptype").getValue().toString();
+                                tYear = ds.child("Pyear").getValue().toString();
+
+                                if(tType.contains("전액")) {
+                                    cSupport = "YES";
+                                } else if(tType.contains("미납")) {
+                                    cSupport = "NO";
+                                } else if(tType.contains("학기")) {
+                                    // The condition is about whether a person can support by student's money.
+                                    try {
+                                        tmpYear = Integer.parseInt(tYear.substring(0, 2), 10) + 2000;
+                                        tmpType = Integer.parseInt(tAmount.substring(0, 1), 10);
+
+                                        tmpAll = tmpYear + tmpType/2;
+
+                                        cSupport = (tmpAll >= currentYear) ? "YES" : "NO";
+                                    } catch (Exception e) {
+                                        cSupport = "UNKNOWN";
+                                    }
+                                } else {
+                                    cSupport = "UNKNOWN";
+                                }
+
+                                target.add(new StudentInfo(tAmount, tType, tYear, tId, tName, cSupport));
+                            }
+                        }
+                    }
+
+                    // Just formal.
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+                        target.clear();
+                    }
+
+                };
+            }
 
             // Add event listener of DB.
             conditionRef.addListenerForSingleValueEvent(valueEventListener);
@@ -254,16 +314,21 @@ public class SearchStudentFragment extends Fragment {
             if (success) {
                 // If the result array list is not empty, close keypad and change fragment.
                 // Close keypad.
-                InputMethodManager imm = (InputMethodManager) getActivity().
-                        getSystemService(Activity.INPUT_METHOD_SERVICE);
+                InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Activity.INPUT_METHOD_SERVICE);
                 imm.hideSoftInputFromWindow(getView().getWindowToken(), 0);
 
                 // Open popup activity.
-                Intent intent = new Intent(getActivity().getApplicationContext(),
-                        SearchResultPopup.class);
+                Intent intent = new Intent(getActivity().getApplicationContext(), SearchResultPopup.class);
                 intent.putParcelableArrayListExtra("result", target);
 
+                if(mSid.equals("전체")) {
+                    intent.putExtra("type", 1);
+                } else {
+                    intent.putExtra("type", 0);
+                }
+
                 startActivityForResult(intent, 1);
+
             } else {
                 // If the result array list is empty, which means
                 // the student that user put in is not in DB, just float Toast.

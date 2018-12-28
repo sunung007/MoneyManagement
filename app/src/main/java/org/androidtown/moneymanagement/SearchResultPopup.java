@@ -25,6 +25,7 @@ public class SearchResultPopup extends AppCompatActivity {
 
     String mSid, mSname, mTargetInfo, mResultAll;
     int mSnumber, mSupportNumber = 0;
+    int searchType;
 
 
     @Override
@@ -36,6 +37,7 @@ public class SearchResultPopup extends AppCompatActivity {
 
         try {
             resultStudent = intent.getParcelableArrayListExtra("result");
+            searchType = intent.getIntExtra("type", 0);
         } catch (Exception e) {
             Toast.makeText(getApplicationContext(), "Loading Failed", Toast.LENGTH_SHORT).show();
             finish();
@@ -44,7 +46,12 @@ public class SearchResultPopup extends AppCompatActivity {
         mSnumber = resultStudent.size();
         mSid = resultStudent.get(0).Sid;
         mSname = resultStudent.get(0).Sname;
-        mTargetInfo = mSid + " " + mSname + " 검색결과";
+
+        if(searchType == 0) {
+            mTargetInfo = mSid + " " + mSname + " 검색결과";
+        } else {
+            mTargetInfo = mSname + " 전체 검색결과";
+        }
 
         countStudents();
 
