@@ -1,8 +1,6 @@
 package org.androidtown.moneymanagement;
 
 import android.app.Activity;
-import android.app.Fragment;
-import android.app.FragmentManager;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -96,12 +94,9 @@ public class DetailStudentInfoPopup extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if(requestCode == 1 && resultCode == RESULT_OK) {
-            FragmentManager fm = getFragmentManager();
-//            FragmentTransaction ft;
-            Fragment fragment = fm.findFragmentById(R.id.main_fragment);
-
-
             finish();
+            
+            ManageStudentFragment.refreshFragment();
         }
     }
 

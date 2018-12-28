@@ -5,6 +5,8 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -29,21 +31,25 @@ import java.util.Iterator;
 
 public class ManageStudentFragment extends Fragment {
 
-    private LoadAllStudents mAuthTask;
+    LoadAllStudents mAuthTask;
 
-    private DatabaseReference mRootRef = FirebaseDatabase.getInstance().getReference();
-    private DatabaseReference conditionRef = mRootRef.child("student");
-    private ValueEventListener valueEventListener;
+    DatabaseReference mRootRef = FirebaseDatabase.getInstance().getReference();
+    DatabaseReference conditionRef = mRootRef.child("student");
+    ValueEventListener valueEventListener;
 
     RecyclerView mRecyclerView;
     RecyclerView.LayoutManager mLayoutManage;
-    RecyclerView.Adapter adapter;
+    static RecyclerView.Adapter adapter;
+
+    static FragmentManager thisFragmentManager;
+    static Fragment thisFragment;
+
     ProgressBar mProgressBar;
     SearchView mSearchView;
     SwipeRefreshLayout mSwipeRefreshLayout;
 
-    private ArrayList<StudentInfo> students;
-    private int sNumber = 0;
+    ArrayList<StudentInfo> students;
+    int sNumber = 0;
 
     public ManageStudentFragment() {
         // Required empty public constructor
@@ -54,8 +60,9 @@ public class ManageStudentFragment extends Fragment {
         sNumber = _students.size();
     }
 
+    @NonNull
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_manage_student, container, false);
@@ -63,8 +70,10 @@ public class ManageStudentFragment extends Fragment {
         mProgressBar = view.findViewById(R.id.manage_progressBar);
         mProgressBar.setVisibility(View.GONE);
 
-        mSearchView = view.findViewById(R.id.manage_searchBar);
+        thisFragmentManager = getFragmentManager();
+        thisFragment = this;
 
+        mSearchView = view.findViewById(R.id.manage_searchBar);
         // Test
         mSearchView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -87,6 +96,12 @@ public class ManageStudentFragment extends Fragment {
         loadStudentsList();
 
         return view;
+    }
+
+    public static void refreshFragment () {
+        FragmentManager fm = thisFragmentManager;
+        FragmentTransaction ft = fm.beginTransaction();
+        ft.detach(thisFragment).attach(thisFragment).commit();
     }
 
     public void loadStudentsList() {
