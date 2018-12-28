@@ -1,6 +1,8 @@
 package org.androidtown.moneymanagement;
 
 import android.app.Activity;
+import android.app.Fragment;
+import android.app.FragmentManager;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -23,7 +25,7 @@ public class DetailStudentInfoPopup extends AppCompatActivity {
     TextView mAmountView;
     TextView mSupportView;
 
-    public static Activity mActivity;
+    public Activity mActivity;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,7 +57,8 @@ public class DetailStudentInfoPopup extends AppCompatActivity {
         mAmountView = findViewById(R.id.detail_amount);
         mSupportView = findViewById(R.id.detail_support);
 
-        mTitleView.setText(studentInfo.Sid + " " + studentInfo.Sname + " 상세정보");
+        String title = studentInfo.Sid + " " + studentInfo.Sname + " 상세정보";
+        mTitleView.setText(title);
         mYearView.setText(studentInfo.Pyear);
         mTypeView.setText(studentInfo.Ptype);
         mAmountView.setText(studentInfo.Pamount);
@@ -75,11 +78,11 @@ public class DetailStudentInfoPopup extends AppCompatActivity {
         mDeleteButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), DetailStudentDeleteCheck.class);
+                Intent intent = new Intent(getApplicationContext(), DetailStudentDeleteCheckPopup.class);
                 intent.putExtra("student", studentInfo);
                 intent.putExtra("position", position);
                 intent.putExtra("size", totalNum);
-                startActivity(intent);
+                startActivityForResult(intent, 1);
             }
         });
         mOkButton.setOnClickListener(new View.OnClickListener() {
@@ -88,6 +91,18 @@ public class DetailStudentInfoPopup extends AppCompatActivity {
                 finish();
             }
         });
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if(requestCode == 1 && resultCode == RESULT_OK) {
+            FragmentManager fm = getFragmentManager();
+//            FragmentTransaction ft;
+            Fragment fragment = fm.findFragmentById(R.id.main_fragment);
+
+
+            finish();
+        }
     }
 
     public Context getContext() {

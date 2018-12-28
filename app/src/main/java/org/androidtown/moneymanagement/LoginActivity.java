@@ -27,17 +27,17 @@ import android.widget.Toast;
 
 public class LoginActivity extends AppCompatActivity {
 
-    private static final String masterName = "hyucseadmin";
-    private static final String subName = "admin";  // Later, must change to "hyucse".
+    static final String masterName = "hyucseadmin";
+    static final String subName = "admin";  // Later, must change to "hyucse".
 
-    private static final int REQUEST_READ_CONTACTS = 0;
+    static final int REQUEST_READ_CONTACTS = 0;
 
-    private UserLoginTask mAuthTask = null;
-    private EditText mEmailView;
-    private EditText mPasswordView;
-    private View mLoginFormView;
-    private ProgressBar mProgressBar;
-    private CheckBox mAutoLoginCheck;
+    UserLoginTask mAuthTask = null;
+    EditText mEmailView;
+    EditText mPasswordView;
+    View mLoginFormView;
+    ProgressBar mProgressBar;
+    CheckBox mAutoLoginCheck;
 
     // For auto login.
 //    private SharedPreferences mLoginInformation;
@@ -48,13 +48,13 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
 
         // Set up the login form.
-        mEmailView = (EditText) findViewById(R.id.email);
-        mPasswordView = (EditText) findViewById(R.id.password);
-        mLoginFormView = (View) findViewById(R.id.login_form);
-        mProgressBar = (ProgressBar) findViewById(R.id.login_progressBar);
-        mAutoLoginCheck = (CheckBox) findViewById(R.id.auto_login_checkBox);
+        mEmailView = findViewById(R.id.email);
+        mPasswordView = findViewById(R.id.password);
+        mLoginFormView = findViewById(R.id.login_form);
+        mProgressBar = findViewById(R.id.login_progressBar);
+        mAutoLoginCheck = findViewById(R.id.auto_login_checkBox);
 //        mLoginInformation = getSharedPreferences("setting", MODE_PRIVATE);
-        Button mEmailSignInButton = (Button) findViewById(R.id.email_sign_in_button);
+        Button mEmailSignInButton = findViewById(R.id.email_sign_in_button);
 
         // First, progress bar must not be seen.
         mProgressBar.setVisibility(View.GONE);
@@ -183,6 +183,7 @@ public class LoginActivity extends AppCompatActivity {
         else return false;
     }
 
+
     // Represents an asynchronous login/registration task used to authenticate
     // the user.
     public class UserLoginTask extends AsyncTask<Void, Void, Boolean> {
@@ -197,7 +198,7 @@ public class LoginActivity extends AppCompatActivity {
 
         @Override
         protected Boolean doInBackground(Void... params) {
-            // TODO: attempt authentication against a network service.
+
 //            try {
 //                // Simulate network access.
 //                Thread.sleep(2000);
@@ -205,7 +206,7 @@ public class LoginActivity extends AppCompatActivity {
 //                return false;
 //            }
 
-            // TODO: register the new account here.
+
             return true;
         }
 

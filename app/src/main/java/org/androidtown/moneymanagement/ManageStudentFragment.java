@@ -5,6 +5,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.Gravity;
@@ -39,6 +40,7 @@ public class ManageStudentFragment extends Fragment {
     RecyclerView.Adapter adapter;
     ProgressBar mProgressBar;
     SearchView mSearchView;
+    SwipeRefreshLayout mSwipeRefreshLayout;
 
     private ArrayList<StudentInfo> students;
     private int sNumber = 0;
@@ -58,14 +60,25 @@ public class ManageStudentFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_manage_student, container, false);
 
-        mProgressBar = (ProgressBar) view.findViewById(R.id.manage_progressBar);
+        mProgressBar = view.findViewById(R.id.manage_progressBar);
         mProgressBar.setVisibility(View.GONE);
 
-        mSearchView = (SearchView) view.findViewById(R.id.manage_searchBar);
+        mSearchView = view.findViewById(R.id.manage_searchBar);
+
+        // Test
         mSearchView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Toast.makeText(getContext(), "Clicked", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        mSwipeRefreshLayout = view.findViewById(R.id.manage_swipe_refresh);
+        mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                loadStudentsList();
+                mSwipeRefreshLayout.setRefreshing(false);
             }
         });
 
@@ -88,11 +101,13 @@ public class ManageStudentFragment extends Fragment {
 
         @Override
         protected Boolean doInBackground(Void... params) {
+
+            // Initialize array.
+            studentInfos.clear();
+
             valueEventListener = new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                    // Initialize array.
-                    studentInfos.clear();
 
                     // Start loading process.
                     Iterator<DataSnapshot> child = dataSnapshot.getChildren().iterator();

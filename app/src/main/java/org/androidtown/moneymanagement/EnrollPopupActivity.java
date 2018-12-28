@@ -19,18 +19,18 @@ import java.util.ArrayList;
 
 public class EnrollPopupActivity extends AppCompatActivity {
 
-    private TextView mTitle;
-    private RecyclerView mRecyclerView;
-    private RecyclerView.LayoutManager mLayoutManage;
-    private RecyclerView.Adapter adapter;
+    TextView mTitle;
+    RecyclerView mRecyclerView;
+    RecyclerView.LayoutManager mLayoutManage;
+    RecyclerView.Adapter adapter;
 
-    private ArrayList<StudentInfo> alreadyStudents;
-    private StudentInfo newStudent;
-    private int totalNum;
-    private String title;
+    ArrayList<StudentInfo> alreadyStudents;
+    StudentInfo newStudent;
+    int totalNum;
+    String title;
 
-    private DatabaseReference mRootRef = FirebaseDatabase.getInstance().getReference();
-    private DatabaseReference conditionRef = mRootRef.child("student");
+    DatabaseReference mRootRef = FirebaseDatabase.getInstance().getReference();
+    DatabaseReference conditionRef = mRootRef.child("student");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

@@ -15,20 +15,20 @@ public class EnrollAlreadyStudentsListAdapter extends RecyclerView.Adapter<Recyc
 
     public static class MyEnrollViewHolder extends RecyclerView.ViewHolder {
 
-        public TextView mSidNameView;
-        public TextView mTypeView;
-        public TextView mSupportView;
+        TextView mSidNameView;
+        TextView mTypeView;
+        TextView mSupportView;
 
-        public MyEnrollViewHolder(View view) {
+        MyEnrollViewHolder(View view) {
             super(view);
 
-            mSidNameView = (TextView) view.findViewById(R.id.enroll_already_students_sid_name);
-            mTypeView = (TextView) view.findViewById(R.id.enroll_already_students_type);
-            mSupportView = (TextView) view.findViewById(R.id.enroll_already_students_support);
+            mSidNameView = view.findViewById(R.id.enroll_already_students_sid_name);
+            mTypeView = view.findViewById(R.id.enroll_already_students_type);
+            mSupportView = view.findViewById(R.id.enroll_already_students_support);
         }
     }
 
-    public EnrollAlreadyStudentsListAdapter(ArrayList<StudentInfo> scr) {
+    EnrollAlreadyStudentsListAdapter(ArrayList<StudentInfo> scr) {
         students = new ArrayList<>(scr);
     }
 
@@ -47,7 +47,8 @@ public class EnrollAlreadyStudentsListAdapter extends RecyclerView.Adapter<Recyc
                 (EnrollAlreadyStudentsListAdapter.MyEnrollViewHolder) holder;
         StudentInfo studentInfo = students.get(position);
 
-        myViewHolder.mSidNameView.setText(studentInfo.Sid + " " + studentInfo.Sname);
+        String name = studentInfo.Sid + " " + studentInfo.Sname;
+        myViewHolder.mSidNameView.setText(name);
         myViewHolder.mTypeView.setText(studentInfo.Ptype);
         myViewHolder.mSupportView.setText(studentInfo.Csupport);
     }

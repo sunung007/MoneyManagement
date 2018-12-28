@@ -12,12 +12,10 @@ import java.util.ArrayList;
 public class SearchStudentListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     public static class MyViewHolder extends RecyclerView.ViewHolder {
-        private TextView mPyearView;
-        private TextView mPtypeView;
-        private TextView mPamountView;
-        private TextView mSupportView;
 
-        public MyViewHolder(View view) {
+        TextView mPyearView, mPtypeView, mPamountView, mSupportView;
+
+        MyViewHolder(View view) {
             super(view);
             mPyearView = (TextView) view.findViewById(R.id.result_pyear);
             mPtypeView = (TextView) view.findViewById(R.id.result_ptype);
@@ -28,7 +26,7 @@ public class SearchStudentListAdapter extends RecyclerView.Adapter<RecyclerView.
 
     private ArrayList<StudentInfo> students;
 
-    public SearchStudentListAdapter(ArrayList<StudentInfo> scr) {
+    SearchStudentListAdapter(ArrayList<StudentInfo> scr) {
         students = new ArrayList<>(scr);
     }
 

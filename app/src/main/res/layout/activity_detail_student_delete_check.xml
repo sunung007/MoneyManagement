@@ -5,7 +5,7 @@
     android:layout_width="300dp"
     android:layout_height="wrap_content"
     android:layout_gravity="center_horizontal"
-    tools:context=".DetailStudentDeleteCheck">
+    tools:context=".DetailStudentDeleteCheckPopup">
 
     <TextView
         android:id="@+id/textView21"

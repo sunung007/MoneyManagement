@@ -32,39 +32,40 @@ import java.util.Iterator;
 
 
 public class SearchStudentFragment extends Fragment {
-    private Spinner mSidView;
-    private EditText mSnameView;
-    private View mSearchView;
-    private ProgressBar mProgressBar;
 
-    private SearchTask mAuthTask;
+    Spinner mSidView;
+    EditText mSnameView;
+    View mSearchView;
+    ProgressBar mProgressBar;
 
-    private String mSid;
-    private String mSname;
+    SearchTask mAuthTask;
 
-    private DatabaseReference mRootRef = FirebaseDatabase.getInstance().getReference();
-    private DatabaseReference conditionRef = mRootRef.child("student");
-    private ValueEventListener valueEventListener;
+    DatabaseReference mRootRef = FirebaseDatabase.getInstance().getReference();
+    DatabaseReference conditionRef = mRootRef.child("student");
+    ValueEventListener valueEventListener;
 
-    private ArrayList<StudentInfo> target = new ArrayList<>();
+    String mSid, mSname;
+
+    ArrayList<StudentInfo> target = new ArrayList<>();
 
     public SearchStudentFragment() {
         // Required empty public constructor
     }
 
 
+    @NonNull
     @Override
-    public View onCreateView(LayoutInflater inflater, final ViewGroup container,
+    public View onCreateView(@NonNull LayoutInflater inflater, final ViewGroup container,
                              Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.fragment_search_student, container, false);
-        Button studentSearchButton = (Button) view.findViewById(R.id.student_search_button);
+        Button studentSearchButton = view.findViewById(R.id.student_search_button);
 
         // Set views.
-        mSidView = (Spinner) view.findViewById(R.id.sid);
-        mSnameView = (EditText) view.findViewById(R.id.sname);
+        mSidView = view.findViewById(R.id.sid);
+        mSnameView = view.findViewById(R.id.sname);
         mSearchView = view.findViewById(R.id.student_search_view);
-        mProgressBar = (ProgressBar) view.findViewById(R.id.search_progressBar);
+        mProgressBar = view.findViewById(R.id.search_progressBar);
 
         mProgressBar.setVisibility(View.GONE);
 
@@ -136,7 +137,7 @@ public class SearchStudentFragment extends Fragment {
             mProgressBar.setVisibility(View.GONE);
             focusView.requestFocus();
         } else {
-            mAuthTask = new SearchTask(mSid, mSname);
+            mAuthTask = new SearchTask();
             mAuthTask.execute((Void) null);
         }
     }
@@ -152,19 +153,8 @@ public class SearchStudentFragment extends Fragment {
         super.onAttach(context);
     }
 
-    public ArrayList<StudentInfo> getTarget() {
-        return target;
-    }
 
     public class SearchTask extends AsyncTask<Void, Void, Boolean> {
-
-        private final String sid;
-        private final String name;
-
-        SearchTask(String _sid, String _name) {
-            sid = _sid;
-            name = _name;
-        }
 
         @Override
         protected Boolean doInBackground(Void... params) {

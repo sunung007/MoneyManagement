@@ -3,6 +3,7 @@ package org.androidtown.moneymanagement;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -28,23 +29,26 @@ public class MainActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
 
         // Set first fragment to search mode.
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
         ft.replace(R.id.main_fragment, new SearchStudentFragment());
         ft.commit();
 
+
         // Set drawer layout
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        DrawerLayout drawer = findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
+
         // Set navigation view
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
         navigationView.setOnClickListener(new View.OnClickListener() {
@@ -63,7 +67,7 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public void onBackPressed() {
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        DrawerLayout drawer = findViewById(R.id.drawer_layout);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
@@ -80,11 +84,12 @@ public class MainActivity extends AppCompatActivity
     }
 
 
-    @SuppressWarnings("StatementWithEmptyBody")
+    @NonNull
     @Override
-    public boolean onNavigationItemSelected(MenuItem item) {
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         // Handle navigation view item clicks here.
         int id = item.getItemId();
+
 
         // Close soft key.
         InputMethodManager inputMethodManager =
@@ -94,12 +99,12 @@ public class MainActivity extends AppCompatActivity
             inputMethodManager.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
         }
 
+
         // Initialize fragment, and set about animation part.
         Fragment fragment = null;
         FragmentManager fm = getSupportFragmentManager();
-        FragmentTransaction ft = fm.beginTransaction().
-                setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_left,
-                        R.anim.enter_from_left,R.anim.exit_to_right);
+        FragmentTransaction ft = fm.beginTransaction();
+
 
         // When the navigation item is selected, change fragment.
         if(id == R.id.nav_check) {
@@ -127,16 +132,25 @@ public class MainActivity extends AppCompatActivity
         // do not change.
         if(previousFragmentID != id && fragment != null) {
             previousFragmentID = id;
-            ft.replace(R.id.main_fragment, fragment);
+            ft.setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_left,
+                    R.anim.enter_from_left,R.anim.exit_to_right).replace(R.id.main_fragment, fragment);
             ft.addToBackStack(null);
             ft.commit();
+        } else {
+            fragment = fm.findFragmentById(R.id.main_fragment);
+            ft.detach(fragment).attach(fragment).commit();
         }
 
+
         // Close drawer layout.
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        DrawerLayout drawer = findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
 
         return true;
+    }
+
+    public void refreshManageStudentFragment() {
+        Toast.makeText(getApplicationContext(), "TEST", Toast.LENGTH_SHORT).show();
     }
 }
 

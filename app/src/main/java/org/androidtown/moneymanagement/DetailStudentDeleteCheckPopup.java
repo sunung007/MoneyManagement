@@ -5,6 +5,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
+import android.view.Gravity;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
@@ -19,20 +20,19 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.Iterator;
 
-public class DetailStudentDeleteCheck extends AppCompatActivity {
+public class DetailStudentDeleteCheckPopup extends AppCompatActivity {
 
-    private DeleteStudent mAuthTask;
-    private DatabaseReference mRootRef = FirebaseDatabase.getInstance().getReference();
-    private DatabaseReference conditionRef = mRootRef.child("student");
-    private ValueEventListener valueEventListener;
+    DeleteStudent mAuthTask;
+    DatabaseReference mRootRef = FirebaseDatabase.getInstance().getReference();
+    DatabaseReference conditionRef = mRootRef.child("student");
+    ValueEventListener valueEventListener;
 
-    private int position;
-    private int totalNum;
-    private StudentInfo studentInfo;
-
-    public DetailStudentInfoPopup previousActivity;
+    int position;
+    int totalNum;
+    StudentInfo studentInfo;
 
     private ProgressBar mProgressBar;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,7 +40,6 @@ public class DetailStudentDeleteCheck extends AppCompatActivity {
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_detail_student_delete_check);
 
-        previousActivity = (DetailStudentInfoPopup) DetailStudentInfoPopup.mActivity;
 
         try {
             Intent intent = getIntent();
@@ -51,6 +50,7 @@ public class DetailStudentDeleteCheck extends AppCompatActivity {
             if(position < 0 || totalNum < 1) {
                 throw new Exception();
             }
+
         } catch (Exception e) {
             Toast.makeText(getApplicationContext(),
                     "Delete failed", Toast.LENGTH_SHORT).show();
@@ -82,12 +82,11 @@ public class DetailStudentDeleteCheck extends AppCompatActivity {
     }
 
     public class DeleteStudent extends AsyncTask<Void, Void, Boolean> {
-        private String curIndex;
-        private String endIndex;
-        private String tmp;
-        private int index, totalIndex;
+        String curIndex;
+        String endIndex;
+        int index, totalIndex;
 
-        public DeleteStudent (int _position, int _totalNum) {
+        DeleteStudent (int _position, int _totalNum) {
             index = _position;
             totalIndex = _totalNum - 1;
             curIndex = String.valueOf(_position);
@@ -106,7 +105,7 @@ public class DetailStudentDeleteCheck extends AppCompatActivity {
 
                     int i;
                     for(i = 0 ; i <= index ; i++) {
-                        ds = child.next();
+                        child.next();
                     }
 
                     i = index;
@@ -129,7 +128,9 @@ public class DetailStudentDeleteCheck extends AppCompatActivity {
                 }
 
                 @Override
-                public void onCancelled(@NonNull DatabaseError databaseError) { }
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                }
             };
 
             conditionRef.addListenerForSingleValueEvent(valueEventListener);
@@ -140,6 +141,7 @@ public class DetailStudentDeleteCheck extends AppCompatActivity {
             } catch (Exception e) {
                 return false;
             }
+
             return true;
         }
 
@@ -147,17 +149,23 @@ public class DetailStudentDeleteCheck extends AppCompatActivity {
         protected void onPostExecute(Boolean success) {
             mProgressBar.setVisibility(View.GONE);
             mAuthTask = null;
+            String resultMessage;
 
             if (success) {
-                Toast.makeText(getApplicationContext(), "삭제되었습니다", Toast.LENGTH_SHORT).show();
+                resultMessage = "삭제되었습니다.";
             } else {
-                Toast.makeText(getApplicationContext(), "Delete failed", Toast.LENGTH_SHORT).show();
+                resultMessage = "Delete failed.";
             }
+
+            Toast toast = Toast.makeText(getApplicationContext(), resultMessage, Toast.LENGTH_SHORT);
+            toast.setGravity(Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL, 0, 0);
+            toast.show();
 
             conditionRef.removeEventListener(valueEventListener);
 
-            previousActivity.finish();
+            setResult(RESULT_OK);
             finish();
+
         }
 
         @Override

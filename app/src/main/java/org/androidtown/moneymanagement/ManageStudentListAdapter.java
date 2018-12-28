@@ -1,10 +1,12 @@
 package org.androidtown.moneymanagement;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
@@ -17,12 +19,10 @@ public class ManageStudentListAdapter extends RecyclerView.Adapter<RecyclerView.
 
     public static class MyManageViewHolder extends RecyclerView.ViewHolder {
 
-        public TextView mSidNameView;
-        public TextView mTypeView;
-        public TextView mSupportView;
-        public CardView mListView;
+        TextView mSidNameView, mTypeView, mSupportView;
+        CardView mListView;
 
-        public MyManageViewHolder(View view) {
+        MyManageViewHolder(View view) {
             super(view);
 
             mSidNameView = view.findViewById(R.id.manager_sid_name);
@@ -32,9 +32,10 @@ public class ManageStudentListAdapter extends RecyclerView.Adapter<RecyclerView.
         }
     }
 
-    public ManageStudentListAdapter(ArrayList<StudentInfo> scr) {
+    ManageStudentListAdapter(ArrayList<StudentInfo> scr) {
         students = new ArrayList<>(scr);
     }
+
 
     @NonNull
     @Override
@@ -46,23 +47,43 @@ public class ManageStudentListAdapter extends RecyclerView.Adapter<RecyclerView.
     }
 
     @Override
-    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, final int position) {
-        MyManageViewHolder myViewHolder = (MyManageViewHolder) holder;
+    public void onBindViewHolder(@NonNull final RecyclerView.ViewHolder holder, final int position) {
+        final MyManageViewHolder myViewHolder = (MyManageViewHolder) holder;
 
         final StudentInfo studentInfo = students.get(position);
 
-        myViewHolder.mSidNameView.setText(studentInfo.Sid + " " + studentInfo.Sname);
+        String name = studentInfo.Sid + " " + studentInfo.Sname;
+        myViewHolder.mSidNameView.setText(name);
         myViewHolder.mTypeView.setText(studentInfo.Ptype);
         myViewHolder.mSupportView.setText(studentInfo.Csupport);
 
         myViewHolder.mListView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+//                myViewHolder.mListView.setCardBackgroundColor(Color.BLUE);
                 Intent intent = new Intent(view.getContext(), DetailStudentInfoPopup.class);
                 intent.putExtra("student", studentInfo);
                 intent.putExtra("position", position);
                 intent.putExtra("size", getItemCount());
                 view.getContext().startActivity(intent);
+            }
+        });
+
+        myViewHolder.mListView.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                switch (motionEvent.getAction()) {
+                    // When pressed.
+                    case MotionEvent.ACTION_DOWN:
+                        myViewHolder.mListView.setCardBackgroundColor(Color.LTGRAY);
+                        break;
+                    // when does not pressed.
+                    case MotionEvent.ACTION_CANCEL:
+                    case MotionEvent.ACTION_UP:
+                        myViewHolder.mListView.setCardBackgroundColor(Color.WHITE);
+                        break;
+                }
+                return false;
             }
         });
     }

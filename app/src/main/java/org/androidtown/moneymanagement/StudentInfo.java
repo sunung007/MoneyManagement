@@ -4,12 +4,8 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 public class StudentInfo implements Parcelable {
-    public String Pamount;
-    public String Ptype;
-    public String Pyear;
-    public String Sid;
-    public String Sname;
-    public String Csupport = "UNKNOWN";
+    String Pamount, Ptype, Pyear, Sid, Sname;
+    String Csupport = "UNKNOWN";
 
     public StudentInfo() {
     }
@@ -52,16 +48,7 @@ public class StudentInfo implements Parcelable {
         parcel.writeString(Csupport);
     }
 
-    public void writeFromParcel(Parcel dest, int flags) {
-        dest.writeString(Pamount);
-        dest.writeString(Ptype);
-        dest.writeString(Pyear);
-        dest.writeString(Sid);
-        dest.writeString(Sname);
-        dest.writeString(Csupport);
-    }
-
-    public void readFromParcel(Parcel in) {
+    private void readFromParcel(Parcel in) {
         Pamount = in.readString();
         Ptype = in.readString();
         Pyear = in.readString();

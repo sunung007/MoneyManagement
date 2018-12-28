@@ -15,19 +15,17 @@ import java.util.ArrayList;
 
 public class SearchResultPopup extends AppCompatActivity {
 
-    private RecyclerView mRecyclerView;
-    private RecyclerView.LayoutManager mLayoutManage;
-    private RecyclerView.Adapter adapter;
+    RecyclerView mRecyclerView;
+    RecyclerView.LayoutManager mLayoutManage;
+    RecyclerView.Adapter adapter;
 
-    private ArrayList<StudentInfo> resultStudent;
-    private int mSnumber, mSupportNumber = 0;
-    private String mSid;
-    private String mSname;
-    private String mTargetInfo;
-    private String mResultAll;
+    TextView mTargetInfoView, mResultAllView;
 
-    private TextView mTargetInfoView;
-    private TextView mResultAllView;
+    ArrayList<StudentInfo> resultStudent;
+
+    String mSid, mSname, mTargetInfo, mResultAll;
+    int mSnumber, mSupportNumber = 0;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,7 +55,7 @@ public class SearchResultPopup extends AppCompatActivity {
                 mResultAll = "해당 학우는 지원 대상이 아닙니다.";
             }
         } else {
-            if(mSupportNumber == mSupportNumber) {
+            if(mSupportNumber == mSnumber) {
                 mResultAll = "전원 지원 대상입니다.";
             } else {
                 mResultAll = "지원 대상이 아닌 동명이인이 있습니다.\n" +
@@ -65,8 +63,8 @@ public class SearchResultPopup extends AppCompatActivity {
             }
         }
 
-        mTargetInfoView = (TextView) findViewById(R.id.target_info);
-        mResultAllView = (TextView) findViewById(R.id.result_all);
+        mTargetInfoView = findViewById(R.id.target_info);
+        mResultAllView = findViewById(R.id.result_all);
         mResultAllView.setGravity(Gravity.CENTER_HORIZONTAL);
         mTargetInfoView.setText(mTargetInfo);
         mResultAllView.setText(mResultAll);

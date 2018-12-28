@@ -30,78 +30,32 @@ import java.util.Calendar;
 import java.util.Iterator;
 
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link EnrollFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
 public class EnrollFragment extends Fragment {
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
-    private ValueEventListener valueEventListener;
-    private SearchTask mAuthTask;
+    ValueEventListener valueEventListener;
+    SearchTask mAuthTask;
 
-    private String mSid;
-    private String mSname;
-    private String mPyear;
-    private String mPtype;
-    private String mPamount;
+    String mSid, mSname, mPyear, mPtype, mPamount, title;
+    int totalNum;
 
-    private EditText mSnameView;
-    private Spinner mSidView;
-    private Spinner mPyearView;
-    private Spinner mPtypeView;
-    private Spinner mPamountView;
-    private View mEnrollView;
-    private ProgressBar mProgressBar;
+    EditText mSnameView;
+    Spinner mSidView, mPyearView, mPtypeView, mPamountView;
+    View mEnrollView;
+    ProgressBar mProgressBar;
 
-    private int totalNum;
+    ArrayList<StudentInfo> target = new ArrayList<>();
 
-    private ArrayList<StudentInfo> target = new ArrayList<>();
-    private String title;
-
-    private DatabaseReference mRootRef = FirebaseDatabase.getInstance().getReference();
-    private DatabaseReference conditionRef = mRootRef.child("student");
+    DatabaseReference mRootRef = FirebaseDatabase.getInstance().getReference();
+    DatabaseReference conditionRef = mRootRef.child("student");
 
     public EnrollFragment() {
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment EnrollFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static EnrollFragment newInstance(String param1, String param2) {
-        EnrollFragment fragment = new EnrollFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
 
+    @NonNull
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
-    }
-
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_enroll, container, false);
@@ -186,27 +140,21 @@ public class EnrollFragment extends Fragment {
             mProgressBar.setVisibility(View.GONE);
             focusView.requestFocus();
         } else {
-            mAuthTask = new SearchTask(mSid, mSname);
+            mAuthTask = new SearchTask();
             mAuthTask.execute((Void) null);
         }
     }
 
     public class SearchTask extends AsyncTask<Void, Void, Boolean> {
 
-        private final String sid;
-        private final String name;
-
-        SearchTask(String _sid, String _name) {
-            sid = _sid;
-            name = _name;
-        }
 
         @Override
         protected Boolean doInBackground(Void... params) {
-            // TODO: attempt authentication against a network service.
+
             valueEventListener = new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
                     // Initialize array.
                     target.clear();
 
@@ -344,7 +292,7 @@ public class EnrollFragment extends Fragment {
             mProgressBar.setVisibility(View.GONE);
         }
 
-        public StudentInfo setNewStudent() {
+        StudentInfo setNewStudent() {
             StudentInfo studentInfo = new StudentInfo(mPamount, mPtype, mPyear, mSid, mSname);
 
             String cSupport;
