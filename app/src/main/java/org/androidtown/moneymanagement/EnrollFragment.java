@@ -8,8 +8,6 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.text.TextUtils;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -47,12 +45,9 @@ public class EnrollFragment extends Fragment {
 
     String mSid, mSname, mPyear, mPtype, mPamount, title;
     int totalNum;
+    static int size;
 
     ArrayList<StudentInfo> target = new ArrayList<>();
-
-    static FragmentManager thisFragmentManager;
-    static Fragment thisFragment;
-
 
     public EnrollFragment() {
         // Required empty public constructor
@@ -64,9 +59,6 @@ public class EnrollFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_enroll, container, false);
-
-        thisFragmentManager = getFragmentManager();
-        thisFragment = this;
 
         Button studentSearchButton = view.findViewById(R.id.enroll_button);
         mSnameView = view.findViewById(R.id.enroll_name);
@@ -116,11 +108,6 @@ public class EnrollFragment extends Fragment {
         return view;
     }
 
-    public static void refreshFragment () {
-        FragmentManager fm = thisFragmentManager;
-        FragmentTransaction ft = fm.beginTransaction();
-        ft.detach(thisFragment).attach(thisFragment).commit();
-    }
 
     private void searchStudent() {
         mProgressBar.setVisibility(View.VISIBLE);
@@ -172,9 +159,12 @@ public class EnrollFragment extends Fragment {
                     // Start searching process.
                     Iterator<DataSnapshot> child = dataSnapshot.getChildren().iterator();
                     DataSnapshot ds;
+
+                    String index;
                     String tName, tId, tAmount, tType, tYear, cSupport;
 
                     totalNum = (int) dataSnapshot.getChildrenCount();
+                    size = totalNum;
 
                     int currentYear, tmpAll;
                     int tmpYear, tmpType;
@@ -183,6 +173,8 @@ public class EnrollFragment extends Fragment {
 
                     while (child.hasNext()) {
                         ds = child.next();
+
+                        index = ds.getKey().toString();
                         tName = ds.child("Sname").getValue().toString().trim();
                         tId = ds.child("Sid").getValue().toString().trim();
 
@@ -211,7 +203,7 @@ public class EnrollFragment extends Fragment {
                                 cSupport = "UNKNOWN";
                             }
 
-                            target.add(new StudentInfo(tAmount, tType, tYear, tId, tName, cSupport));
+                            target.add(new StudentInfo(index, tAmount, tType, tYear, tId, tName, cSupport));
                         }
                     }
                 }
@@ -261,8 +253,7 @@ public class EnrollFragment extends Fragment {
             imm.hideSoftInputFromWindow(getView().getWindowToken(), 0);
 
             // Set intent.
-            Intent intent = new Intent(
-                    getActivity().getApplicationContext(), EnrollPopup.class);
+            Intent intent = new Intent(getActivity().getApplicationContext(), EnrollPopup.class);
 
             StudentInfo studentInfo = setNewStudent();
 
@@ -275,7 +266,6 @@ public class EnrollFragment extends Fragment {
                 intent.putExtra("new_student", studentInfo);
                 intent.putExtra("total_num", totalNum);
                 intent.putExtra("title", title);
-
 
                 startActivityForResult(intent, 1);
             } else {

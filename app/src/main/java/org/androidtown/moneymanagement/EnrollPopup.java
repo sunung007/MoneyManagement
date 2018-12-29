@@ -1,9 +1,11 @@
 package org.androidtown.moneymanagement;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -25,6 +27,7 @@ public class EnrollPopup extends AppCompatActivity {
     DatabaseReference conditionRef = mRootRef.child("student");
 
     TextView mTitle;
+    ConstraintLayout mActivity;
     RecyclerView mRecyclerView;
     RecyclerView.LayoutManager mLayoutManage;
     RecyclerView.Adapter adapter;
@@ -34,6 +37,8 @@ public class EnrollPopup extends AppCompatActivity {
     int totalNum;
     String title;
 
+    static Activity thisActivity;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +46,9 @@ public class EnrollPopup extends AppCompatActivity {
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         setContentView(R.layout.activity_enroll_popup);
+        mActivity = findViewById(R.id.enroll_popup_entire);
+
+        thisActivity = EnrollPopup.this;
 
         // Receive the data from enroll fragment.
         Intent intent = getIntent();
@@ -50,8 +58,14 @@ public class EnrollPopup extends AppCompatActivity {
             totalNum = intent.getIntExtra("total_num", -1);
             title = intent.getStringExtra("title");
         } catch (Exception e) {
-            Toast.makeText(getApplicationContext(), "Loading Failed", Toast.LENGTH_SHORT).show();
+            String message = "Loading Failed.";
+            Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT).show();
             finish();
+        }
+
+        if(title.contains("등록하시겠습니까")) {
+            mActivity.setBackground(getDrawable(R.drawable.round_button));
+            mActivity.setPadding(0, 0, 0, 0);
         }
 
         mTitle = findViewById(R.id.title_detail_info);

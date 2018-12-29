@@ -228,6 +228,7 @@ public class SearchStudentFragment extends Fragment {
                         // Start searching process.
                         Iterator<DataSnapshot> child = dataSnapshot.getChildren().iterator();
                         DataSnapshot ds;
+                        String index;
                         String tName, tId, tAmount, tType, tYear, cSupport;
 
                         int currentYear, tmpAll;
@@ -237,6 +238,8 @@ public class SearchStudentFragment extends Fragment {
 
                         while(child.hasNext()) {
                             ds = child.next();
+
+                            index = ds.getKey().toString();
                             tName = ds.child("Sname").getValue().toString().trim();
                             tId = ds.child("Sid").getValue().toString().trim();
 
@@ -265,7 +268,7 @@ public class SearchStudentFragment extends Fragment {
                                     cSupport = "UNKNOWN";
                                 }
 
-                                target.add(new StudentInfo(tAmount, tType, tYear, tId, tName, cSupport));
+                                target.add(new StudentInfo(index, tAmount, tType, tYear, tId, tName, cSupport));
                             }
                         }
                     }

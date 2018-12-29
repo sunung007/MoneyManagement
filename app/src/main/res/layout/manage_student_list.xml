@@ -14,18 +14,6 @@
     app:cardPreventCornerOverlap="false"
     app:cardUseCompatPadding="false">
 
-    <!--<View-->
-    <!--android:id="@+id/view4"-->
-    <!--android:layout_width="match_parent"-->
-    <!--android:layout_height="1dp"-->
-    <!--android:layout_marginStart="8dp"-->
-    <!--android:layout_marginEnd="8dp"-->
-    <!--android:background="@drawable/gradiant"-->
-    <!--app:layout_constraintHorizontal_bias="0.0"-->
-    <!--app:layout_constraintLeft_toLeftOf="parent"-->
-    <!--app:layout_constraintRight_toRightOf="parent"-->
-    <!--app:layout_constraintTop_toBottomOf="@+id/textView3"></View>-->
-
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -38,19 +26,31 @@
         android:paddingBottom="8dp">
 
         <TextView
-            android:id="@+id/manager_sid_name"
+            android:id="@+id/manager_sid"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
-            android:layout_marginEnd="8dp"
             android:layout_weight="1"
             android:text="@string/prompt_sid"
             android:textAppearance="@style/TextAppearance.AppCompat.SearchResult.Subtitle"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/textView14"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/manager_name"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="4dp"
+            android:layout_marginEnd="8dp"
+            android:text="@string/prompt_name"
+            android:textAppearance="@style/TextAppearance.AppCompat.SearchResult.Subtitle"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@+id/manager_sid"
+            app:layout_constraintEnd_toStartOf="@+id/textView14"
+            app:layout_constraintStart_toEndOf="@+id/manager_sid"
+            app:layout_constraintTop_toTopOf="@+id/manager_sid" />
 
         <TextView
             android:id="@+id/textView14"

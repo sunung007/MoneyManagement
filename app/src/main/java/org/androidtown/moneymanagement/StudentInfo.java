@@ -4,6 +4,7 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 public class StudentInfo implements Parcelable {
+    String index = "0";
     String Pamount, Ptype, Pyear, Sid, Sname;
     String Csupport = "UNKNOWN";
 
@@ -23,8 +24,19 @@ public class StudentInfo implements Parcelable {
         Sname = _Sname;
     }
 
-    public StudentInfo(String _Pamount, String _Ptype, String _Pyear,
-                       String _Sid, String _Sname, String _Csupport) {
+    public StudentInfo(String _index, String _Pamount, String _Ptype,
+                       String _Pyear, String _Sid, String _Sname) {
+        index = _index;
+        Pamount = _Pamount;
+        Ptype = _Ptype;
+        Pyear = _Pyear;
+        Sid = _Sid;
+        Sname = _Sname;
+    }
+
+    public StudentInfo(String _index, String _Pamount, String _Ptype,
+                       String _Pyear, String _Sid, String _Sname, String _Csupport) {
+        index = _index;
         Pamount = _Pamount;
         Ptype = _Ptype;
         Pyear = _Pyear;
@@ -40,6 +52,7 @@ public class StudentInfo implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel parcel, int i) {
+        parcel.writeString(index);
         parcel.writeString(Pamount);
         parcel.writeString(Ptype);
         parcel.writeString(Pyear);
@@ -49,6 +62,7 @@ public class StudentInfo implements Parcelable {
     }
 
     private void readFromParcel(Parcel in) {
+        index = in.readString();
         Pamount = in.readString();
         Ptype = in.readString();
         Pyear = in.readString();

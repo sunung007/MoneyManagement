@@ -19,13 +19,14 @@ public class ManageStudentListAdapter extends RecyclerView.Adapter<RecyclerView.
 
     public static class MyManageViewHolder extends RecyclerView.ViewHolder {
 
-        TextView mSidNameView, mTypeView, mSupportView;
+        TextView mSidView, mSnameView, mTypeView, mSupportView;
         CardView mListView;
 
         MyManageViewHolder(View view) {
             super(view);
 
-            mSidNameView = view.findViewById(R.id.manager_sid_name);
+            mSidView = view.findViewById(R.id.manager_sid);
+            mSnameView = view.findViewById(R.id.manager_name);
             mTypeView = view.findViewById(R.id.manager_type);
             mSupportView = view.findViewById(R.id.manager_support);
             mListView = view.findViewById(R.id.manager_student_list);
@@ -52,8 +53,8 @@ public class ManageStudentListAdapter extends RecyclerView.Adapter<RecyclerView.
 
         final StudentInfo studentInfo = students.get(position);
 
-        String name = studentInfo.Sid + " " + studentInfo.Sname;
-        myViewHolder.mSidNameView.setText(name);
+        myViewHolder.mSidView.setText(studentInfo.Sid);
+        myViewHolder.mSnameView.setText(studentInfo.Sname);
         myViewHolder.mTypeView.setText(studentInfo.Ptype);
         myViewHolder.mSupportView.setText(studentInfo.Csupport);
 
@@ -62,7 +63,6 @@ public class ManageStudentListAdapter extends RecyclerView.Adapter<RecyclerView.
             public void onClick(View view) {
                 Intent intent = new Intent(view.getContext(), DetailStudentInfoPopup.class);
                 intent.putExtra("student", studentInfo);
-                intent.putExtra("position", position);
                 intent.putExtra("size", getItemCount());
                 intent.putExtra("mode", 0);
                 view.getContext().startActivity(intent);

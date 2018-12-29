@@ -46,14 +46,10 @@ public class DetailStudentDeleteCheckPopup extends AppCompatActivity {
         try {
             Intent intent = getIntent();
             studentInfo = intent.getParcelableExtra("student");
-            position = intent.getIntExtra("position", 0);
             totalNum = intent.getIntExtra("size", 1);
             mode = intent.getIntExtra("mode", 0);
 
-            if(position < 0 || totalNum < 1) {
-                throw new Exception();
-            }
-
+            position = Integer.parseInt(studentInfo.index);
         } catch (Exception e) {
             Toast.makeText(getApplicationContext(),
                     "Delete failed", Toast.LENGTH_SHORT).show();
@@ -85,8 +81,7 @@ public class DetailStudentDeleteCheckPopup extends AppCompatActivity {
     }
 
     public class DeleteStudent extends AsyncTask<Void, Void, Boolean> {
-        String curIndex;
-        String endIndex;
+        String curIndex, endIndex;
         int index, totalIndex;
 
         DeleteStudent (int _position, int _totalNum) {

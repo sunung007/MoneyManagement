@@ -26,6 +26,8 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Iterator;
 
 
@@ -112,7 +114,10 @@ public class ManageStudentFragment extends Fragment {
     }
 
     public class LoadAllStudents extends AsyncTask<Void, Void, Boolean> {
-        private ArrayList<StudentInfo> studentInfos = new ArrayList<>();
+
+        ArrayList<StudentInfo> studentInfos = new ArrayList<>();
+        int totalNum;
+
 
         @Override
         protected Boolean doInBackground(Void... params) {
@@ -127,6 +132,8 @@ public class ManageStudentFragment extends Fragment {
                     // Start loading process.
                     Iterator<DataSnapshot> child = dataSnapshot.getChildren().iterator();
                     DataSnapshot ds;
+
+                    String index;
                     String tName, tId, tAmount, tType, tYear, cSupport;
 
                     int i = 0;
@@ -135,9 +142,12 @@ public class ManageStudentFragment extends Fragment {
                     currentYear = Calendar.getInstance().get(Calendar.YEAR)
                             + Calendar.getInstance().get(Calendar.MONTH)/6;
 
+                    totalNum = (int) dataSnapshot.getChildrenCount();
+
                     while(child.hasNext()) {
                         ds = child.next();
 
+                        index = ds.getKey().toString();
                         tName = ds.child("Sname").getValue().toString();
                         tId = ds.child("Sid").getValue().toString();
 
@@ -165,8 +175,7 @@ public class ManageStudentFragment extends Fragment {
                             cSupport = "UNKNOWN";
                         }
 
-                        studentInfos.add(Integer.parseInt(ds.getKey()),
-                                new StudentInfo(tAmount, tType, tYear, tId, tName, cSupport));
+                        studentInfos.add(new StudentInfo(index, tAmount, tType, tYear, tId, tName, cSupport));
                     }
                 }
 
@@ -174,7 +183,6 @@ public class ManageStudentFragment extends Fragment {
                 public void onCancelled(@NonNull DatabaseError databaseError) {
                     studentInfos.clear();
                 }
-
             };
 
             conditionRef.addListenerForSingleValueEvent(valueEventListener);
@@ -197,6 +205,8 @@ public class ManageStudentFragment extends Fragment {
             mProgressBar.setVisibility(View.GONE);
 
             if (success) {
+                sortPlusWrite(studentInfos, totalNum);
+
                 setStudents(studentInfos);
                 mRecyclerView = getView().findViewById(R.id.all_students_list);
                 mRecyclerView.setHasFixedSize(false);
@@ -223,6 +233,48 @@ public class ManageStudentFragment extends Fragment {
         protected void onCancelled() {
             mAuthTask = null;
             mProgressBar.setVisibility(View.GONE);
+        }
+    }
+
+    public void sortPlusWrite (ArrayList<StudentInfo> src, int totalNum) {
+        int totalIndex, i;
+        totalIndex = totalNum - 1;
+
+        Collections.sort(src, new SortStudents());
+
+        for(i = 0 ; i <= totalIndex ; i++) {
+            String index = String.valueOf(i);
+            StudentInfo studentInfo = src.get(i);
+
+            conditionRef.child(index).child("Sname").setValue(studentInfo.Sname);
+            conditionRef.child(index).child("Sid").setValue(studentInfo.Sid);
+            conditionRef.child(index).child("Pamount").setValue(studentInfo.Pamount);
+            conditionRef.child(index).child("Pyear").setValue(studentInfo.Pyear);
+            conditionRef.child(index).child("Ptype").setValue(studentInfo.Ptype);
+        }
+    }
+
+
+    public class SortStudents implements Comparator<StudentInfo> {
+
+        @Override
+        public int compare(StudentInfo s1, StudentInfo s2) {
+            int ret = 0;
+
+            if (Integer.parseInt(s1.Sid) > Integer.parseInt(s2.Sid)) {
+                ret = -1;
+            } else if (Integer.parseInt(s1.Sid) == Integer.parseInt(s2.Sid)) {
+                ret = s1.Sname.compareTo(s2.Sname);
+
+                if (ret < 0) ret = -1;
+                else if (ret == 0) ret = 0;
+                else if (ret > 0) ret = 1;
+
+            } else if (Integer.parseInt(s1.Sid) < Integer.parseInt(s2.Sid)) {
+                ret = 1;
+            }
+
+            return ret;
         }
     }
 

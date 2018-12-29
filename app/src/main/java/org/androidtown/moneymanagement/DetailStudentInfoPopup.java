@@ -16,10 +16,8 @@ import android.widget.Toast;
 
 public class DetailStudentInfoPopup extends AppCompatActivity {
 
-    private StudentInfo studentInfo;
-    private int position;
-    private int totalNum;
-
+    StudentInfo studentInfo;
+    int totalNum;
     int mode;
 
     TextView mTitleView;
@@ -29,6 +27,7 @@ public class DetailStudentInfoPopup extends AppCompatActivity {
     TextView mSupportView;
 
     public Activity mActivity;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,17 +41,11 @@ public class DetailStudentInfoPopup extends AppCompatActivity {
 
         try {
             studentInfo = intent.getParcelableExtra("student");
-            position = intent.getIntExtra("position", 0);
-            totalNum = intent.getIntExtra("size", 1);
             mode = intent.getIntExtra("mode", 0);
-
-            if(position < 0 || totalNum < 1) {
-                throw new Exception();
-            }
+            totalNum = intent.getIntExtra("size", 1);
         } catch (Exception e) {
-            Toast.makeText(getApplicationContext(),
-                    "Loading failed", Toast.LENGTH_SHORT).show();
-
+            String message = "Loading failed.";
+            Toast.makeText(getApplicationContext(), message,Toast.LENGTH_SHORT).show();
             finish();
         }
 
@@ -87,7 +80,6 @@ public class DetailStudentInfoPopup extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent = new Intent(getApplicationContext(), DetailStudentDeleteCheckPopup.class);
                 intent.putExtra("student", studentInfo);
-                intent.putExtra("position", position);
                 intent.putExtra("size", totalNum);
                 intent.putExtra("mode", mode);
                 startActivityForResult(intent, 1);
@@ -107,10 +99,12 @@ public class DetailStudentInfoPopup extends AppCompatActivity {
             finish();
 
             // mode 0 is from ManageStudentListAdapter.
+            // mode 1 is from EnrollFragment.
             if(mode == 0) {
                 ManageStudentFragment.refreshFragment();
             } else {
-                EnrollFragment.refreshFragment();
+                EnrollPopup enrollPopup = (EnrollPopup) EnrollPopup.thisActivity;
+                enrollPopup.finish();
             }
         }
     }

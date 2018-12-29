@@ -5,6 +5,7 @@
     android:id="@+id/enroll_already_student_list"
     android:layout_width="match_parent"
     android:layout_height="65dp"
+    android:layout_marginBottom="2dp"
     android:background="@color/colorNoColor"
     android:gravity="center_vertical|center_horizontal"
     android:orientation="vertical"
@@ -12,18 +13,6 @@
     app:cardElevation="0dp"
     app:cardPreventCornerOverlap="false"
     app:cardUseCompatPadding="false">
-
-    <!--<View-->
-    <!--android:id="@+id/view4"-->
-    <!--android:layout_width="match_parent"-->
-    <!--android:layout_height="1dp"-->
-    <!--android:layout_marginStart="8dp"-->
-    <!--android:layout_marginEnd="8dp"-->
-    <!--android:background="@drawable/gradiant"-->
-    <!--app:layout_constraintHorizontal_bias="0.0"-->
-    <!--app:layout_constraintLeft_toLeftOf="parent"-->
-    <!--app:layout_constraintRight_toRightOf="parent"-->
-    <!--app:layout_constraintTop_toBottomOf="@+id/textView3"></View>-->
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -37,16 +26,25 @@
         android:paddingBottom="10dp">
 
         <TextView
-            android:id="@+id/enroll_already_students_sid_name"
-            android:layout_width="0dp"
+            android:id="@+id/enroll_already_students_sid"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="5"
             android:text="@string/prompt_sid"
             android:textAppearance="@style/TextAppearance.AppCompat.SearchResult.Subtitle"
             android:textStyle="bold" />
 
+        <TextView
+            android:id="@+id/enroll_already_students_sname"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="4dp"
+            android:layout_weight="5"
+            android:text="@string/prompt_name"
+            android:textAppearance="@style/TextAppearance.AppCompat.SearchResult.Subtitle"
+            android:textStyle="bold" />
+
         <LinearLayout
-            android:layout_width="70dp"
+            android:layout_width="60dp"
             android:layout_height="match_parent"
             android:layout_marginStart="8dp"
             android:layout_marginEnd="4dp"
@@ -77,7 +75,7 @@
         </LinearLayout>
 
         <LinearLayout
-            android:layout_width="70dp"
+            android:layout_width="60dp"
             android:layout_height="match_parent"
             android:layout_marginStart="8dp"
             android:layout_marginEnd="12dp"
