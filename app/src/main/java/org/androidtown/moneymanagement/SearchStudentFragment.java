@@ -332,9 +332,9 @@ public class SearchStudentFragment extends Fragment {
             } else {
                 // If the result array list is empty, which means
                 // the student that user put in is not in DB, just float Toast.
-                Toast toast = Toast.makeText(getContext(),
-                        "찾는 대상이 납부자 명단에 없습니다.", Toast.LENGTH_SHORT);
-                toast.setGravity(Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL, 0, 0);
+                String message = "찾는 대상이 납부자 명단에 없습니다.";
+                Toast toast = Toast.makeText(getContext(), message, Toast.LENGTH_SHORT);
+                toast.setGravity(Gravity.CENTER_HORIZONTAL|Gravity.BOTTOM, 0, 0);
                 toast.show();
             }
 

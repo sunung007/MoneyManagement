@@ -103,7 +103,7 @@
 
     <View
         android:id="@+id/view4"
-        android:layout_width="320dp"
+        android:layout_width="274dp"
         android:layout_height="1dp"
         android:layout_marginTop="8dp"
         android:background="@drawable/gradiant"

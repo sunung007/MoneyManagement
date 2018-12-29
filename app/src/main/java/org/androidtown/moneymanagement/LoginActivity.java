@@ -86,8 +86,7 @@ public class LoginActivity extends AppCompatActivity {
         mPasswordView.setOnKeyListener(new View.OnKeyListener() {
             @Override
             public boolean onKey(View view, int i, KeyEvent keyEvent) {
-                if ((keyEvent.getAction() == KeyEvent.ACTION_DOWN)
-                        && (i == KeyEvent.KEYCODE_ENTER)) {
+                if ((keyEvent.getAction() == KeyEvent.ACTION_DOWN) && (i == KeyEvent.KEYCODE_ENTER)) {
                     attemptLogin();
                     return true;
                 }
@@ -99,8 +98,8 @@ public class LoginActivity extends AppCompatActivity {
         mLoginFormView.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
-                InputMethodManager inputMethodManager =
-                        (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                InputMethodManager inputMethodManager
+                        = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
 
                 if (inputMethodManager.isActive()) {
                     inputMethodManager.hideSoftInputFromWindow(
@@ -227,7 +226,8 @@ public class LoginActivity extends AppCompatActivity {
                 // Change intent
                 Intent intent = new Intent(getApplicationContext(), MainActivity.class);
 
-                Toast toast = Toast.makeText(getApplicationContext(), "로그인 성공", Toast.LENGTH_SHORT);
+                String message = "로그인 성공";
+                Toast toast = Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT);
                 toast.setGravity(Gravity.CENTER_HORIZONTAL|Gravity.BOTTOM, 0, 0);
                 toast.show();
 

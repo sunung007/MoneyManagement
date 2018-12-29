@@ -1,6 +1,8 @@
 package org.androidtown.moneymanagement;
 
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -32,6 +34,7 @@ public class SearchResultPopup extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search_result_popup);
+        getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
 
         Intent intent = getIntent();
 
@@ -39,7 +42,11 @@ public class SearchResultPopup extends AppCompatActivity {
             resultStudent = intent.getParcelableArrayListExtra("result");
             searchType = intent.getIntExtra("type", 0);
         } catch (Exception e) {
-            Toast.makeText(getApplicationContext(), "Loading Failed", Toast.LENGTH_SHORT).show();
+            String message = "Loading Failed.";
+            Toast toast = Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT);
+            toast.setGravity(Gravity.CENTER_HORIZONTAL|Gravity.BOTTOM, 0, 0);
+            toast.show();
+
             finish();
         }
 

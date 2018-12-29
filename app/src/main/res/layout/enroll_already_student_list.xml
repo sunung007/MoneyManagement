@@ -2,24 +2,28 @@
 <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/enroll_already_student_list"
     android:layout_width="match_parent"
     android:layout_height="65dp"
     android:background="@color/colorNoColor"
     android:gravity="center_vertical|center_horizontal"
     android:orientation="vertical"
-    android:paddingTop="0dp">
+    app:cardBackgroundColor="@color/colorGrayMoreLight"
+    app:cardElevation="0dp"
+    app:cardPreventCornerOverlap="false"
+    app:cardUseCompatPadding="false">
 
-    <View
-        android:id="@+id/view4"
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp"
-        android:background="@drawable/gradiant"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView3"></View>
+    <!--<View-->
+    <!--android:id="@+id/view4"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="1dp"-->
+    <!--android:layout_marginStart="8dp"-->
+    <!--android:layout_marginEnd="8dp"-->
+    <!--android:background="@drawable/gradiant"-->
+    <!--app:layout_constraintHorizontal_bias="0.0"-->
+    <!--app:layout_constraintLeft_toLeftOf="parent"-->
+    <!--app:layout_constraintRight_toRightOf="parent"-->
+    <!--app:layout_constraintTop_toBottomOf="@+id/textView3"></View>-->
 
     <LinearLayout
         android:layout_width="match_parent"

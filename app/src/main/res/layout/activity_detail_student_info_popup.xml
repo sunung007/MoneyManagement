@@ -5,13 +5,15 @@
     android:layout_width="300dp"
     android:layout_height="wrap_content"
     android:layout_gravity="center_horizontal"
-    tools:context=".EnrollPopupActivity">
+    android:background="@drawable/round_popup"
+    android:padding="5dp"
+    tools:context=".EnrollPopup">
 
     <TextView
         android:id="@+id/title_detail_info"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:background="@color/colorPrimary"
+        android:background="@drawable/round_button"
         android:gravity="center"
         android:paddingTop="14dp"
         android:paddingBottom="14dp"
@@ -134,11 +136,12 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:background="@color/colorPrimary"
+        android:background="@drawable/round_button"
         android:text="@string/button_detail_modify"
         android:textAppearance="@style/TextAppearance.AppCompat.Menu"
         android:textColor="@color/colorWhite"
         app:layout_constraintEnd_toStartOf="@+id/button_detail_delete"
+        app:layout_constraintHorizontal_bias="0.4"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView27" />
 
@@ -146,7 +149,9 @@
         android:id="@+id/button_detail_delete"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:background="@color/colorPrimary"
+        android:layout_marginStart="4dp"
+        android:layout_marginEnd="4dp"
+        android:background="@drawable/round_button"
         android:text="@string/button_detail_delete"
         android:textAppearance="@style/TextAppearance.AppCompat.Menu"
         android:textColor="@color/colorWhite"
@@ -158,7 +163,7 @@
         android:id="@+id/button_detail_ok"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:background="@color/colorPrimary"
+        android:background="@drawable/round_button"
         android:text="@string/button_detail_ok"
         android:textAppearance="@style/TextAppearance.AppCompat.Menu"
         android:textColor="@color/colorWhite"

@@ -210,7 +210,8 @@ public class ManageStudentFragment extends Fragment {
             } else {
                 // If the result array list is empty, which means
                 // the student that user put in is not in DB, just float Toast.
-                Toast toast = Toast.makeText(getContext(), "데이터베이스에 이상이 있습니다.", Toast.LENGTH_SHORT);
+                String message = "데이터베이스에 이상이 있습니다.";
+                Toast toast = Toast.makeText(getContext(), message, Toast.LENGTH_SHORT);
                 toast.setGravity(Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL, 0, 0);
                 toast.show();
             }

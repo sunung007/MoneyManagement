@@ -60,11 +60,11 @@ public class ManageStudentListAdapter extends RecyclerView.Adapter<RecyclerView.
         myViewHolder.mListView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                myViewHolder.mListView.setCardBackgroundColor(Color.BLUE);
                 Intent intent = new Intent(view.getContext(), DetailStudentInfoPopup.class);
                 intent.putExtra("student", studentInfo);
                 intent.putExtra("position", position);
                 intent.putExtra("size", getItemCount());
+                intent.putExtra("mode", 0);
                 view.getContext().startActivity(intent);
             }
         });

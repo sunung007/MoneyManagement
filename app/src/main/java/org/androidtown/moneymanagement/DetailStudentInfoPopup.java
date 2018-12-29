@@ -3,8 +3,11 @@ package org.androidtown.moneymanagement;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.Gravity;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
@@ -16,6 +19,8 @@ public class DetailStudentInfoPopup extends AppCompatActivity {
     private StudentInfo studentInfo;
     private int position;
     private int totalNum;
+
+    int mode;
 
     TextView mTitleView;
     TextView mYearView;
@@ -29,6 +34,7 @@ public class DetailStudentInfoPopup extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
+        getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         setContentView(R.layout.activity_detail_student_info_popup);
 
         mActivity = DetailStudentInfoPopup.this;
@@ -36,8 +42,9 @@ public class DetailStudentInfoPopup extends AppCompatActivity {
 
         try {
             studentInfo = intent.getParcelableExtra("student");
-            position = intent.getIntExtra("position", -1);
-            totalNum = intent.getIntExtra("size", -1);
+            position = intent.getIntExtra("position", 0);
+            totalNum = intent.getIntExtra("size", 1);
+            mode = intent.getIntExtra("mode", 0);
 
             if(position < 0 || totalNum < 1) {
                 throw new Exception();
@@ -69,8 +76,10 @@ public class DetailStudentInfoPopup extends AppCompatActivity {
         mModifyButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(getApplicationContext(),
-                        "아직 준비되지 않았습니다.", Toast.LENGTH_SHORT).show();
+                String message = "아직 준비되지 않았습니다.";
+                Toast toast = Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT);
+                toast.setGravity(Gravity.CENTER_HORIZONTAL|Gravity.BOTTOM, 0, 0);
+                toast.show();
             }
         });
         mDeleteButton.setOnClickListener(new View.OnClickListener() {
@@ -80,6 +89,7 @@ public class DetailStudentInfoPopup extends AppCompatActivity {
                 intent.putExtra("student", studentInfo);
                 intent.putExtra("position", position);
                 intent.putExtra("size", totalNum);
+                intent.putExtra("mode", mode);
                 startActivityForResult(intent, 1);
             }
         });
@@ -95,8 +105,13 @@ public class DetailStudentInfoPopup extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if(requestCode == 1 && resultCode == RESULT_OK) {
             finish();
-            
-            ManageStudentFragment.refreshFragment();
+
+            // mode 0 is from ManageStudentListAdapter.
+            if(mode == 0) {
+                ManageStudentFragment.refreshFragment();
+            } else {
+                EnrollFragment.refreshFragment();
+            }
         }
     }
 

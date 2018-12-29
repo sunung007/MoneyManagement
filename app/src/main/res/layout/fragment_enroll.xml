@@ -52,6 +52,7 @@
             android:ems="10"
             android:hint="@string/hint_search_name"
             android:inputType="textPersonName"
+            android:paddingLeft="8dp"
             android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
             tools:layout_editor_absoluteX="144dp"
             tools:layout_editor_absoluteY="67dp" />

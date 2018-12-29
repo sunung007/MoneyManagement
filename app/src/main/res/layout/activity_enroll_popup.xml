@@ -5,16 +5,18 @@
     android:layout_width="300dp"
     android:layout_height="wrap_content"
     android:layout_gravity="center_horizontal"
-    tools:context=".EnrollPopupActivity">
+    android:background="@drawable/round_popup"
+    android:padding="5dp"
+    tools:context=".EnrollPopup">
 
     <TextView
         android:id="@+id/title_detail_info"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:background="@color/colorPrimary"
+        android:background="@drawable/round_button"
         android:gravity="center"
-        android:paddingTop="14dp"
-        android:paddingBottom="14dp"
+        android:paddingTop="13dp"
+        android:paddingBottom="13dp"
         android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
         android:textColor="@color/colorWhite"
         android:textStyle="bold"
@@ -26,11 +28,11 @@
         android:id="@+id/frameLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:maxHeight="200dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/title_detail_info"
-        android:maxHeight="200dp"
-        >
+        app:layout_constraintTop_toBottomOf="@+id/title_detail_info">
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/already_enrolleds_students"
@@ -42,7 +44,9 @@
         android:id="@+id/button_search_result_ok"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:background="@color/colorPrimary"
+        android:layout_marginTop="4dp"
+        android:layout_marginEnd="2dp"
+        android:background="@drawable/round_button"
         android:text="@string/button_enroll_accept"
         android:textAppearance="@style/TextAppearance.AppCompat.Menu"
         android:textColor="@color/colorWhite"
@@ -54,13 +58,13 @@
         android:id="@+id/button_detail_ok"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:background="@color/colorPrimary"
+        android:layout_marginStart="2dp"
+        android:background="@drawable/round_button"
         android:text="@string/button_enroll_cancel"
         android:textAppearance="@style/TextAppearance.AppCompat.Menu"
+        android:textColor="@color/colorWhite"
         app:layout_constraintBottom_toBottomOf="@+id/button_search_result_ok"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/button_search_result_ok"
-        app:layout_constraintTop_toTopOf="@+id/button_search_result_ok"
-        android:textColor="@color/colorWhite"
-        />
+        app:layout_constraintTop_toTopOf="@+id/button_search_result_ok" />
 </android.support.constraint.ConstraintLayout>

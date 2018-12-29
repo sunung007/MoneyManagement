@@ -3,7 +3,6 @@ package org.androidtown.moneymanagement;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -24,6 +23,7 @@ public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     private int previousFragmentID = R.id.nav_check;
+    long backKeyPressedTime = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,8 +70,16 @@ public class MainActivity extends AppCompatActivity
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
-        } else {
-            super.onBackPressed();
+        } else if (System.currentTimeMillis() - backKeyPressedTime >= 2000) {
+            backKeyPressedTime = System.currentTimeMillis();
+
+            String message = "한번 더 누르시면 종료됩니다.";
+            Toast toast = Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT);
+            toast.setGravity(Gravity.CENTER_HORIZONTAL|Gravity.BOTTOM, 0, 0);
+            toast.show();
+
+        } else if (System.currentTimeMillis() - backKeyPressedTime < 2000){
+            finish();
         }
     }
 
@@ -84,9 +92,8 @@ public class MainActivity extends AppCompatActivity
     }
 
 
-    @NonNull
     @Override
-    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+    public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
@@ -117,7 +124,8 @@ public class MainActivity extends AppCompatActivity
         } else if (id == R.id.developer) {
             fragment = new DevelopersFragment();
         } else if (id == R.id.logout) {
-            Toast toast = Toast.makeText(getApplicationContext(), "로그아웃", Toast.LENGTH_SHORT);
+            String message = "로그아웃";
+            Toast toast = Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT);
             toast.setGravity(Gravity.CENTER_HORIZONTAL|Gravity.BOTTOM, 0, 0);
             toast.show();
 
@@ -147,10 +155,6 @@ public class MainActivity extends AppCompatActivity
         drawer.closeDrawer(GravityCompat.START);
 
         return true;
-    }
-
-    public void refreshManageStudentFragment() {
-        Toast.makeText(getApplicationContext(), "TEST", Toast.LENGTH_SHORT).show();
     }
 }
 

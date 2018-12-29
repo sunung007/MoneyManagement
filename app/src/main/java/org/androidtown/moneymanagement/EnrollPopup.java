@@ -1,6 +1,8 @@
 package org.androidtown.moneymanagement;
 
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -17,7 +19,10 @@ import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
 
-public class EnrollPopupActivity extends AppCompatActivity {
+public class EnrollPopup extends AppCompatActivity {
+
+    DatabaseReference mRootRef = FirebaseDatabase.getInstance().getReference();
+    DatabaseReference conditionRef = mRootRef.child("student");
 
     TextView mTitle;
     RecyclerView mRecyclerView;
@@ -29,13 +34,12 @@ public class EnrollPopupActivity extends AppCompatActivity {
     int totalNum;
     String title;
 
-    DatabaseReference mRootRef = FirebaseDatabase.getInstance().getReference();
-    DatabaseReference conditionRef = mRootRef.child("student");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
+        getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         setContentView(R.layout.activity_enroll_popup);
 
         // Receive the data from enroll fragment.
@@ -56,7 +60,6 @@ public class EnrollPopupActivity extends AppCompatActivity {
         mRecyclerView = findViewById(R.id.already_enrolleds_students);
         mRecyclerView.setHasFixedSize(false);
 
-
         mLayoutManage = new LinearLayoutManager(getApplicationContext());
         mRecyclerView.setLayoutManager(mLayoutManage);
         adapter = new EnrollAlreadyStudentsListAdapter(alreadyStudents);
@@ -68,21 +71,7 @@ public class EnrollPopupActivity extends AppCompatActivity {
         buttonEnroll.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(totalNum < 0) return;
-                String totalNumIndex = String.valueOf(totalNum);
-                conditionRef.child(totalNumIndex).setValue(totalNumIndex);
-
-                conditionRef.child(totalNumIndex).child("Sname").setValue(newStudent.Sname);
-                conditionRef.child(totalNumIndex).child("Sid").setValue(newStudent.Sid);
-                conditionRef.child(totalNumIndex).child("Pamount").setValue(newStudent.Pamount);
-                conditionRef.child(totalNumIndex).child("Pyear").setValue(newStudent.Pyear);
-                conditionRef.child(totalNumIndex).child("Ptype").setValue(newStudent.Ptype);
-
-                Toast toast = Toast.makeText(getApplicationContext(),"등록되었습니다.", Toast.LENGTH_SHORT);
-                toast.setGravity(Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL, 0, 0);
-                toast.show();
-
-                finish();
+                enrollStudent();
             }
         });
 
@@ -92,6 +81,25 @@ public class EnrollPopupActivity extends AppCompatActivity {
                 finish();
             }
         });
+    }
+
+    public void enrollStudent() {
+        if(totalNum < 0) return;
+        String totalNumIndex = String.valueOf(totalNum);
+        conditionRef.child(totalNumIndex).setValue(totalNumIndex);
+
+        conditionRef.child(totalNumIndex).child("Sname").setValue(newStudent.Sname);
+        conditionRef.child(totalNumIndex).child("Sid").setValue(newStudent.Sid);
+        conditionRef.child(totalNumIndex).child("Pamount").setValue(newStudent.Pamount);
+        conditionRef.child(totalNumIndex).child("Pyear").setValue(newStudent.Pyear);
+        conditionRef.child(totalNumIndex).child("Ptype").setValue(newStudent.Ptype);
+
+        String message = "등록되었습니다.";
+        Toast toast = Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT);
+        toast.setGravity(Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL, 0, 0);
+        toast.show();
+
+        finish();
     }
 
 

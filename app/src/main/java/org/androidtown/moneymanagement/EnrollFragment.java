@@ -8,6 +8,8 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.text.TextUtils;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -32,26 +34,29 @@ import java.util.Iterator;
 
 public class EnrollFragment extends Fragment {
 
-    ValueEventListener valueEventListener;
+    DatabaseReference mRootRef = FirebaseDatabase.getInstance().getReference();
+    DatabaseReference conditionRef = mRootRef.child("student");
+
+    Spinner mSidView, mPyearView, mPtypeView, mPamountView;
+
+    View mEnrollView;
+    EditText mSnameView;
+    ProgressBar mProgressBar;
     SearchTask mAuthTask;
+    ValueEventListener valueEventListener;
 
     String mSid, mSname, mPyear, mPtype, mPamount, title;
     int totalNum;
 
-    EditText mSnameView;
-    Spinner mSidView, mPyearView, mPtypeView, mPamountView;
-    View mEnrollView;
-    ProgressBar mProgressBar;
-
     ArrayList<StudentInfo> target = new ArrayList<>();
 
-    DatabaseReference mRootRef = FirebaseDatabase.getInstance().getReference();
-    DatabaseReference conditionRef = mRootRef.child("student");
+    static FragmentManager thisFragmentManager;
+    static Fragment thisFragment;
+
 
     public EnrollFragment() {
         // Required empty public constructor
     }
-
 
     @NonNull
     @Override
@@ -59,6 +64,9 @@ public class EnrollFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_enroll, container, false);
+
+        thisFragmentManager = getFragmentManager();
+        thisFragment = this;
 
         Button studentSearchButton = view.findViewById(R.id.enroll_button);
         mSnameView = view.findViewById(R.id.enroll_name);
@@ -83,10 +91,8 @@ public class EnrollFragment extends Fragment {
         mSnameView.setOnKeyListener(new View.OnKeyListener() {
             @Override
             public boolean onKey(View view, int i, KeyEvent keyEvent) {
-                if ((keyEvent.getAction() == KeyEvent.ACTION_DOWN)
-                        && (i == KeyEvent.KEYCODE_ENTER)) {
+                if ((keyEvent.getAction() == KeyEvent.ACTION_DOWN) && (i == KeyEvent.KEYCODE_ENTER)) {
                     searchStudent();
-                    return true;
                 }
                 return false;
             }
@@ -102,13 +108,18 @@ public class EnrollFragment extends Fragment {
                 if(inputMethodManager.isActive()) {
                     inputMethodManager.hideSoftInputFromWindow(
                             getActivity().getCurrentFocus().getWindowToken(), 0);
-                    return true;
                 }
                 return false;
             }
         });
 
         return view;
+    }
+
+    public static void refreshFragment () {
+        FragmentManager fm = thisFragmentManager;
+        FragmentTransaction ft = fm.beginTransaction();
+        ft.detach(thisFragment).attach(thisFragment).commit();
     }
 
     private void searchStudent() {
@@ -245,13 +256,13 @@ public class EnrollFragment extends Fragment {
             mProgressBar.setVisibility(View.GONE);
 
             // Close keypad.
-            InputMethodManager imm = (InputMethodManager) getActivity().
-                    getSystemService(Activity.INPUT_METHOD_SERVICE);
+            InputMethodManager imm
+                    = (InputMethodManager) getActivity().getSystemService(Activity.INPUT_METHOD_SERVICE);
             imm.hideSoftInputFromWindow(getView().getWindowToken(), 0);
 
             // Set intent.
-            Intent intent = new Intent(getActivity().getApplicationContext(),
-                    EnrollPopupActivity.class);
+            Intent intent = new Intent(
+                    getActivity().getApplicationContext(), EnrollPopup.class);
 
             StudentInfo studentInfo = setNewStudent();
 

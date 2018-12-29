@@ -17,10 +17,10 @@ public class SearchStudentListAdapter extends RecyclerView.Adapter<RecyclerView.
 
         MyViewHolder(View view) {
             super(view);
-            mPyearView = (TextView) view.findViewById(R.id.result_pyear);
-            mPtypeView = (TextView) view.findViewById(R.id.result_ptype);
-            mPamountView = (TextView) view.findViewById(R.id.result_pamount);
-            mSupportView = (TextView) view.findViewById(R.id.result_support);
+            mPyearView = view.findViewById(R.id.result_pyear);
+            mPtypeView = view.findViewById(R.id.result_ptype);
+            mPamountView = view.findViewById(R.id.result_pamount);
+            mSupportView = view.findViewById(R.id.result_support);
         }
     }
 

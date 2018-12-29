@@ -32,7 +32,7 @@
             android:label="@string/title_activity_main"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".EnrollPopupActivity"
+            android:name=".EnrollPopup"
             android:theme="@style/AppTheme.NoActionBar.Dialog" />
         <activity
             android:name=".DetailStudentInfoPopup"

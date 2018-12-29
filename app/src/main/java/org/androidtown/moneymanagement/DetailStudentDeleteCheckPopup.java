@@ -1,6 +1,8 @@
 package org.androidtown.moneymanagement;
 
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -27,8 +29,7 @@ public class DetailStudentDeleteCheckPopup extends AppCompatActivity {
     DatabaseReference conditionRef = mRootRef.child("student");
     ValueEventListener valueEventListener;
 
-    int position;
-    int totalNum;
+    int position, totalNum, mode;
     StudentInfo studentInfo;
 
     private ProgressBar mProgressBar;
@@ -38,14 +39,16 @@ public class DetailStudentDeleteCheckPopup extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
+        getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         setContentView(R.layout.activity_detail_student_delete_check);
 
 
         try {
             Intent intent = getIntent();
             studentInfo = intent.getParcelableExtra("student");
-            position = intent.getIntExtra("position", -1);
-            totalNum = intent.getIntExtra("size", -1);
+            position = intent.getIntExtra("position", 0);
+            totalNum = intent.getIntExtra("size", 1);
+            mode = intent.getIntExtra("mode", 0);
 
             if(position < 0 || totalNum < 1) {
                 throw new Exception();
@@ -134,7 +137,6 @@ public class DetailStudentDeleteCheckPopup extends AppCompatActivity {
             };
 
             conditionRef.addListenerForSingleValueEvent(valueEventListener);
-
 
             try {
                 Thread.sleep(500);
