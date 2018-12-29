@@ -12,10 +12,12 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.Locale;
 
 public class ManageStudentListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     private ArrayList<StudentInfo> students;
+    private ArrayList<StudentInfo> searchList = new ArrayList<>();
 
     public static class MyManageViewHolder extends RecyclerView.ViewHolder {
 
@@ -35,6 +37,7 @@ public class ManageStudentListAdapter extends RecyclerView.Adapter<RecyclerView.
 
     ManageStudentListAdapter(ArrayList<StudentInfo> scr) {
         students = new ArrayList<>(scr);
+        searchList.addAll(students);
     }
 
 
@@ -51,7 +54,7 @@ public class ManageStudentListAdapter extends RecyclerView.Adapter<RecyclerView.
     public void onBindViewHolder(@NonNull final RecyclerView.ViewHolder holder, final int position) {
         final MyManageViewHolder myViewHolder = (MyManageViewHolder) holder;
 
-        final StudentInfo studentInfo = students.get(position);
+        final StudentInfo studentInfo = searchList.get(position);
 
         myViewHolder.mSidView.setText(studentInfo.Sid);
         myViewHolder.mSnameView.setText(studentInfo.Sname);
@@ -88,8 +91,27 @@ public class ManageStudentListAdapter extends RecyclerView.Adapter<RecyclerView.
         });
     }
 
+    public void filter(String query) {
+        query = query.toLowerCase(Locale.getDefault());
+        searchList.clear();
+
+        if (query.length() == 0) {
+            searchList.addAll(students);
+        } else {
+            for (StudentInfo iter : students) {
+                String name = iter.Sname;
+                if (name.toLowerCase().contains(query)) {
+                    searchList.add(iter);
+                }
+            }
+        }
+
+        notifyDataSetChanged();
+    }
+
     @Override
     public int getItemCount() {
-        return students.size();
+        return searchList.size();
     }
+
 }

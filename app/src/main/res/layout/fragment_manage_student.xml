@@ -6,15 +6,32 @@
     android:layout_height="match_parent"
     tools:context=".ManageStudentFragment">
 
-    <SearchView
+    <EditText
         android:id="@+id/manage_searchBar"
+        style="@style/TextAppearance.AppCompat.Subhead"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:queryHint="@string/prompt_name"
         android:background="@color/colorSearchBackground"
-        >
+        android:hint="@string/prompt_manage_search"
+        android:inputType="text"
+        android:minHeight="50dp"
+        android:paddingStart="48dp"
+        android:paddingBottom="0dp"
+        android:singleLine="true">
 
-    </SearchView>
+    </EditText>
+
+    <ImageView
+        android:id="@+id/imageView4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        android:src="?android:attr/actionModeWebSearchDrawable"
+        app:layout_constraintBottom_toTopOf="@+id/manage_swipe_refresh"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/manage_searchBar" />
 
     <android.support.v4.widget.SwipeRefreshLayout
         android:id="@+id/manage_swipe_refresh"
@@ -40,7 +57,8 @@
 
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            />
 
     </android.support.v4.widget.SwipeRefreshLayout>
 

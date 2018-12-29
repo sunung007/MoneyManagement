@@ -10,12 +10,14 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.ProgressBar;
-import android.widget.SearchView;
 import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
@@ -29,6 +31,7 @@ import java.util.Calendar;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Iterator;
+import java.util.Locale;
 
 
 public class ManageStudentFragment extends Fragment {
@@ -41,13 +44,13 @@ public class ManageStudentFragment extends Fragment {
 
     RecyclerView mRecyclerView;
     RecyclerView.LayoutManager mLayoutManage;
-    static RecyclerView.Adapter adapter;
+    RecyclerView.Adapter adapter;
 
     static FragmentManager thisFragmentManager;
     static Fragment thisFragment;
 
     ProgressBar mProgressBar;
-    SearchView mSearchView;
+    EditText mSearchView;
     SwipeRefreshLayout mSwipeRefreshLayout;
 
     ArrayList<StudentInfo> students;
@@ -76,13 +79,24 @@ public class ManageStudentFragment extends Fragment {
         thisFragment = this;
 
         mSearchView = view.findViewById(R.id.manage_searchBar);
-        // Test
-        mSearchView.setOnClickListener(new View.OnClickListener() {
+        mSearchView.addTextChangedListener(new TextWatcher() {
             @Override
-            public void onClick(View view) {
-                Toast.makeText(getContext(), "Clicked", Toast.LENGTH_SHORT).show();
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                String query = mSearchView.getText().toString().toLowerCase(Locale.getDefault());
+
+                ((ManageStudentListAdapter) adapter).filter(query);
             }
         });
+        mSearchView.setCursorVisible(false);
+
 
         mSwipeRefreshLayout = view.findViewById(R.id.manage_swipe_refresh);
         mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
@@ -92,8 +106,6 @@ public class ManageStudentFragment extends Fragment {
                 mSwipeRefreshLayout.setRefreshing(false);
             }
         });
-
-        // Write codes about search view
 
         loadStudentsList();
 

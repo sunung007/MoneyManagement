@@ -35,6 +35,7 @@
 
     <string name="planet_prompt">학번</string>
     <string name="prompt_name">이름</string>
+    <string name="prompt_manage_search">검색할 이름을 입력하세요</string>
 
     <string-array name="array_sid">
         <item>17학번</item>

@@ -12,7 +12,8 @@
     app:cardCornerRadius="12dp"
     app:cardElevation="1dp"
     app:cardPreventCornerOverlap="false"
-    app:cardUseCompatPadding="false">
+    app:cardUseCompatPadding="false"
+    >
 
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
