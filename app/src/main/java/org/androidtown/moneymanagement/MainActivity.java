@@ -68,18 +68,26 @@ public class MainActivity extends AppCompatActivity
     @Override
     public void onBackPressed() {
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
+        FragmentManager fm = getSupportFragmentManager();
+        FragmentTransaction ft = fm.beginTransaction();
+
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
-        } else if (System.currentTimeMillis() - backKeyPressedTime >= 2000) {
+        }
+        else if (fm.getBackStackEntryCount() == 0
+                && System.currentTimeMillis() - backKeyPressedTime >= 2000) {
             backKeyPressedTime = System.currentTimeMillis();
 
             String message = "한번 더 누르시면 종료됩니다.";
             Toast toast = Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT);
             toast.setGravity(Gravity.CENTER_HORIZONTAL|Gravity.BOTTOM, 0, 0);
             toast.show();
-
-        } else if (System.currentTimeMillis() - backKeyPressedTime < 2000){
+        }
+        else if (System.currentTimeMillis() - backKeyPressedTime < 2000){
             finish();
+        }
+        else {
+            super.onBackPressed();
         }
     }
 
@@ -119,11 +127,14 @@ public class MainActivity extends AppCompatActivity
         }
         else if (id == R.id.nav_enroll) {
             fragment = new EnrollFragment();
-        } else if (id == R.id.nav_manage) {
+        }
+        else if (id == R.id.nav_manage) {
             fragment = new ManageStudentFragment();
-        } else if (id == R.id.developer) {
+        }
+        else if (id == R.id.developer) {
             fragment = new DevelopersFragment();
-        } else if (id == R.id.logout) {
+        }
+        else if (id == R.id.logout) {
             String message = "로그아웃";
             Toast toast = Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT);
             toast.setGravity(Gravity.CENTER_HORIZONTAL|Gravity.BOTTOM, 0, 0);
@@ -144,7 +155,8 @@ public class MainActivity extends AppCompatActivity
                     R.anim.enter_from_left,R.anim.exit_to_right).replace(R.id.main_fragment, fragment);
             ft.addToBackStack(null);
             ft.commit();
-        } else {
+        }
+        else {
             fragment = fm.findFragmentById(R.id.main_fragment);
             ft.detach(fragment).attach(fragment).commit();
         }

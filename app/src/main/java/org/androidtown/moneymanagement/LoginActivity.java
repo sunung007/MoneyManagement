@@ -76,7 +76,6 @@ public class LoginActivity extends AppCompatActivity {
             public boolean onEditorAction(TextView textView, int id, KeyEvent keyEvent) {
                 if (id == EditorInfo.IME_ACTION_DONE || id == EditorInfo.IME_NULL) {
                     attemptLogin();
-                    return true;
                 }
                 return false;
             }
@@ -88,7 +87,6 @@ public class LoginActivity extends AppCompatActivity {
             public boolean onKey(View view, int i, KeyEvent keyEvent) {
                 if ((keyEvent.getAction() == KeyEvent.ACTION_DOWN) && (i == KeyEvent.KEYCODE_ENTER)) {
                     attemptLogin();
-                    return true;
                 }
                 return false;
             }

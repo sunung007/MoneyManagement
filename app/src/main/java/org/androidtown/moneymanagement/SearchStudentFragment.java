@@ -84,8 +84,8 @@ public class SearchStudentFragment extends Fragment {
                 if ((keyEvent.getAction() == KeyEvent.ACTION_DOWN)
                         && (i == KeyEvent.KEYCODE_ENTER)) {
                     searchStudent();
-                    return true;
                 }
+
                 return false;
             }
         });
@@ -136,7 +136,8 @@ public class SearchStudentFragment extends Fragment {
             // form field with an error.
             mProgressBar.setVisibility(View.GONE);
             focusView.requestFocus();
-        } else {
+        }
+        else {
             mAuthTask = new SearchTask();
             mAuthTask.execute((Void) null);
         }
@@ -189,9 +190,11 @@ public class SearchStudentFragment extends Fragment {
 
                                 if(tType.contains("전액")) {
                                     cSupport = "YES";
-                                } else if(tType.contains("미납")) {
+                                }
+                                else if(tType.contains("미납")) {
                                     cSupport = "NO";
-                                } else if(tType.contains("학기")) {
+                                }
+                                else if(tType.contains("학기")) {
                                     // The condition is about whether a person can support by student's money.
                                     try {
                                         tmpYear = Integer.parseInt(tYear.substring(0, 2), 10) + 2000;
@@ -203,7 +206,8 @@ public class SearchStudentFragment extends Fragment {
                                     } catch (Exception e) {
                                         cSupport = "UNKNOWN";
                                     }
-                                } else {
+                                }
+                                else {
                                     cSupport = "UNKNOWN";
                                 }
 
@@ -220,7 +224,8 @@ public class SearchStudentFragment extends Fragment {
 
                 };
 
-            } else {
+            }
+            else {
                 valueEventListener = new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -250,9 +255,11 @@ public class SearchStudentFragment extends Fragment {
 
                                 if(tType.contains("전액")) {
                                     cSupport = "YES";
-                                } else if(tType.contains("미납")) {
+                                }
+                                else if(tType.contains("미납")) {
                                     cSupport = "NO";
-                                } else if(tType.contains("학기")) {
+                                }
+                                else if(tType.contains("학기")) {
                                     // The condition is about whether a person can support by student's money.
                                     try {
                                         tmpYear = Integer.parseInt(tYear.substring(0, 2), 10) + 2000;
@@ -264,7 +271,8 @@ public class SearchStudentFragment extends Fragment {
                                     } catch (Exception e) {
                                         cSupport = "UNKNOWN";
                                     }
-                                } else {
+                                }
+                                else {
                                     cSupport = "UNKNOWN";
                                 }
 
@@ -326,13 +334,15 @@ public class SearchStudentFragment extends Fragment {
 
                 if(mSid.equals("전체")) {
                     intent.putExtra("type", 1);
-                } else {
+                }
+                else {
                     intent.putExtra("type", 0);
                 }
 
                 startActivityForResult(intent, 1);
 
-            } else {
+            }
+            else {
                 // If the result array list is empty, which means
                 // the student that user put in is not in DB, just float Toast.
                 String message = "찾는 대상이 납부자 명단에 없습니다.";

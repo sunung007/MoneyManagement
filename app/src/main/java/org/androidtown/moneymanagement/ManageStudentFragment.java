@@ -1,6 +1,7 @@
 package org.androidtown.moneymanagement;
 
 
+import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -16,6 +17,7 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.Toast;
@@ -79,6 +81,14 @@ public class ManageStudentFragment extends Fragment {
         thisFragment = this;
 
         mSearchView = view.findViewById(R.id.manage_searchBar);
+
+        mSearchView.setCursorVisible(false);
+        mSearchView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mSearchView.setCursorVisible(true);
+            }
+        });
         mSearchView.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -90,18 +100,30 @@ public class ManageStudentFragment extends Fragment {
 
             @Override
             public void afterTextChanged(Editable editable) {
+
                 String query = mSearchView.getText().toString().toLowerCase(Locale.getDefault());
 
                 ((ManageStudentListAdapter) adapter).filter(query);
             }
         });
-        mSearchView.setCursorVisible(false);
 
 
         mSwipeRefreshLayout = view.findViewById(R.id.manage_swipe_refresh);
         mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
+                mSearchView.setText("");
+
+                InputMethodManager inputMethodManager =
+                        (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+
+                if (inputMethodManager.isActive()) {
+                    inputMethodManager.hideSoftInputFromWindow(
+                            getActivity().getCurrentFocus().getWindowToken(), 0);
+                }
+
+                mSearchView.setCursorVisible(false);
+
                 loadStudentsList();
                 mSwipeRefreshLayout.setRefreshing(false);
             }
@@ -120,6 +142,7 @@ public class ManageStudentFragment extends Fragment {
 
     public void loadStudentsList() {
         mProgressBar.setVisibility(View.VISIBLE);
+
 
         mAuthTask = new LoadAllStudents();
         mAuthTask.execute((Void) null);
@@ -279,7 +302,6 @@ public class ManageStudentFragment extends Fragment {
                 ret = s1.Sname.compareTo(s2.Sname);
 
                 if (ret < 0) ret = -1;
-                else if (ret == 0) ret = 0;
                 else if (ret > 0) ret = 1;
 
             } else if (Integer.parseInt(s1.Sid) < Integer.parseInt(s2.Sid)) {

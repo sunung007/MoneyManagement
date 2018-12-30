@@ -100,7 +100,11 @@ public class ManageStudentListAdapter extends RecyclerView.Adapter<RecyclerView.
         } else {
             for (StudentInfo iter : students) {
                 String name = iter.Sname;
-                if (name.toLowerCase().contains(query)) {
+
+                if (SoundSearcher.matchString(name, query)) {
+                    searchList.add(iter);
+                }
+                else if (name.toLowerCase().contains(query)) {
                     searchList.add(iter);
                 }
             }
