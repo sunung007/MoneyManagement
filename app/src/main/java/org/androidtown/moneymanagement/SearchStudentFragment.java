@@ -46,10 +46,10 @@ public class SearchStudentFragment extends Fragment {
 
     String mSid, mSname;
 
-    ArrayList<StudentInfo> target = new ArrayList<>();
+    ArrayList<StudentInfo> target;
 
     public SearchStudentFragment() {
-        // Required empty public constructor
+        target = new ArrayList<>();
     }
 
 
@@ -161,7 +161,8 @@ public class SearchStudentFragment extends Fragment {
         protected Boolean doInBackground(Void... params) {
 
             // Initialize array.
-            target.clear();
+            while(!target.isEmpty())
+                target.clear();
 
             if(mSid.equals("전체")) {
                 valueEventListener = new ValueEventListener() {
@@ -219,7 +220,8 @@ public class SearchStudentFragment extends Fragment {
                     // Just formal.
                     @Override
                     public void onCancelled(@NonNull DatabaseError databaseError) {
-                        target.clear();
+                        while(!target.isEmpty())
+                            target.clear();
                     }
 
                 };
@@ -284,7 +286,8 @@ public class SearchStudentFragment extends Fragment {
                     // Just formal.
                     @Override
                     public void onCancelled(@NonNull DatabaseError databaseError) {
-                        target.clear();
+                        while(!target.isEmpty())
+                            target.clear();
                     }
 
                 };

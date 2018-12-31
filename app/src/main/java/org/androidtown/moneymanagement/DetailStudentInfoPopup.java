@@ -7,7 +7,6 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.view.Gravity;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
@@ -69,22 +68,28 @@ public class DetailStudentInfoPopup extends AppCompatActivity {
         mModifyButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String message = "아직 준비되지 않았습니다.";
-                Toast toast = Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT);
-                toast.setGravity(Gravity.CENTER_HORIZONTAL|Gravity.BOTTOM, 0, 0);
-                toast.show();
+//                String message = "아직 준비되지 않았습니다.";
+//                Toast toast = Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT);
+//                toast.setGravity(Gravity.CENTER_HORIZONTAL|Gravity.BOTTOM, 0, 0);
+//                toast.show();
+
+                Intent intent = new Intent(getApplicationContext(), ModifyStudentInfo.class);
+                intent.putExtra("student", studentInfo);
+                intent.putExtra("size", totalNum);
+                startActivityForResult(intent, 2);
             }
         });
+
         mDeleteButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getApplicationContext(), DetailStudentDeleteCheckPopup.class);
                 intent.putExtra("student", studentInfo);
                 intent.putExtra("size", totalNum);
-                intent.putExtra("mode", mode);
                 startActivityForResult(intent, 1);
             }
         });
+
         mOkButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -95,7 +100,7 @@ public class DetailStudentInfoPopup extends AppCompatActivity {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if(requestCode == 1 && resultCode == RESULT_OK) {
+        if(resultCode == RESULT_OK) {
             finish();
 
             // mode 0 is from ManageStudentListAdapter.

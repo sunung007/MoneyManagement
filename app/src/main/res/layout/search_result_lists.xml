@@ -30,7 +30,7 @@
 
         <TextView
             android:id="@+id/textView12"
-            android:layout_width="60dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/prompt_year"
             android:textAppearance="@style/TextAppearance.AppCompat.Body1"
@@ -44,6 +44,7 @@
             android:id="@+id/result_pyear"
             android:layout_width="60dp"
             android:layout_height="wrap_content"
+            android:layout_marginStart="4dp"
             android:layout_marginTop="0dp"
             android:textAppearance="@style/TextAppearance.AppCompat.Body1"
             app:layout_constraintEnd_toStartOf="@+id/textView14"
@@ -51,7 +52,7 @@
 
         <TextView
             android:id="@+id/textView14"
-            android:layout_width="60dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="0dp"
             android:layout_marginEnd="0dp"
@@ -65,6 +66,7 @@
             android:id="@+id/result_ptype"
             android:layout_width="80dp"
             android:layout_height="wrap_content"
+            android:layout_marginStart="4dp"
             android:layout_marginTop="0dp"
             android:textAppearance="@style/TextAppearance.AppCompat.Body1"
             app:layout_constraintEnd_toEndOf="parent"
@@ -84,7 +86,7 @@
 
         <TextView
             android:id="@+id/textView13"
-            android:layout_width="60dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/prompt_amount"
             android:textAppearance="@style/TextAppearance.AppCompat.Body1"
@@ -94,11 +96,12 @@
             android:id="@+id/result_pamount"
             android:layout_width="60dp"
             android:layout_height="wrap_content"
+            android:layout_marginStart="4dp"
             android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
 
         <TextView
             android:id="@+id/textView18"
-            android:layout_width="60dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/title_support"
             android:textAppearance="@style/TextAppearance.AppCompat.Body1"
@@ -108,6 +111,7 @@
             android:id="@+id/result_support"
             android:layout_width="80dp"
             android:layout_height="wrap_content"
+            android:layout_marginStart="4dp"
             android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
 
     </LinearLayout>

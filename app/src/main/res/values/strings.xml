@@ -1,12 +1,72 @@
 <resources>
+
+    <!--Title of activities or app.-->
     <string name="app_name">컴소 학생회</string>
     <string name="title_activity_login">CSE 학생회</string>
     <string name="title_activity_main">한양대 컴소 학생회</string>
     <string name="title_activity_start">CSE 학생회</string>
 
-    <!-- Strings related to login -->
+
+    <!--Title of pages.-->
+    <string name="title_developers_info">개발자 정보</string>
+    <string name="title_enroll">학생회비 납부자 신규 등록</string>
+
+    <string name="title_result">검색결과</string>
+    <string name="title_search">검색할 학우의 정보를 입력하세요</string>
+    <string name="title_search_button">검색</string>
+    <string name="title_caution">주의사항</string>
+    <string name="title_support">지원대상</string>
+    <string name="title_detail_student_delete_check">정말 삭제하시겠습니까</string>
+    <string name="title_detail_student_modify_check">수정하시겠습니까</string>
+
+    <string name="title_menu_check">납부 확인</string>
+    <string name="title_menu_enroll">신규 등록</string>
+    <string name="title_menu_manage">전체 관리</string>
+    <string name="title_enroll_button">등록</string>
+    <string name="title_menu_etc">기타</string>
+    <string name="title_menu_developer">개발자 정보</string>
+    <string name="title_menu_logout">로그아웃</string>
+    <string name="title_menu_caution">주의사항</string>
+
+    <string name="title_modify">학우 정보 수정</string>
+
+
+    <!--Name of buttons.-->
+    <string name="button_cancel">취소</string>
+    <string name="button_modify">수정</string>
+
+    <string name="button_enroll_accept">등록</string>
+
+    <string name="button_detail_ok">확인</string>
+    <string name="button_detail_delete">삭제</string>
+
+    <string name="button_search_result_ok">확인</string>
+
+
+    <!--Prompt contents of many input text blanks.-->
     <string name="prompt_email">Email</string>
     <string name="prompt_password">Password (optional)</string>
+    <string name="planet_prompt">학번</string>
+    <string name="prompt_name">이름</string>
+    <string name="prompt_manage_search">검색할 이름을 입력하세요</string>
+    <string name="prompt_sid">학번</string>
+    <string name="prompt_year">납부년도</string>
+    <string name="prompt_type">납부유형</string>
+    <string name="prompt_amount">납부금액</string>
+    <string name="prompt_auto_login">자동 로그인</string>
+
+
+    <!--ETC...-->
+    <string name="name_account">한양대 컴소</string>
+    <string name="subname_account">학생회</string>
+    <string name="hint_search_name">이름을 입력하세요</string>
+    <string name="content_description_developers_title">한양대학교 컴퓨터소프트웨어학부 로고</string>
+    <string name="tip_modify_student">수정할 내용을 클릭하세요.</string>
+
+    <string name="hello_blank_fragment">아직 준비중입니다.</string>
+
+
+    <!-- About login page.-->
     <string name="action_sign_in">Sign in or register</string>
     <string name="action_sign_in_short">Sign in</string>
     <string name="error_invalid_email">아이디를 확인해주세요</string>
@@ -24,8 +84,21 @@
     <string name="login_bottom_message">[개발자 정보]\n컴퓨터소프트웨어학부 제 9대 학생회 [화합]\n
         김선웅, 류지범</string>
 
-    <string name="title_developers_info">개발자 정보</string>
 
+    <!--About developer information page.-->
+    <string name="title_about_developers">개발자 정보</string>
+    <string name="about_developers_department">한양대학교 컴퓨터소프트웨어학부</string>
+    <string name="about_developers_developer1">17학번 김선웅 sunung007@naver.com</string>
+    <string name="about_developers_developer2">17학번 류지범 dyeon11@gmail.com</string>
+
+    <string name="title_about_version">버전 정보</string>
+    <string name="about_version">
+        [최종 수정일] 2018년 12월 31일
+    </string>
+    <string name="title_developers_email">건의사항 보내기</string>
+
+
+    <!--Navigator-->
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="nav_header_title">Android Studio</string>
@@ -33,9 +106,6 @@
     <string name="nav_header_desc">Navigation header</string>
     <string name="action_settings">Settings</string>
 
-    <string name="planet_prompt">학번</string>
-    <string name="prompt_name">이름</string>
-    <string name="prompt_manage_search">검색할 이름을 입력하세요</string>
 
     <string-array name="array_sid">
         <item>17학번</item>
@@ -89,56 +159,5 @@
         - [납부금액] 해당 학우가 실제 납부한 금액입니다.
     </string>
 
-    <string name="title_about_developers">개발자 정보</string>
-    <string name="about_developers">
-        " "한양대학교 컴퓨터소프트웨어학부\n
-        17학번 김선웅 sunung007@naver.com\n
-        17학번 류지범 dyeon11@gmail.com\n
-    </string>
-
-    <string name="title_about_version">버전 정보</string>
-    <string name="about_version">
-        [최종 수정일] 2018년 12월 29일
-    </string>
-
-    <string name="title_enroll">학생회비 납부자 신규 등록</string>
-    <string name="prompt_sid">학번</string>
-    <string name="prompt_year">납부년도</string>
-    <string name="prompt_type">납부유형</string>
-    <string name="prompt_amount">납부금액</string>
-    <string name="prompt_auto_login">자동 로그인</string>
-
-    <string name="title_result">검색결과</string>
-    <string name="title_search">검색할 학우의 정보를 입력하세요</string>
-    <string name="title_search_button">검색</string>
-    <string name="title_caution">주의사항</string>
-    <string name="title_support">지원대상</string>
-    <string name="title_detail_student_delete_check">정말 삭제하시겠습니까</string>
-
-    <string name="title_menu_check">납부 확인</string>
-    <string name="title_menu_enroll">신규 등록</string>
-    <string name="title_menu_manage">전체 관리</string>
-    <string name="title_enroll_button">등록</string>
-    <string name="title_menu_etc">기타</string>
-    <string name="title_menu_developer">개발자 정보</string>
-    <string name="title_menu_logout">로그아웃</string>
-    <string name="title_menu_caution">주의사항</string>
-
-    <string name="button_enroll_accept">등록</string>
-    <string name="button_enroll_cancel">취소</string>
-
-    <string name="button_detail_modify">수정</string>
-    <string name="button_detail_ok">확인</string>
-    <string name="button_detail_delete">삭제</string>
-    <string name="button_detail_cancel">취소</string>
-
-    <string name="button_search_result_ok">확인</string>
-
-    <string name="name_account">한양대 컴소</string>
-    <string name="subname_account">학생회</string>
-
-    <string name="hint_search_name">이름을 입력하세요</string>
-
-    <string name="hello_blank_fragment">아직 준비중입니다.</string>
 
 </resources>

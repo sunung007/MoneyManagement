@@ -137,7 +137,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:background="@drawable/round_button"
-        android:text="@string/button_detail_modify"
+        android:text="@string/button_modify"
         android:textAppearance="@style/TextAppearance.AppCompat.Menu"
         android:textColor="@color/colorWhite"
         app:layout_constraintEnd_toStartOf="@+id/button_detail_delete"

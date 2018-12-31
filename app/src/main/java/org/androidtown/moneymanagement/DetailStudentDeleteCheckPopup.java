@@ -2,12 +2,14 @@ package org.androidtown.moneymanagement;
 
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.Rect;
 import android.graphics.drawable.ColorDrawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Gravity;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
@@ -29,7 +31,7 @@ public class DetailStudentDeleteCheckPopup extends AppCompatActivity {
     DatabaseReference conditionRef = mRootRef.child("student");
     ValueEventListener valueEventListener;
 
-    int position, totalNum, mode;
+    int position, totalNum;
     StudentInfo studentInfo;
 
     private ProgressBar mProgressBar;
@@ -47,12 +49,14 @@ public class DetailStudentDeleteCheckPopup extends AppCompatActivity {
             Intent intent = getIntent();
             studentInfo = intent.getParcelableExtra("student");
             totalNum = intent.getIntExtra("size", 1);
-            mode = intent.getIntExtra("mode", 0);
 
             position = Integer.parseInt(studentInfo.index);
         } catch (Exception e) {
-            Toast.makeText(getApplicationContext(),
-                    "Delete failed", Toast.LENGTH_SHORT).show();
+            String message = "Delete failed.";
+            Toast toast = Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT);
+            toast.setGravity(Gravity.CENTER_HORIZONTAL|Gravity.BOTTOM, 0, 0);
+            toast.show();
+
             finish();
         }
 
@@ -78,6 +82,18 @@ public class DetailStudentDeleteCheckPopup extends AppCompatActivity {
                 finish();
             }
         });
+    }
+
+    @Override
+    public boolean dispatchTouchEvent(MotionEvent ev) {
+        Rect dialogBounds = new Rect();
+        getWindow().getDecorView().getHitRect(dialogBounds);
+
+        if (!dialogBounds.contains((int) ev.getX(), (int) ev.getY())) {
+            return false;
+        }
+
+        return super.dispatchTouchEvent(ev);
     }
 
     public class DeleteStudent extends AsyncTask<Void, Void, Boolean> {

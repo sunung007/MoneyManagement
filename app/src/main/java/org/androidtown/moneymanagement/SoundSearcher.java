@@ -30,7 +30,6 @@ public class SoundSearcher {
      * 해당 문자의 자음을 얻는다.
      *
      * @param c 검사할 문자
-     * @return
      */
     private static char getInitialSound(char c) {
         int hanBegin = (c - HANGUL_BEGIN_UNICODE);
@@ -42,7 +41,6 @@ public class SoundSearcher {
     /**
      * 해당 문자가 한글인지 검사
      * @param c 문자 하나
-     * @return
      */
     private static boolean isHangul(char c) {
         return HANGUL_BEGIN_UNICODE <= c && c <= HANGUL_LAST_UNICODE;
@@ -60,7 +58,7 @@ public class SoundSearcher {
      * @param search : 검색어 ex> ㅅ검ㅅ합ㄴ
      * @return 매칭 되는거 찾으면 true 못찾으면 false. */
     public static boolean matchString(String value, String search){
-        int t = 0;
+        int t;
         int seof = value.length() - search.length();
         int slen = search.length();
         if(seof < 0)

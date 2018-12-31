@@ -59,11 +59,14 @@ public class ManageStudentFragment extends Fragment {
     int sNumber = 0;
 
     public ManageStudentFragment() {
-        // Required empty public constructor
+        students = new ArrayList<>();
     }
 
     public void setStudents(ArrayList<StudentInfo> _students) {
-        students = new ArrayList<>(_students);
+        while(!students.isEmpty())
+            students.clear();
+
+        students.addAll(_students);
         sNumber = _students.size();
     }
 
@@ -89,6 +92,7 @@ public class ManageStudentFragment extends Fragment {
                 mSearchView.setCursorVisible(true);
             }
         });
+
         mSearchView.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -137,12 +141,13 @@ public class ManageStudentFragment extends Fragment {
     public static void refreshFragment () {
         FragmentManager fm = thisFragmentManager;
         FragmentTransaction ft = fm.beginTransaction();
-        ft.detach(thisFragment).attach(thisFragment).commit();
+        Fragment fragment = new ManageStudentFragment();
+        ft.replace(R.id.main_fragment, fragment);
+        ft.commit();
     }
 
     public void loadStudentsList() {
         mProgressBar.setVisibility(View.VISIBLE);
-
 
         mAuthTask = new LoadAllStudents();
         mAuthTask.execute((Void) null);
@@ -150,15 +155,19 @@ public class ManageStudentFragment extends Fragment {
 
     public class LoadAllStudents extends AsyncTask<Void, Void, Boolean> {
 
-        ArrayList<StudentInfo> studentInfos = new ArrayList<>();
+        ArrayList<StudentInfo> studentInfos;
         int totalNum;
 
+        private LoadAllStudents() {
+            studentInfos = new ArrayList<>();
+        }
 
         @Override
         protected Boolean doInBackground(Void... params) {
 
             // Initialize array.
-            studentInfos.clear();
+            while(!studentInfos.isEmpty())
+                studentInfos.clear();
 
             valueEventListener = new ValueEventListener() {
                 @Override
@@ -216,14 +225,16 @@ public class ManageStudentFragment extends Fragment {
 
                 @Override
                 public void onCancelled(@NonNull DatabaseError databaseError) {
-                    studentInfos.clear();
+                    while(!studentInfos.isEmpty())
+                        studentInfos.clear();
                 }
             };
 
             conditionRef.addListenerForSingleValueEvent(valueEventListener);
 
             try {
-                // Simulate network access.
+                Thread.sleep(500);
+
                 while(true) {
                     if(!studentInfos.isEmpty()) {
                         return true;
@@ -240,9 +251,9 @@ public class ManageStudentFragment extends Fragment {
             mProgressBar.setVisibility(View.GONE);
 
             if (success) {
-                sortPlusWrite(studentInfos, totalNum);
-
+                Collections.sort(studentInfos, new SortStudents());
                 setStudents(studentInfos);
+
                 mRecyclerView = getView().findViewById(R.id.all_students_list);
                 mRecyclerView.setHasFixedSize(false);
                 mLayoutManage = new LinearLayoutManager(getContext());
@@ -268,24 +279,6 @@ public class ManageStudentFragment extends Fragment {
         protected void onCancelled() {
             mAuthTask = null;
             mProgressBar.setVisibility(View.GONE);
-        }
-    }
-
-    public void sortPlusWrite (ArrayList<StudentInfo> src, int totalNum) {
-        int totalIndex, i;
-        totalIndex = totalNum - 1;
-
-        Collections.sort(src, new SortStudents());
-
-        for(i = 0 ; i <= totalIndex ; i++) {
-            String index = String.valueOf(i);
-            StudentInfo studentInfo = src.get(i);
-
-            conditionRef.child(index).child("Sname").setValue(studentInfo.Sname);
-            conditionRef.child(index).child("Sid").setValue(studentInfo.Sid);
-            conditionRef.child(index).child("Pamount").setValue(studentInfo.Pamount);
-            conditionRef.child(index).child("Pyear").setValue(studentInfo.Pyear);
-            conditionRef.child(index).child("Ptype").setValue(studentInfo.Ptype);
         }
     }
 

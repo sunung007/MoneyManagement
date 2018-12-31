@@ -154,7 +154,8 @@ public class EnrollFragment extends Fragment {
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
                     // Initialize array.
-                    target.clear();
+                    while(!target.isEmpty())
+                        target.clear();
 
                     // Start searching process.
                     Iterator<DataSnapshot> child = dataSnapshot.getChildren().iterator();
@@ -211,7 +212,8 @@ public class EnrollFragment extends Fragment {
                 // Just formal.
                 @Override
                 public void onCancelled(@NonNull DatabaseError databaseError) {
-                    target.clear();
+                    while(!target.isEmpty())
+                        target.clear();
                 }
 
             };

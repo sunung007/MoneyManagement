@@ -78,7 +78,7 @@ public class MainActivity extends AppCompatActivity
                 && System.currentTimeMillis() - backKeyPressedTime >= 2000) {
             backKeyPressedTime = System.currentTimeMillis();
 
-            String message = "한번 더 누르시면 종료됩니다.";
+            String message = "'뒤로' 버튼을 한번 더 누르시면 종료됩니다.";
             Toast toast = Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT);
             toast.setGravity(Gravity.CENTER_HORIZONTAL|Gravity.BOTTOM, 0, 0);
             toast.show();
@@ -152,13 +152,15 @@ public class MainActivity extends AppCompatActivity
         if(previousFragmentID != id && fragment != null) {
             previousFragmentID = id;
             ft.setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_left,
-                    R.anim.enter_from_left,R.anim.exit_to_right).replace(R.id.main_fragment, fragment);
+                    R.anim.enter_from_left, R.anim.exit_to_right);
+            ft.replace(R.id.main_fragment, fragment);
             ft.addToBackStack(null);
             ft.commit();
         }
         else {
             fragment = fm.findFragmentById(R.id.main_fragment);
-            ft.detach(fragment).attach(fragment).commit();
+            ft.detach(fragment).attach(fragment);
+            ft.commit();
         }
 
 

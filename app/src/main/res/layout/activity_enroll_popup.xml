@@ -59,7 +59,7 @@
         android:layout_height="0dp"
         android:layout_marginStart="2dp"
         android:background="@drawable/round_button"
-        android:text="@string/button_enroll_cancel"
+        android:text="@string/button_cancel"
         android:textAppearance="@style/TextAppearance.AppCompat.Menu"
         android:textColor="@color/colorWhite"
         app:layout_constraintBottom_toBottomOf="@+id/button_search_result_ok"
