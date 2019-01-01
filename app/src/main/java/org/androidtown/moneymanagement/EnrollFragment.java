@@ -105,6 +105,9 @@ public class EnrollFragment extends Fragment {
             }
         });
 
+        Intent intent = new Intent(getContext(), AuthorizationPopup.class);
+        startActivityForResult(intent, 5);
+
         return view;
     }
 
@@ -140,6 +143,13 @@ public class EnrollFragment extends Fragment {
         } else {
             mAuthTask = new SearchTask();
             mAuthTask.execute((Void) null);
+        }
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if(requestCode == 5 && resultCode != -1) {
+            MainActivity.setPreviousFragmentIDToCheck();
         }
     }
 

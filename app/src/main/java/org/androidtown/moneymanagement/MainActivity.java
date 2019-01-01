@@ -25,7 +25,9 @@ import com.google.firebase.auth.FirebaseUser;
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
-    private int previousFragmentID = R.id.nav_check;
+    static int previousFragmentID = R.id.nav_check;
+    static FragmentManager previousFragmentManager;
+
     long backKeyPressedTime = 0;
     int backCount = 0;
 
@@ -51,6 +53,7 @@ public class MainActivity extends AppCompatActivity
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
+        previousFragmentManager = getSupportFragmentManager();
 
         // Set navigation view
         mNavigationView = findViewById(R.id.nav_view);
@@ -102,6 +105,24 @@ public class MainActivity extends AppCompatActivity
             previousFragmentID = R.id.nav_check;
             super.onBackPressed();
         }
+    }
+
+    public static void setPreviousFragmentIDToCheck() {
+        if(previousFragmentID == R.id.nav_check) {
+            previousFragmentManager.popBackStack();
+            previousFragmentManager
+                    .beginTransaction()
+                    .replace(R.id.main_fragment, new SearchStudentFragment())
+                    .commit();
+        }
+
+        previousFragmentID = R.id.nav_check;
+        previousFragmentManager
+                .beginTransaction()
+                .replace(R.id.main_fragment, new SearchStudentFragment())
+                .commit();
+
+        previousFragmentManager.beginTransaction().addToBackStack(null);
     }
 
 

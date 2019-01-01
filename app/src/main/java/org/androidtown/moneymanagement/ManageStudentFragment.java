@@ -2,6 +2,7 @@ package org.androidtown.moneymanagement;
 
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -136,7 +137,8 @@ public class ManageStudentFragment extends Fragment {
             }
         });
 
-        loadStudentsList();
+        Intent intent = new Intent(getContext(), AuthorizationPopup.class);
+        startActivityForResult(intent, 4);
 
         return view;
     }
@@ -155,6 +157,17 @@ public class ManageStudentFragment extends Fragment {
 
         mAuthTask = new LoadAllStudents();
         mAuthTask.execute((Void) null);
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if(requestCode == 4) {
+            if(resultCode == -1) {
+                loadStudentsList();
+            } else {
+                MainActivity.setPreviousFragmentIDToCheck();
+            }
+        }
     }
 
     public class LoadAllStudents extends AsyncTask<Void, Void, Boolean> {

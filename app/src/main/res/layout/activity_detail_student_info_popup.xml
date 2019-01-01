@@ -164,7 +164,7 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:background="@drawable/round_button"
-        android:text="@string/button_detail_ok"
+        android:text="@string/button_ok"
         android:textAppearance="@style/TextAppearance.AppCompat.Menu"
         android:textColor="@color/colorWhite"
         app:layout_constraintBottom_toBottomOf="@+id/button_search_result_ok"

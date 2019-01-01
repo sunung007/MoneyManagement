@@ -70,7 +70,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="4dp"
         android:background="@drawable/round_button"
-        android:text="@string/button_search_result_ok"
+        android:text="@string/button_ok"
         android:textAppearance="@style/TextAppearance.AppCompat.Menu"
         android:textColor="@color/colorWhite"
         app:layout_constraintEnd_toEndOf="parent"

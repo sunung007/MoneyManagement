@@ -18,6 +18,7 @@
     <string name="title_support">지원대상</string>
     <string name="title_detail_student_delete_check">정말 삭제하시겠습니까</string>
     <string name="title_detail_student_modify_check">수정하시겠습니까</string>
+    <string name="title_authorization">관리자 암호를 입력해주세요</string>
 
     <string name="title_menu_check">납부 확인</string>
     <string name="title_menu_enroll">신규 등록</string>
@@ -37,10 +38,8 @@
 
     <string name="button_enroll_accept">등록</string>
 
-    <string name="button_detail_ok">확인</string>
+    <string name="button_ok">확인</string>
     <string name="button_detail_delete">삭제</string>
-
-    <string name="button_search_result_ok">확인</string>
 
 
     <!--Prompt contents of many input text blanks.-->
@@ -55,6 +54,10 @@
     <string name="prompt_amount">납부금액</string>
     <string name="prompt_auto_login">자동 로그인</string>
     <string name="prompt_auto_id_fill">아이디 저장</string>
+    <string name="prompt_authorization">
+        개인정보 보호를 위해\n
+        관리자 암호 4자리를 입력해주세요</string>
+
     <!--<string name="prompt_auto_password_fill">비밀번호 저장</string>-->
 
 
@@ -64,9 +67,6 @@
     <string name="hint_search_name">이름을 입력하세요</string>
     <string name="content_description_developers_title">한양대학교 컴퓨터소프트웨어학부 로고</string>
     <string name="tip_modify_student">수정할 내용을 클릭하세요.</string>
-
-    <string name="hello_blank_fragment">아직 준비중입니다.</string>
-
 
     <!-- About login page.-->
     <string name="action_sign_in">Sign in or register</string>
