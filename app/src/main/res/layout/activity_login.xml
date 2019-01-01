@@ -23,7 +23,7 @@
             android:layout_width="334dp"
             android:layout_height="207dp"
             android:layout_gravity="center"
-            android:layout_marginTop="60dp"
+            android:layout_marginTop="50dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -92,7 +92,7 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_gravity="center"
-            android:layout_marginBottom="24dp"
+            android:layout_marginBottom="16dp"
             android:ems="10"
             android:gravity="bottom"
             android:text="@string/login_bottom_message"
@@ -101,26 +101,35 @@
             app:layout_constraintBottom_toBottomOf="parent" />
 
         <CheckBox
-            android:id="@+id/auto_login_checkBox"
+            android:id="@+id/auto_id_fill_checkBox"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:text="@string/prompt_auto_login"
-            app:layout_constraintStart_toStartOf="@+id/email_sign_in_button"
-            app:layout_constraintTop_toBottomOf="@+id/email_sign_in_button"
+            android:text="@string/prompt_auto_id_fill"
             android:textStyle="bold"
-            />
+            app:layout_constraintStart_toStartOf="@+id/email_sign_in_button"
+            app:layout_constraintTop_toBottomOf="@+id/email_sign_in_button" />
+
+        <CheckBox
+            android:id="@+id/auto_login_checkBox"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:text="@string/prompt_auto_login"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@+id/auto_id_fill_checkBox"
+            app:layout_constraintStart_toEndOf="@+id/auto_id_fill_checkBox"
+            app:layout_constraintTop_toTopOf="@+id/auto_id_fill_checkBox" />
 
         <ProgressBar
             android:id="@+id/login_progressBar"
-            style="?android:attr/progressBarStyle"
+            style="@style/Widget.AppCompat.ProgressBar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
-            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintBottom_toBottomOf="@+id/password"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="@+id/email" />
 
 
     </android.support.constraint.ConstraintLayout>

@@ -54,6 +54,8 @@
     <string name="prompt_type">납부유형</string>
     <string name="prompt_amount">납부금액</string>
     <string name="prompt_auto_login">자동 로그인</string>
+    <string name="prompt_auto_id_fill">아이디 저장</string>
+    <!--<string name="prompt_auto_password_fill">비밀번호 저장</string>-->
 
 
     <!--ETC...-->

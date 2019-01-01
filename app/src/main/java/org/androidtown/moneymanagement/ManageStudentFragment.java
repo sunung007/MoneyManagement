@@ -58,6 +58,8 @@ public class ManageStudentFragment extends Fragment {
     ArrayList<StudentInfo> students;
     int sNumber = 0;
 
+    static boolean isLoading;
+
     public ManageStudentFragment() {
         students = new ArrayList<>();
     }
@@ -82,6 +84,7 @@ public class ManageStudentFragment extends Fragment {
 
         thisFragmentManager = getFragmentManager();
         thisFragment = this;
+        isLoading = false;
 
         mSearchView = view.findViewById(R.id.manage_searchBar);
 
@@ -148,6 +151,7 @@ public class ManageStudentFragment extends Fragment {
 
     public void loadStudentsList() {
         mProgressBar.setVisibility(View.VISIBLE);
+        isLoading = true;
 
         mAuthTask = new LoadAllStudents();
         mAuthTask.execute((Void) null);
@@ -180,7 +184,6 @@ public class ManageStudentFragment extends Fragment {
                     String index;
                     String tName, tId, tAmount, tType, tYear, cSupport;
 
-                    int i = 0;
                     int currentYear, tmpAll;
                     int tmpYear, tmpType;
                     currentYear = Calendar.getInstance().get(Calendar.YEAR)
@@ -233,13 +236,22 @@ public class ManageStudentFragment extends Fragment {
             conditionRef.addListenerForSingleValueEvent(valueEventListener);
 
             try {
-                Thread.sleep(500);
+                long startTime = System.currentTimeMillis();
+                long progressTime;
 
-                while(true) {
-                    if(!studentInfos.isEmpty()) {
-                        return true;
+                while (studentInfos.isEmpty())
+                    Thread.sleep(500);
+
+                while (studentInfos.size() != totalNum) {
+                    Thread.sleep(500);
+
+                    progressTime = System.currentTimeMillis();
+                    if (progressTime - startTime > 2500) {
+                        return false;
                     }
                 }
+
+                return true;
             } catch (Exception e) {
                 return false;
             }
@@ -273,6 +285,8 @@ public class ManageStudentFragment extends Fragment {
             }
 
             conditionRef.removeEventListener(valueEventListener);
+            isLoading = false;
+
         }
 
         @Override

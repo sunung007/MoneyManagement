@@ -19,11 +19,18 @@ import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     private int previousFragmentID = R.id.nav_check;
     long backKeyPressedTime = 0;
+    int backCount = 0;
+
+    NavigationView mNavigationView;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,12 +39,10 @@ public class MainActivity extends AppCompatActivity
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-
         // Set first fragment to search mode.
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
         ft.replace(R.id.main_fragment, new SearchStudentFragment());
         ft.commit();
-
 
         // Set drawer layout
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
@@ -48,10 +53,10 @@ public class MainActivity extends AppCompatActivity
 
 
         // Set navigation view
-        NavigationView navigationView = findViewById(R.id.nav_view);
-        navigationView.setNavigationItemSelectedListener(this);
+        mNavigationView = findViewById(R.id.nav_view);
+        mNavigationView.setNavigationItemSelectedListener(this);
 
-        navigationView.setOnClickListener(new View.OnClickListener() {
+        mNavigationView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 InputMethodManager inputMethodManager =
@@ -68,25 +73,33 @@ public class MainActivity extends AppCompatActivity
     @Override
     public void onBackPressed() {
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
-        FragmentManager fm = getSupportFragmentManager();
-        FragmentTransaction ft = fm.beginTransaction();
 
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         }
-        else if (fm.getBackStackEntryCount() == 0
+        else if (ManageStudentFragment.isLoading) {
+            String message = "데이터베이스를 로딩 중입니다.";
+            Toast toast = Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT);
+            toast.setGravity(Gravity.CENTER_HORIZONTAL | Gravity.BOTTOM, 0, 0);
+            toast.show();
+        }
+        else if ((previousFragmentID == R.id.nav_check
+                || getSupportFragmentManager().getBackStackEntryCount() == 0)
                 && System.currentTimeMillis() - backKeyPressedTime >= 2000) {
+
             backKeyPressedTime = System.currentTimeMillis();
+            backCount++;
 
             String message = "'뒤로' 버튼을 한번 더 누르시면 종료됩니다.";
             Toast toast = Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT);
-            toast.setGravity(Gravity.CENTER_HORIZONTAL|Gravity.BOTTOM, 0, 0);
+            toast.setGravity(Gravity.CENTER_HORIZONTAL | Gravity.BOTTOM, 0, 0);
             toast.show();
         }
         else if (System.currentTimeMillis() - backKeyPressedTime < 2000){
             finish();
         }
         else {
+            previousFragmentID = R.id.nav_check;
             super.onBackPressed();
         }
     }
@@ -104,7 +117,6 @@ public class MainActivity extends AppCompatActivity
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
         int id = item.getItemId();
-
 
         // Close soft key.
         InputMethodManager inputMethodManager =
@@ -135,12 +147,20 @@ public class MainActivity extends AppCompatActivity
             fragment = new DevelopersFragment();
         }
         else if (id == R.id.logout) {
+            FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
+            FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
+
+            if(firebaseUser != null) {
+                firebaseAuth.signOut();
+            }
+
             String message = "로그아웃";
             Toast toast = Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT);
             toast.setGravity(Gravity.CENTER_HORIZONTAL|Gravity.BOTTOM, 0, 0);
             toast.show();
 
             Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
+            intent.putExtra("auto_login_stop", true);
 
             startActivity(intent);
             finish();
@@ -154,7 +174,10 @@ public class MainActivity extends AppCompatActivity
             ft.setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_left,
                     R.anim.enter_from_left, R.anim.exit_to_right);
             ft.replace(R.id.main_fragment, fragment);
-            ft.addToBackStack(null);
+
+            if(fm.getBackStackEntryCount() == 0)
+                ft.addToBackStack(null);
+
             ft.commit();
         }
         else {
