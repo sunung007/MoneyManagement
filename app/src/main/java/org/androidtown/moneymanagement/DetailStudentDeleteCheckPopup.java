@@ -71,6 +71,7 @@ public class DetailStudentDeleteCheckPopup extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 mProgressBar.setVisibility(View.VISIBLE);
+
                 mAuthTask = new DeleteStudent(position, totalNum);
                 mAuthTask.execute((Void) null);
             }
@@ -110,49 +111,63 @@ public class DetailStudentDeleteCheckPopup extends AppCompatActivity {
         @Override
         protected Boolean doInBackground(Void... voids) {
 
-            valueEventListener = new ValueEventListener() {
-                @Override
-                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                    Iterator<DataSnapshot> child = dataSnapshot.getChildren().iterator();
-                    DataSnapshot ds;
-                    DatabaseReference curRef;
+            DBCheckBeforeAction.PositionCheck positionCheck
+                    = new DBCheckBeforeAction.PositionCheck(studentInfo);
 
-                    int i;
-                    for(i = 0 ; i <= index ; i++) {
-                        child.next();
+            if(!positionCheck.doInBackground())
+                return false;
+
+            try {
+                valueEventListener = new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        Iterator<DataSnapshot> child = dataSnapshot.getChildren().iterator();
+                        DataSnapshot ds;
+                        DatabaseReference curRef;
+
+                        int i;
+                        for (i = 0; i <= index; i++) {
+                            child.next();
+                        }
+
+                        i = index;
+                        while (child.hasNext()) {
+                            ds = child.next();
+
+                            curRef = conditionRef.child(String.valueOf(i));
+
+                            curRef.child("Sname").setValue(ds.child("Sname").getValue().toString());
+                            curRef.child("Sid").setValue(ds.child("Sid").getValue().toString());
+                            curRef.child("Pamount").setValue(ds.child("Pamount").getValue().toString());
+                            curRef.child("Ptype").setValue(ds.child("Ptype").getValue().toString());
+                            curRef.child("Pyear").setValue(ds.child("Pyear").getValue().toString());
+
+                            i++;
+                        }
+
+                        curRef = conditionRef.child(String.valueOf(totalIndex));
+                        curRef.removeValue();
                     }
 
-                    i = index;
-                    while(child.hasNext()) {
-                        ds = child.next();
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
 
-                        curRef = conditionRef.child(String.valueOf(i));
-
-                        curRef.child("Sname").setValue(ds.child("Sname").getValue().toString());
-                        curRef.child("Sid").setValue(ds.child("Sid").getValue().toString());
-                        curRef.child("Pamount").setValue(ds.child("Pamount").getValue().toString());
-                        curRef.child("Ptype").setValue(ds.child("Ptype").getValue().toString());
-                        curRef.child("Pyear").setValue(ds.child("Pyear").getValue().toString());
-
-                        i++;
                     }
+                };
 
-                    curRef = conditionRef.child(String.valueOf(totalIndex));
-                    curRef.removeValue();
-                }
+                conditionRef.addListenerForSingleValueEvent(valueEventListener);
 
-                @Override
-                public void onCancelled(@NonNull DatabaseError databaseError) {
-
-                }
-            };
-
-            conditionRef.addListenerForSingleValueEvent(valueEventListener);
+            } catch (Exception e) {
+                conditionRef.removeEventListener(valueEventListener);
+                return false;
+            }
 
             try {
                 Thread.sleep(500);
             } catch (Exception e) {
                 return false;
+            } finally {
+                conditionRef.removeEventListener(valueEventListener);
             }
 
             return true;
@@ -167,14 +182,12 @@ public class DetailStudentDeleteCheckPopup extends AppCompatActivity {
             if (success) {
                 resultMessage = "삭제되었습니다.";
             } else {
-                resultMessage = "Delete failed.";
+                resultMessage = "삭제에 실패했습니다.";
             }
 
             Toast toast = Toast.makeText(getApplicationContext(), resultMessage, Toast.LENGTH_SHORT);
             toast.setGravity(Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL, 0, 0);
             toast.show();
-
-            conditionRef.removeEventListener(valueEventListener);
 
             setResult(RESULT_OK);
             finish();

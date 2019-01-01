@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AppCompatActivity;
@@ -13,6 +14,7 @@ import android.view.Gravity;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -28,6 +30,8 @@ public class EnrollPopup extends AppCompatActivity {
 
     TextView mTitle;
     ConstraintLayout mActivity;
+    ProgressBar mProgressBar;
+
     RecyclerView mRecyclerView;
     RecyclerView.LayoutManager mLayoutManage;
     RecyclerView.Adapter adapter;
@@ -46,6 +50,10 @@ public class EnrollPopup extends AppCompatActivity {
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         setContentView(R.layout.activity_enroll_popup);
+
+        mProgressBar = findViewById(R.id.enroll_popup_progressBar);
+        mProgressBar.setVisibility(View.GONE);
+
         mActivity = findViewById(R.id.enroll_popup_entire);
 
         thisActivity = EnrollPopup.this;
@@ -85,7 +93,9 @@ public class EnrollPopup extends AppCompatActivity {
         buttonEnroll.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                enrollStudent();
+                mProgressBar.setVisibility(View.VISIBLE);
+                EnrollStudent enrollStudent = new EnrollStudent();
+                enrollStudent.execute((Void) null);
             }
         });
 
@@ -97,24 +107,49 @@ public class EnrollPopup extends AppCompatActivity {
         });
     }
 
-    public void enrollStudent() {
-        if(totalNum < 0) return;
-        String totalNumIndex = String.valueOf(totalNum);
-        conditionRef.child(totalNumIndex).setValue(totalNumIndex);
+    public class EnrollStudent extends AsyncTask<Void, Void, Boolean> {
+        @Override
+        protected Boolean doInBackground(Void... voids) {
+            if(totalNum < 0)
+                return false;
 
-        conditionRef.child(totalNumIndex).child("Sname").setValue(newStudent.Sname);
-        conditionRef.child(totalNumIndex).child("Sid").setValue(newStudent.Sid);
-        conditionRef.child(totalNumIndex).child("Pamount").setValue(newStudent.Pamount);
-        conditionRef.child(totalNumIndex).child("Pyear").setValue(newStudent.Pyear);
-        conditionRef.child(totalNumIndex).child("Ptype").setValue(newStudent.Ptype);
+            DBCheckBeforeAction.EntireNumberCheck entireNumberCheck
+                    = new DBCheckBeforeAction.EntireNumberCheck(totalNum);
 
-        String message = "등록되었습니다.";
-        Toast toast = Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT);
-        toast.setGravity(Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL, 0, 0);
-        toast.show();
+            if(!entireNumberCheck.doInBackground())
+                return false;
 
-        finish();
+            String totalNumIndex = String.valueOf(totalNum);
+            conditionRef.child(totalNumIndex).setValue(totalNumIndex);
+
+            conditionRef.child(totalNumIndex).child("Sname").setValue(newStudent.Sname);
+            conditionRef.child(totalNumIndex).child("Sid").setValue(newStudent.Sid);
+            conditionRef.child(totalNumIndex).child("Pamount").setValue(newStudent.Pamount);
+            conditionRef.child(totalNumIndex).child("Pyear").setValue(newStudent.Pyear);
+            conditionRef.child(totalNumIndex).child("Ptype").setValue(newStudent.Ptype);
+
+            return true;
+        }
+
+        @Override
+        protected void onPostExecute(Boolean aBoolean) {
+            mProgressBar.setVisibility(View.GONE);
+
+            String resultMessage;
+
+            if(aBoolean) {
+                resultMessage = "등록되었습니다.";
+            }
+            else {
+                resultMessage = "등록에 실패했습니다.";
+            }
+
+            Toast toast = Toast.makeText(getApplicationContext(), resultMessage, Toast.LENGTH_SHORT);
+            toast.setGravity(Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL, 0, 0);
+            toast.show();
+
+            finish();
+        }
     }
-
 
 }

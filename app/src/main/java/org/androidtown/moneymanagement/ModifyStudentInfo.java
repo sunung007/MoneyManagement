@@ -90,7 +90,8 @@ public class ModifyStudentInfo extends AppCompatActivity {
                 saveChangedStudent();
 
                 Intent intent = new Intent(getApplicationContext(), ModifyStudentModifyCheckPopup.class);
-                intent.putExtra("student", changedInfo);
+                intent.putExtra("changed_student", changedInfo);
+                intent.putExtra("before_student", studentInfo);
 
                 startActivityForResult(intent, 3);
             }

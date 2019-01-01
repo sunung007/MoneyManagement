@@ -111,13 +111,15 @@
         <item>17학번</item>
         <item>18학번</item>
         <item>19학번</item>
-        <item>전체</item>
+        <item>20학번</item>
+        <item>전체 학번</item>
     </string-array>
 
     <string-array name="array_year">
         <item>17년도</item>
         <item>18년도</item>
         <item>19년도</item>
+        <item>20년도</item>
     </string-array>
 
     <string-array name="array_type">

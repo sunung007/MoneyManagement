@@ -68,11 +68,6 @@ public class DetailStudentInfoPopup extends AppCompatActivity {
         mModifyButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                String message = "아직 준비되지 않았습니다.";
-//                Toast toast = Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT);
-//                toast.setGravity(Gravity.CENTER_HORIZONTAL|Gravity.BOTTOM, 0, 0);
-//                toast.show();
-
                 Intent intent = new Intent(getApplicationContext(), ModifyStudentInfo.class);
                 intent.putExtra("student", studentInfo);
                 intent.putExtra("size", totalNum);

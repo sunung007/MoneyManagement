@@ -3,6 +3,7 @@ package org.androidtown.moneymanagement;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Gravity;
@@ -20,7 +21,8 @@ public class ModifyStudentModifyCheckPopup extends AppCompatActivity {
     DatabaseReference mRootRef = FirebaseDatabase.getInstance().getReference();
     DatabaseReference conditionRef = mRootRef.child("student");
 
-    StudentInfo studentInfo;
+    StudentInfo beforeStudent;
+    StudentInfo changedStudent;
 
     ProgressBar mProgressBar;
 
@@ -36,7 +38,8 @@ public class ModifyStudentModifyCheckPopup extends AppCompatActivity {
 
         try {
             Intent intent = getIntent();
-            studentInfo = intent.getParcelableExtra("student");
+            changedStudent = intent.getParcelableExtra("changed_student");
+            beforeStudent = intent.getParcelableExtra("before_student");
         } catch (Exception e) {
             String message = "Modify failed.";
             Toast toast = Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT);
@@ -52,8 +55,9 @@ public class ModifyStudentModifyCheckPopup extends AppCompatActivity {
         mModifyButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mProgressBar.setVisibility(View.VISIBLE);
-                modifyStudent();
+            mProgressBar.setVisibility(View.VISIBLE);
+            ModifyStudent modifyStudent = new ModifyStudent();
+            modifyStudent.execute((Void) null);
             }
         });
 
@@ -66,16 +70,42 @@ public class ModifyStudentModifyCheckPopup extends AppCompatActivity {
 
     }
 
-    public void modifyStudent() {
-        String index = studentInfo.index;
+    public class ModifyStudent extends AsyncTask<Void, Void, Boolean> {
+        @Override
+        protected Boolean doInBackground(Void... voids) {
+            DBCheckBeforeAction.PositionCheck positionCheck
+                    = new DBCheckBeforeAction.PositionCheck(beforeStudent);
 
-        conditionRef.child(index).child("Sname").setValue(studentInfo.Sname);
-        conditionRef.child(index).child("Sid").setValue(studentInfo.Sid);
-        conditionRef.child(index).child("Pamount").setValue(studentInfo.Pamount);
-        conditionRef.child(index).child("Pyear").setValue(studentInfo.Pyear);
-        conditionRef.child(index).child("Ptype").setValue(studentInfo.Ptype);
+            return positionCheck.doInBackground();
+        }
 
-        setResult(RESULT_OK);
-        finish();
+        @Override
+        protected void onPostExecute(Boolean aBoolean) {
+            mProgressBar.setVisibility(View.GONE);
+            String resultMessage;
+
+            if(aBoolean) {
+                String index = changedStudent.index;
+
+                conditionRef.child(index).child("Sname").setValue(changedStudent.Sname);
+                conditionRef.child(index).child("Sid").setValue(changedStudent.Sid);
+                conditionRef.child(index).child("Pamount").setValue(changedStudent.Pamount);
+                conditionRef.child(index).child("Pyear").setValue(changedStudent.Pyear);
+                conditionRef.child(index).child("Ptype").setValue(changedStudent.Ptype);
+
+                resultMessage = "수정했습니다.";
+                setResult(RESULT_OK);
+            }
+            else {
+                resultMessage = "수정에 실패했습니다.";
+            }
+
+            Toast toast = Toast.makeText(getApplicationContext(), resultMessage, Toast.LENGTH_SHORT);
+            toast.setGravity(Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL, 0, 0);
+            toast.show();
+
+            finish();
+        }
     }
+
 }
