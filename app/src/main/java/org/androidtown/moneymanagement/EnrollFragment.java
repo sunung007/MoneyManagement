@@ -105,8 +105,6 @@ public class EnrollFragment extends Fragment {
             }
         });
 
-        Intent intent = new Intent(getContext(), AuthorizationPopup.class);
-        startActivityForResult(intent, 5);
 
         return view;
     }
@@ -146,13 +144,6 @@ public class EnrollFragment extends Fragment {
         }
     }
 
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if(requestCode == 5 && resultCode != -1) {
-            MainActivity.setPreviousFragmentIDToCheck();
-        }
-    }
-
     public class SearchTask extends AsyncTask<Void, Void, Boolean> {
 
 
@@ -177,10 +168,10 @@ public class EnrollFragment extends Fragment {
                     totalNum = (int) dataSnapshot.getChildrenCount();
                     size = totalNum;
 
-                    int currentYear, tmpAll;
+                    double currentYear, tmpAll;
                     int tmpYear, tmpType;
                     currentYear = Calendar.getInstance().get(Calendar.YEAR)
-                            + Calendar.getInstance().get(Calendar.MONTH) / 6;
+                            + (Calendar.getInstance().get(Calendar.MONTH) + 1.0)/12;
 
                     while (child.hasNext()) {
                         ds = child.next();
@@ -204,7 +195,7 @@ public class EnrollFragment extends Fragment {
                                     tmpYear = Integer.parseInt(tYear.substring(0, 2), 10) + 2000;
                                     tmpType = Integer.parseInt(tAmount.substring(0, 1), 10);
 
-                                    tmpAll = tmpYear + tmpType / 2;
+                                    tmpAll = tmpYear + tmpType/2.0;
 
                                     cSupport = (tmpAll >= currentYear) ? "YES" : "NO";
                                 } catch (Exception e) {
@@ -309,10 +300,10 @@ public class EnrollFragment extends Fragment {
             StudentInfo studentInfo = new StudentInfo(mPamount, mPtype, mPyear, mSid, mSname);
 
             String cSupport;
-            int currentYear, tmpAll;
+            double currentYear, tmpAll;
             int tmpYear, tmpType;
             currentYear = Calendar.getInstance().get(Calendar.YEAR)
-                    + Calendar.getInstance().get(Calendar.MONTH) / 6;
+                    + (Calendar.getInstance().get(Calendar.MONTH) + 1.0)/12;
 
             if (mPtype.contains("전액")) {
                 cSupport = "YES";
@@ -324,7 +315,7 @@ public class EnrollFragment extends Fragment {
                     tmpYear = Integer.parseInt(mPyear.substring(0, 2), 10) + 2000;
                     tmpType = Integer.parseInt(mPamount.substring(0, 1), 10);
 
-                    tmpAll = tmpYear + tmpType / 2;
+                    tmpAll = tmpYear + tmpType/2.0;
 
                     cSupport = (tmpAll >= currentYear) ? "YES" : "NO";
                 } catch (Exception e) {

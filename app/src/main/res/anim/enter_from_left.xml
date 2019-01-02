@@ -1,13 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<set xmlns:android="http://schemas.android.com/apk/res/android"
+<translate xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
-    <objectAnimator
-        android:propertyName="x"
-        android:duration="300"
-        android:valueFrom="-400dp"
-        android:valueTo="0"
-        android:valueType="floatType"
-        />
+    android:layout_height="match_parent"
 
-</set>
+    android:duration="300"
+    android:fromXDelta="-100%"
+    android:toXDelta="0"
+    >
+</translate>

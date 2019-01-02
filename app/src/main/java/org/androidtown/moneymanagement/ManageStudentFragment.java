@@ -2,7 +2,6 @@ package org.androidtown.moneymanagement;
 
 
 import android.content.Context;
-import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -137,8 +136,7 @@ public class ManageStudentFragment extends Fragment {
             }
         });
 
-        Intent intent = new Intent(getContext(), AuthorizationPopup.class);
-        startActivityForResult(intent, 4);
+        loadStudentsList();
 
         return view;
     }
@@ -157,17 +155,6 @@ public class ManageStudentFragment extends Fragment {
 
         mAuthTask = new LoadAllStudents();
         mAuthTask.execute((Void) null);
-    }
-
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if(requestCode == 4) {
-            if(resultCode == -1) {
-                loadStudentsList();
-            } else {
-                MainActivity.setPreviousFragmentIDToCheck();
-            }
-        }
     }
 
     public class LoadAllStudents extends AsyncTask<Void, Void, Boolean> {
@@ -197,10 +184,10 @@ public class ManageStudentFragment extends Fragment {
                     String index;
                     String tName, tId, tAmount, tType, tYear, cSupport;
 
-                    int currentYear, tmpAll;
+                    double currentYear, tmpAll;
                     int tmpYear, tmpType;
                     currentYear = Calendar.getInstance().get(Calendar.YEAR)
-                            + Calendar.getInstance().get(Calendar.MONTH)/6;
+                            + (Calendar.getInstance().get(Calendar.MONTH) + 1.0)/12;
 
                     totalNum = (int) dataSnapshot.getChildrenCount();
 
@@ -225,7 +212,7 @@ public class ManageStudentFragment extends Fragment {
                                 tmpYear = Integer.parseInt(tYear.substring(0, 2), 10) + 2000;
                                 tmpType = Integer.parseInt(tAmount.substring(0, 1), 10);
 
-                                tmpAll = tmpYear + tmpType/2;
+                                tmpAll = tmpYear + tmpType/2.0;
 
                                 cSupport = (tmpAll >= currentYear) ? "YES" : "NO";
                             } catch (Exception e) {

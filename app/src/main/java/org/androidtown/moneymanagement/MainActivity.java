@@ -107,24 +107,6 @@ public class MainActivity extends AppCompatActivity
         }
     }
 
-    public static void setPreviousFragmentIDToCheck() {
-        if(previousFragmentID == R.id.nav_check) {
-            previousFragmentManager.popBackStack();
-            previousFragmentManager
-                    .beginTransaction()
-                    .replace(R.id.main_fragment, new SearchStudentFragment())
-                    .commit();
-        }
-
-        previousFragmentID = R.id.nav_check;
-        previousFragmentManager
-                .beginTransaction()
-                .replace(R.id.main_fragment, new SearchStudentFragment())
-                .commit();
-
-        previousFragmentManager.beginTransaction().addToBackStack(null);
-    }
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -158,11 +140,13 @@ public class MainActivity extends AppCompatActivity
         if(id == R.id.nav_check) {
             fragment = new SearchStudentFragment();
         }
-        else if (id == R.id.nav_enroll) {
-            fragment = new EnrollFragment();
+        else if (id == R.id.nav_enroll && previousFragmentID != id) {
+            Intent intent = new Intent(getApplicationContext(), AuthorizationPopup.class);
+            startActivityForResult(intent, 4);
         }
-        else if (id == R.id.nav_manage) {
-            fragment = new ManageStudentFragment();
+        else if (id == R.id.nav_manage && previousFragmentID != id) {
+            Intent intent = new Intent(getApplicationContext(), AuthorizationPopup.class);
+            startActivityForResult(intent, 5);
         }
         else if (id == R.id.developer) {
             fragment = new DevelopersFragment();
@@ -185,13 +169,54 @@ public class MainActivity extends AppCompatActivity
 
             startActivity(intent);
             finish();
+
+            return true;
         }
 
 
         // If fragment to open is same with current fragment,
         // do not change.
-        if(previousFragmentID != id && fragment != null) {
+        if(previousFragmentID == id) {
+            fragment = fm.findFragmentById(R.id.main_fragment);
+            ft.detach(fragment).attach(fragment);
+            ft.commit();
+
+            // Close drawer layout.
+            DrawerLayout drawer = findViewById(R.id.drawer_layout);
+            drawer.closeDrawer(GravityCompat.START);
+        }
+        else if(id != R.id.nav_enroll && id != R.id.nav_manage && fragment != null) {
             previousFragmentID = id;
+            ft.setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_left,
+                    R.anim.enter_from_left, R.anim.exit_to_right);
+            ft.replace(R.id.main_fragment, fragment);
+
+            if (fm.getBackStackEntryCount() == 0)
+                ft.addToBackStack(null);
+
+            ft.commit();
+
+            // Close drawer layout.
+            DrawerLayout drawer = findViewById(R.id.drawer_layout);
+            drawer.closeDrawer(GravityCompat.START);
+        }
+
+        return true;
+    }
+
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+
+        if(requestCode == 4 && resultCode == RESULT_OK) {
+
+            Fragment fragment = new EnrollFragment();
+            FragmentManager fm = getSupportFragmentManager();
+            FragmentTransaction ft = fm.beginTransaction();
+
+            // If fragment to open is same with current fragment,
+            // do not change.
+            previousFragmentID = R.id.nav_enroll;
             ft.setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_left,
                     R.anim.enter_from_left, R.anim.exit_to_right);
             ft.replace(R.id.main_fragment, fragment);
@@ -200,20 +225,44 @@ public class MainActivity extends AppCompatActivity
                 ft.addToBackStack(null);
 
             ft.commit();
+
+
+            // Close drawer layout.
+            DrawerLayout drawer = findViewById(R.id.drawer_layout);
+            drawer.closeDrawer(GravityCompat.START);
         }
-        else {
-            fragment = fm.findFragmentById(R.id.main_fragment);
-            ft.detach(fragment).attach(fragment);
+
+        else if(requestCode == 5 && resultCode == RESULT_OK) {
+
+            Fragment fragment = new ManageStudentFragment();
+            FragmentManager fm = getSupportFragmentManager();
+            FragmentTransaction ft = fm.beginTransaction();
+
+            // If fragment to open is same with current fragment,
+            // do not change.
+            previousFragmentID = R.id.nav_manage;
+            ft.setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_left,
+                    R.anim.enter_from_left, R.anim.exit_to_right);
+            ft.replace(R.id.main_fragment, fragment);
+
+            if(fm.getBackStackEntryCount() == 0)
+                ft.addToBackStack(null);
+
             ft.commit();
+
+
+            // Close drawer layout.
+            DrawerLayout drawer = findViewById(R.id.drawer_layout);
+            drawer.closeDrawer(GravityCompat.START);
         }
 
-
-        // Close drawer layout.
-        DrawerLayout drawer = findViewById(R.id.drawer_layout);
-        drawer.closeDrawer(GravityCompat.START);
-
-        return true;
+        if(resultCode == RESULT_CANCELED) {
+            // Close drawer layout.
+            DrawerLayout drawer = findViewById(R.id.drawer_layout);
+            drawer.closeDrawer(GravityCompat.START);
+        }
     }
+
 }
 
 

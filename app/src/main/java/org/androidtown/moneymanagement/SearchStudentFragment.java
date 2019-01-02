@@ -164,7 +164,7 @@ public class SearchStudentFragment extends Fragment {
             while(!target.isEmpty())
                 target.clear();
 
-            if(mSid.equals("전체")) {
+            if(mSid.contains("전체")) {
                 valueEventListener = new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -172,15 +172,19 @@ public class SearchStudentFragment extends Fragment {
                         // Start searching process.
                         Iterator<DataSnapshot> child = dataSnapshot.getChildren().iterator();
                         DataSnapshot ds;
+
+                        String index;
                         String tName, tId, tAmount, tType, tYear, cSupport;
 
-                        int currentYear, tmpAll;
+                        double currentYear, tmpAll;
                         int tmpYear, tmpType;
                         currentYear = Calendar.getInstance().get(Calendar.YEAR)
-                                + Calendar.getInstance().get(Calendar.MONTH)/6;
+                                + (Calendar.getInstance().get(Calendar.MONTH) + 1.0)/12;
 
                         while(child.hasNext()) {
                             ds = child.next();
+
+                            index = ds.getKey().toString();
                             tName = ds.child("Sname").getValue().toString().trim();
                             tId = ds.child("Sid").getValue().toString().trim();
 
@@ -201,7 +205,7 @@ public class SearchStudentFragment extends Fragment {
                                         tmpYear = Integer.parseInt(tYear.substring(0, 2), 10) + 2000;
                                         tmpType = Integer.parseInt(tAmount.substring(0, 1), 10);
 
-                                        tmpAll = tmpYear + tmpType/2;
+                                        tmpAll = tmpYear + tmpType/2.0;
 
                                         cSupport = (tmpAll >= currentYear) ? "YES" : "NO";
                                     } catch (Exception e) {
@@ -212,7 +216,7 @@ public class SearchStudentFragment extends Fragment {
                                     cSupport = "UNKNOWN";
                                 }
 
-                                target.add(new StudentInfo(tAmount, tType, tYear, tId, tName, cSupport));
+                                target.add(new StudentInfo(index, tAmount, tType, tYear, tId, tName, cSupport));
                             }
                         }
                     }
@@ -238,10 +242,10 @@ public class SearchStudentFragment extends Fragment {
                         String index;
                         String tName, tId, tAmount, tType, tYear, cSupport;
 
-                        int currentYear, tmpAll;
+                        double currentYear, tmpAll;
                         int tmpYear, tmpType;
                         currentYear = Calendar.getInstance().get(Calendar.YEAR)
-                                + Calendar.getInstance().get(Calendar.MONTH)/6;
+                                + (Calendar.getInstance().get(Calendar.MONTH) + 1.0)/12;
 
                         while(child.hasNext()) {
                             ds = child.next();
@@ -267,7 +271,7 @@ public class SearchStudentFragment extends Fragment {
                                         tmpYear = Integer.parseInt(tYear.substring(0, 2), 10) + 2000;
                                         tmpType = Integer.parseInt(tAmount.substring(0, 1), 10);
 
-                                        tmpAll = tmpYear + tmpType/2;
+                                        tmpAll = tmpYear + tmpType/2.0;
 
                                         cSupport = (tmpAll >= currentYear) ? "YES" : "NO";
                                     } catch (Exception e) {
@@ -301,12 +305,7 @@ public class SearchStudentFragment extends Fragment {
                 long startTime = System.currentTimeMillis();
                 long progressTime;
 
-                Thread.sleep(500);
-
-                while(true) {
-                    if(!target.isEmpty()) {
-                        return true;
-                    }
+                while(target.isEmpty()) {
 
                     Thread.sleep(500);
                     progressTime = System.currentTimeMillis();
@@ -317,6 +316,8 @@ public class SearchStudentFragment extends Fragment {
             } catch (Exception e) {
                 return false;
             }
+
+            return true;
         }
 
         @Override
@@ -335,7 +336,7 @@ public class SearchStudentFragment extends Fragment {
                 Intent intent = new Intent(getActivity().getApplicationContext(), SearchResultPopup.class);
                 intent.putParcelableArrayListExtra("result", target);
 
-                if(mSid.equals("전체")) {
+                if(mSid.contains("전체")) {
                     intent.putExtra("type", 1);
                 }
                 else {

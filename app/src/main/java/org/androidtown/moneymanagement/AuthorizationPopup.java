@@ -13,13 +13,11 @@ import android.view.Window;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ProgressBar;
 import android.widget.Toast;
 
 public class AuthorizationPopup extends AppCompatActivity {
 
     EditText mPasswordView;
-    ProgressBar mProgressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,8 +27,6 @@ public class AuthorizationPopup extends AppCompatActivity {
         setContentView(R.layout.activity_authrization_popup);
 
         mPasswordView = findViewById(R.id.authorization_password);
-        mProgressBar = findViewById(R.id.authorization_progressBar);
-        mProgressBar.setVisibility(View.GONE);
 
         Button mOkButton = findViewById(R.id.button_authorization_ok);
         Button mCancelButton = findViewById(R.id.button_authorization_cancel);
@@ -60,7 +56,7 @@ public class AuthorizationPopup extends AppCompatActivity {
     }
 
     public void checkPassword() {
-        mProgressBar.setVisibility(View.VISIBLE);
+//        mProgressBar.setVisibility(View.VISIBLE);
         mPasswordView.setError(null);
 
         boolean cancel = false;
@@ -80,13 +76,8 @@ public class AuthorizationPopup extends AppCompatActivity {
         if (cancel) {
             // There was an error; don't attempt login and focus the first
             // form field with an error.
-            mProgressBar.setVisibility(View.GONE);
             focusView.requestFocus();
         } else {
-            // Show a progress spinner, and kick off a background task to
-            // perform the user login attempt.
-            mProgressBar.setVisibility(View.GONE);
-
             // Close soft key.
             InputMethodManager inputMethodManager =
                     (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
