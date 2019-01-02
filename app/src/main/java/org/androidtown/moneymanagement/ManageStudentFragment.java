@@ -170,6 +170,7 @@ public class ManageStudentFragment extends Fragment {
         protected Boolean doInBackground(Void... params) {
 
             // Initialize array.
+            totalNum = 0;
             while(!studentInfos.isEmpty())
                 studentInfos.clear();
 

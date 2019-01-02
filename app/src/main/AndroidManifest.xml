@@ -48,12 +48,15 @@
             android:theme="@style/AppTheme.NoActionBar.Dialog" />
         <activity
             android:name=".ModifyStudentModifyCheckPopup"
-            android:theme="@style/AppTheme.NoActionBar.Dialog"/>
+            android:theme="@style/AppTheme.NoActionBar.Dialog" />
         <activity
             android:name=".AuthorizationPopup"
-            android:theme="@style/AppTheme.NoActionBar.Dialog">
-
-        </activity>
+            android:theme="@style/AppTheme.NoActionBar.Dialog"/>
+        <activity
+            android:name=".SearchOnlyActivity"
+            android:label="@string/title_searching_only"
+            android:theme="@style/AppTheme.NoActionBar"
+            ></activity>
     </application>
 
 </manifest>

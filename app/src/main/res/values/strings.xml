@@ -16,6 +16,7 @@
     <string name="title_search_button">검색</string>
     <string name="title_caution">주의사항</string>
     <string name="title_support">지원대상</string>
+
     <string name="title_detail_student_delete_check">정말 삭제하시겠습니까</string>
     <string name="title_detail_student_modify_check">수정하시겠습니까</string>
     <string name="title_authorization">관리자 암호를 입력해주세요</string>
@@ -30,16 +31,18 @@
     <string name="title_menu_caution">주의사항</string>
 
     <string name="title_modify">학우 정보 수정</string>
+    <string name="title_searching_only">탐색 전용 모드</string>
+    <string name="title_searching_only_name">검색할 학우의 이름을 입력하세요.</string>
 
 
     <!--Name of buttons.-->
     <string name="button_cancel">취소</string>
     <string name="button_modify">수정</string>
+    <string name="button_ok">확인</string>
 
     <string name="button_enroll_accept">등록</string>
-
-    <string name="button_ok">확인</string>
     <string name="button_detail_delete">삭제</string>
+    <string name="button_search_searching_only">탐색 전용 모드 이동</string>
 
 
     <!--Prompt contents of many input text blanks.-->
@@ -57,6 +60,7 @@
     <string name="prompt_authorization">
         개인정보 보호를 위해\n
         관리자 암호 4자리를 입력해주세요</string>
+    <string name="prompt_search_searching_only">아래 버튼을 누르시면 탐색 전용 모드로 이동합니다.</string>
 
     <!--<string name="prompt_auto_password_fill">비밀번호 저장</string>-->
 
@@ -69,6 +73,8 @@
     <string name="content_description_facebook_logo">페이스북 로고</string>
     <string name="content_description_find_student">돋보기</string>
     <string name="tip_modify_student">수정할 내용을 클릭하세요.</string>
+    <string name="tip_searching_only">전체 학번을 대상으로 검색합니다.\n아래에 검색할 학우의 이름을 입력해주세요.</string>
+
 
     <!-- About login page.-->
     <string name="action_sign_in">Sign in or register</string>
@@ -171,6 +177,9 @@
         그 학우는 전액납부한 것입니다.\n
         - [납부금액] 해당 학우가 실제 납부한 금액입니다.
     </string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 
 </resources>

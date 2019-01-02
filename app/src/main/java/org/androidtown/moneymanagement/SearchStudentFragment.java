@@ -59,7 +59,6 @@ public class SearchStudentFragment extends Fragment {
                              Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.fragment_search_student, container, false);
-        Button studentSearchButton = view.findViewById(R.id.student_search_button);
 
         // Set views.
         mSidView = view.findViewById(R.id.sid);
@@ -70,10 +69,20 @@ public class SearchStudentFragment extends Fragment {
         mProgressBar.setVisibility(View.GONE);
 
         // When search button is pushed.
-        studentSearchButton.setOnClickListener(new View.OnClickListener() {
+        Button mStudentSearchButton = view.findViewById(R.id.student_search_button);
+        mStudentSearchButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 searchStudent();
+            }
+        });
+
+        Button mSearchingOnlyButton = view.findViewById(R.id.search_searching_only_button);
+        mSearchingOnlyButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getActivity(), SearchOnlyActivity.class);
+                startActivity(intent);
             }
         });
 
