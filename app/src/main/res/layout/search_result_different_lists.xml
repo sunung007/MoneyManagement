@@ -14,14 +14,43 @@
         ></View>
 
     <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="8dp"
+        android:gravity="center_horizontal"
+        android:orientation="horizontal"
+        >
+
+        <TextView
+            android:id="@+id/result_different_sid"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="4dp"
+            android:text="@string/prompt_sid"
+            android:textAppearance="@style/TextAppearance.AppCompat.Menu"
+            android:textStyle="bold"
+            android:textColor="@color/colorPrimary"
+            />
+
+        <TextView
+            android:id="@+id/result_different_sname"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/prompt_name"
+            android:textAppearance="@style/TextAppearance.AppCompat.Menu"
+            android:textStyle="bold"
+            android:textColor="@color/colorPrimary"
+            />
+    </LinearLayout>
+
+    <LinearLayout
         android:id="@+id/linearLayout3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:layout_marginBottom="3dp"
+        android:layout_marginTop="4dp"
+        android:layout_marginBottom="4dp"
         android:orientation="horizontal"
-        android:weightSum="0"
-        >
+        android:weightSum="0">
 
         <TextView
             android:layout_width="wrap_content"
@@ -31,13 +60,12 @@
             android:textStyle="bold" />
 
         <TextView
-            android:id="@+id/result_pyear"
+            android:id="@+id/result_different_pyear"
             android:layout_width="60dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="4dp"
             android:layout_marginTop="0dp"
-            android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-            />
+            android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -49,13 +77,12 @@
             android:textStyle="bold" />
 
         <TextView
-            android:id="@+id/result_ptype"
+            android:id="@+id/result_different_ptype"
             android:layout_width="80dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="4dp"
             android:layout_marginTop="0dp"
-            android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-            />
+            android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
 
     </LinearLayout>
 
@@ -75,7 +102,7 @@
             android:textStyle="bold" />
 
         <TextView
-            android:id="@+id/result_pamount"
+            android:id="@+id/result_different_pamount"
             android:layout_width="60dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="4dp"
@@ -89,7 +116,7 @@
             android:textStyle="bold" />
 
         <TextView
-            android:id="@+id/result_support"
+            android:id="@+id/result_different_support"
             android:layout_width="80dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="4dp"

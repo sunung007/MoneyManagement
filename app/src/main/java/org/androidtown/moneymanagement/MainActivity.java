@@ -204,6 +204,18 @@ public class MainActivity extends AppCompatActivity
         return true;
     }
 
+    @Override
+    protected void onPause() {
+        // Close soft key.
+        InputMethodManager inputMethodManager =
+                (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
+
+        if(inputMethodManager.isActive()) {
+            inputMethodManager.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
+        }
+
+        super.onPause();
+    }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {

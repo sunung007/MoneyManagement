@@ -54,25 +54,27 @@ public class SearchResultPopup extends AppCompatActivity {
         mSid = resultStudent.get(0).Sid;
         mSname = resultStudent.get(0).Sname;
 
+        countStudents();
+
         if(searchType == 0) {
             mTargetInfo = mSid + " " + mSname + " 검색결과";
+            mResultAll = "";
         } else {
             mTargetInfo = mSname + " 전체 검색결과";
+            mResultAll = "총 \"" + mSnumber + "\" 명 검색되었습니다.\n";
         }
-
-        countStudents();
 
         if(mSnumber == 1) {
             if(mSupportNumber == mSnumber) {
-                mResultAll = "해당 학우는 지원 대상입니다.";
+                mResultAll += "해당 학우는 지원 대상입니다.";
             } else {
-                mResultAll = "해당 학우는 지원 대상이 아닙니다.";
+                mResultAll += "해당 학우는 지원 대상이 아닙니다.";
             }
         } else {
             if(mSupportNumber == mSnumber) {
-                mResultAll = "전원 지원 대상입니다.";
+                mResultAll += "전원 지원 대상입니다.";
             } else {
-                mResultAll = "지원 대상이 아닌 동명이인이 있습니다.\n" +
+                mResultAll += "지원 대상이 아닌 동명이인이 있습니다.\n" +
                         "총 " + mSnumber + "명 중 " + mSupportNumber + "명 지원 대상입니다.";
             }
         }
@@ -88,8 +90,14 @@ public class SearchResultPopup extends AppCompatActivity {
 
         mLayoutManage = new LinearLayoutManager(getApplicationContext());
         mRecyclerView.setLayoutManager(mLayoutManage);
-        adapter = new SearchStudentListAdapter(resultStudent);
-        mRecyclerView.setAdapter(adapter);
+
+        if(searchType == 0) {
+            adapter = new SearchStudentListAdapter(resultStudent);
+            mRecyclerView.setAdapter(adapter);
+        } else {
+            adapter = new SearchStudentDifferentListAdapter(resultStudent);
+            mRecyclerView.setAdapter(adapter);
+        }
 
 
         Button buttonOk = findViewById(R.id.button_search_result_ok);

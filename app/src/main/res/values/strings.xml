@@ -119,6 +119,13 @@
         <item>전체 학번</item>
     </string-array>
 
+    <string-array name="array_enroll_sid">
+        <item>17학번</item>
+        <item>18학번</item>
+        <item>19학번</item>
+        <item>20학번</item>
+    </string-array>
+
     <string-array name="array_year">
         <item>17년도</item>
         <item>18년도</item>

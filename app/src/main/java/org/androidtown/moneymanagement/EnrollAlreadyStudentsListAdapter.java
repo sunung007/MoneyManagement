@@ -85,7 +85,7 @@ public class EnrollAlreadyStudentsListAdapter extends RecyclerView.Adapter<Recyc
                     // when does not pressed.
                     case MotionEvent.ACTION_CANCEL:
                     case MotionEvent.ACTION_UP:
-                        myViewHolder.mListView.setCardBackgroundColor(Color.TRANSPARENT);
+                        myViewHolder.mListView.setCardBackgroundColor(Color.parseColor("#e6e6e6"));
                         myViewHolder.mListView.setCardElevation(0);
                         break;
                 }

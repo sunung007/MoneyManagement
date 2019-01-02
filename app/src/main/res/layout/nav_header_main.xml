@@ -41,7 +41,7 @@
             android:layout_height="wrap_content"
             android:text="@string/subname_account"
             android:textAppearance="@style/TextAppearance.AppCompat.Menu"
-
+            android:textColor="@color/colorBlack"
             />
     </LinearLayout>
 
