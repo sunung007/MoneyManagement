@@ -1,7 +1,6 @@
 package org.androidtown.moneymanagement;
 
 import android.app.Activity;
-import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -56,8 +55,6 @@ public class SearchOnlyActivity extends AppCompatActivity {
         setContentView(R.layout.activity_search_only);
 
         mToolbar = findViewById(R.id.search_only_toolbar);
-        mToolbar.setTitleTextColor(Color.WHITE);
-
         setSupportActionBar(mToolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 

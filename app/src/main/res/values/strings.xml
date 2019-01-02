@@ -178,8 +178,4 @@
         - [납부금액] 해당 학우가 실제 납부한 금액입니다.
     </string>
 
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
-
-
 </resources>
