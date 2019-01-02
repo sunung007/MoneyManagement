@@ -60,7 +60,13 @@
     <string name="prompt_authorization">
         개인정보 보호를 위해\n
         관리자 암호 4자리를 입력해주세요</string>
-    <string name="prompt_search_searching_only">아래 버튼을 누르시면 탐색 전용 모드로 이동합니다.</string>
+
+    <string name="prompt_search_searching_only">
+        탐색 전용 모드에서는 최초 접속 시 데이터베이스를 기준으로 검색을 합니다.
+        다른 모드 등에 비해 속도가 빠르나, 도중 데이터가 변해도 감지해내지 못합니다.
+        따라서 야식사업 등 [학생회비 납부 여부를 연속으로 확인해야할 때] 사용할 것을 추천합니다.
+        \n\n아래 버튼을 누르시면 탐색 전용 모드로 이동합니다.
+    </string>
 
     <!--<string name="prompt_auto_password_fill">비밀번호 저장</string>-->
 
