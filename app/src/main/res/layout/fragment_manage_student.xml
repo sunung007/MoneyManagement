@@ -16,6 +16,7 @@
         android:inputType="text"
         android:minHeight="50dp"
         android:paddingStart="48dp"
+        android:paddingEnd="48dp"
         android:paddingBottom="0dp"
         android:singleLine="true">
 
@@ -28,6 +29,7 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
         android:layout_marginBottom="8dp"
+        android:contentDescription="@string/content_description_find_student"
         android:src="?android:attr/actionModeWebSearchDrawable"
         app:layout_constraintBottom_toTopOf="@+id/manage_swipe_refresh"
         app:layout_constraintStart_toStartOf="parent"

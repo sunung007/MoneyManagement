@@ -49,7 +49,7 @@
                 android:layout_height="wrap_content"
                 android:dropDownWidth="match_parent"
                 android:entries="@array/array_sid"
-                android:gravity="right|fill"
+                android:gravity="end|fill"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textView3" />
@@ -66,7 +66,8 @@
             android:gravity="bottom"
             android:hint="@string/hint_search_name"
             android:inputType="textPersonName"
-            android:paddingLeft="32dp"
+            android:paddingStart="32dp"
+            android:paddingEnd="32dp"
             android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"

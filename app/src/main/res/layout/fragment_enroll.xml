@@ -52,7 +52,8 @@
             android:ems="10"
             android:hint="@string/hint_search_name"
             android:inputType="textPersonName"
-            android:paddingLeft="8dp"
+            android:paddingStart="8dp"
+            android:paddingEnd="8dp"
             android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
             tools:layout_editor_absoluteX="144dp"
             tools:layout_editor_absoluteY="67dp" />
@@ -82,8 +83,9 @@
 
         <Spinner
             android:id="@+id/enroll_sid"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_weight="1"
             android:entries="@array/array_sid"
             tools:layout_editor_absoluteX="8dp"
             tools:layout_editor_absoluteY="195dp" />
@@ -111,7 +113,7 @@
 
         <Spinner
             android:id="@+id/enroll_pyear"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:entries="@array/array_year" />
@@ -138,7 +140,7 @@
 
         <Spinner
             android:id="@+id/enroll_ptype"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:entries="@array/array_type" />
@@ -167,7 +169,7 @@
 
         <Spinner
             android:id="@+id/enroll_pamount"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:entries="@array/array_amount" />

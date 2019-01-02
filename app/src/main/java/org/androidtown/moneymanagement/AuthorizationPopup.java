@@ -1,5 +1,6 @@
 package org.androidtown.moneymanagement;
 
+import android.content.Context;
 import android.graphics.Color;
 import android.graphics.Rect;
 import android.graphics.drawable.ColorDrawable;
@@ -7,6 +8,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.view.Gravity;
+import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.Window;
@@ -53,10 +55,25 @@ public class AuthorizationPopup extends AppCompatActivity {
                 finish();
             }
         });
+
+        mPasswordView.setOnKeyListener(new View.OnKeyListener() {
+            @Override
+            public boolean onKey(View view, int i, KeyEvent keyEvent) {
+                if(i == KeyEvent.KEYCODE_ENTER) {
+                    checkPassword();
+                    return true;
+                }
+                return false;
+            }
+        });
+
+        InputMethodManager inputMethodManager =
+                (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+
+        inputMethodManager.toggleSoftInput(InputMethodManager.SHOW_FORCED, InputMethodManager.HIDE_IMPLICIT_ONLY);
     }
 
     public void checkPassword() {
-//        mProgressBar.setVisibility(View.VISIBLE);
         mPasswordView.setError(null);
 
         boolean cancel = false;

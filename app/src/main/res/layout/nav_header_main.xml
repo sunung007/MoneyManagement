@@ -16,7 +16,7 @@
         android:id="@+id/imageView"
         android:layout_width="60dp"
         android:layout_height="60dp"
-        android:layout_marginRight="10dp"
+        android:layout_marginEnd="10dp"
         android:contentDescription="@string/nav_header_desc"
         android:paddingTop="@dimen/nav_header_vertical_spacing"
         app:srcCompat="@drawable/logo_cse" />
@@ -33,7 +33,6 @@
             android:text="@string/name_account"
             android:textAppearance="@style/TextAppearance.AppCompat.Large"
             android:textColor="@color/colorBlack"
-            android:textSize="@dimen/sname_size"
             />
 
         <TextView
@@ -41,9 +40,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/subname_account"
-            android:textAppearance="@style/TextAppearance.AppCompat.Light.SearchResult.Subtitle"
-            android:textColor="@color/colorGray"
-            android:textSize="@dimen/dname_size"
+            android:textAppearance="@style/TextAppearance.AppCompat.Menu"
 
             />
     </LinearLayout>
