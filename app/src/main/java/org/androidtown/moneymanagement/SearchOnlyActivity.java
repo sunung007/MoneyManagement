@@ -44,6 +44,7 @@ public class SearchOnlyActivity extends AppCompatActivity {
 
     String mSname;
     int studentNumber;
+    boolean isLoading;
 
     ArrayList<StudentInfo> allStudentInfos;
     ArrayList<StudentInfo> searchStudentInfos;
@@ -60,6 +61,7 @@ public class SearchOnlyActivity extends AppCompatActivity {
 
         allStudentInfos = new ArrayList<>();
         searchStudentInfos = new ArrayList<>();
+        isLoading = false;
 
         mProgressBar = findViewById(R.id.search_only_progressBar);
         mProgressBar.setVisibility(View.GONE);
@@ -98,6 +100,18 @@ public class SearchOnlyActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    @Override
+    public void onBackPressed() {
+        if(isLoading) {
+            String message = "데이터베이스를 로딩 중입니다.";
+            Toast toast = Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT);
+            toast.setGravity(Gravity.CENTER_HORIZONTAL | Gravity.BOTTOM, 0, 0);
+            toast.show();
+        }
+        else {
+            super.onBackPressed();
+        }
+    }
 
     private void setAllStudent () {
         // Set progress bar to visible.
@@ -187,6 +201,7 @@ public class SearchOnlyActivity extends AppCompatActivity {
 
         @Override
         protected Boolean doInBackground(Void... params) {
+            isLoading = true;
 
             // Initialize array.
             totalNum = 0;
@@ -214,7 +229,7 @@ public class SearchOnlyActivity extends AppCompatActivity {
                     while(child.hasNext()) {
                         ds = child.next();
 
-                        index = ds.getKey().toString();
+                        index = ds.getKey();
                         tName = ds.child("Sname").getValue().toString();
                         tId = ds.child("Sid").getValue().toString();
 
@@ -287,6 +302,7 @@ public class SearchOnlyActivity extends AppCompatActivity {
         protected void onPostExecute(final Boolean success) {
             mAuthTask = null;
             mProgressBar.setVisibility(View.GONE);
+            isLoading = false;
 
             if (!success) {
                 // If the result array list is empty, which means
@@ -301,6 +317,9 @@ public class SearchOnlyActivity extends AppCompatActivity {
 
             // Remove event listener to reuse another fragments.
             conditionRef.removeEventListener(valueEventListener);
+
+            InputMethodManager imm = (InputMethodManager) getSystemService(Activity.INPUT_METHOD_SERVICE);
+            imm.showSoftInput(mSnameView, 0);
         }
 
         // Just formal.

@@ -195,7 +195,7 @@ public class ManageStudentFragment extends Fragment {
                     while(child.hasNext()) {
                         ds = child.next();
 
-                        index = ds.getKey().toString();
+                        index = ds.getKey();
                         tName = ds.child("Sname").getValue().toString();
                         tId = ds.child("Sid").getValue().toString();
 

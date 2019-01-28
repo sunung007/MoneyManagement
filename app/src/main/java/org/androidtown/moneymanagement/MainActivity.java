@@ -30,7 +30,9 @@ public class MainActivity extends AppCompatActivity
 
     long backKeyPressedTime = 0;
     int backCount = 0;
+    String fragmentTitle = null;
 
+    Toolbar mToolbar;
     NavigationView mNavigationView;
 
 
@@ -38,8 +40,8 @@ public class MainActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Toolbar toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+        mToolbar = findViewById(R.id.main_toolbar);
+        setSupportActionBar(mToolbar);
 
         // Set first fragment to search mode.
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
@@ -49,7 +51,7 @@ public class MainActivity extends AppCompatActivity
         // Set drawer layout
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+                this, drawer, mToolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
@@ -72,6 +74,7 @@ public class MainActivity extends AppCompatActivity
             }
         });
     }
+
 
     @Override
     public void onBackPressed() {
@@ -138,6 +141,7 @@ public class MainActivity extends AppCompatActivity
 
         // When the navigation item is selected, change fragment.
         if(id == R.id.nav_check) {
+            fragmentTitle = "납부자 검색";
             fragment = new SearchStudentFragment();
         }
         else if (id == R.id.nav_enroll && previousFragmentID != id) {
@@ -145,10 +149,12 @@ public class MainActivity extends AppCompatActivity
             startActivityForResult(intent, 4);
         }
         else if (id == R.id.nav_manage && previousFragmentID != id) {
+            fragmentTitle = "납부자 전체 명단 관리";
             Intent intent = new Intent(getApplicationContext(), AuthorizationPopup.class);
             startActivityForResult(intent, 5);
         }
         else if (id == R.id.developer) {
+            fragmentTitle = "개발자 정보";
             fragment = new DevelopersFragment();
         }
         else if (id == R.id.logout) {
@@ -196,6 +202,8 @@ public class MainActivity extends AppCompatActivity
 
             ft.commit();
 
+            mToolbar.setTitle(fragmentTitle);
+
             // Close drawer layout.
             DrawerLayout drawer = findViewById(R.id.drawer_layout);
             drawer.closeDrawer(GravityCompat.START);
@@ -238,6 +246,8 @@ public class MainActivity extends AppCompatActivity
 
             ft.commit();
 
+            if(fragmentTitle != null)
+                mToolbar.setTitle(fragmentTitle);
 
             // Close drawer layout.
             DrawerLayout drawer = findViewById(R.id.drawer_layout);
@@ -262,6 +272,8 @@ public class MainActivity extends AppCompatActivity
 
             ft.commit();
 
+            if(fragmentTitle != null)
+                mToolbar.setTitle(fragmentTitle);
 
             // Close drawer layout.
             DrawerLayout drawer = findViewById(R.id.drawer_layout);

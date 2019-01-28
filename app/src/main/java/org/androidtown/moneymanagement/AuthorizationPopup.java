@@ -6,7 +6,9 @@ import android.graphics.Rect;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.text.Editable;
 import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
@@ -67,11 +69,29 @@ public class AuthorizationPopup extends AppCompatActivity {
             }
         });
 
+        mPasswordView.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                if(mPasswordView.getText().length() == 4) {
+                    checkPassword();
+                }
+            }
+        });
+
         InputMethodManager inputMethodManager =
                 (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
 
         inputMethodManager.toggleSoftInput(InputMethodManager.SHOW_FORCED, InputMethodManager.HIDE_IMPLICIT_ONLY);
     }
+
 
     public void checkPassword() {
         mPasswordView.setError(null);

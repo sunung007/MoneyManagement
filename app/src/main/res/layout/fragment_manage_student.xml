@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     tools:context=".ManageStudentFragment">
 
-    <EditText
+    <org.androidtown.moneymanagement.ClearEditText
         android:id="@+id/manage_searchBar"
         style="@style/TextAppearance.AppCompat.Subhead"
         android:layout_width="match_parent"
@@ -20,7 +20,7 @@
         android:paddingBottom="0dp"
         android:singleLine="true">
 
-    </EditText>
+    </org.androidtown.moneymanagement.ClearEditText>
 
     <ImageView
         android:id="@+id/imageView4"

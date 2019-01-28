@@ -45,7 +45,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView33" />
 
-        <EditText
+        <org.androidtown.moneymanagement.ClearEditText
             android:id="@+id/search_only_sname"
             style="@style/TextAppearance.AppCompat.Subhead"
             android:layout_width="0dp"
