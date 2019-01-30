@@ -25,7 +25,7 @@
                 <item
                     android:id="@+id/developer"
                     android:icon="@drawable/menu_development"
-                    android:title="@string/title_menu_developer" />
+                    android:title="@string/title_about_developers" />
 
                 <!--<item-->
                     <!--android:id="@+id/caution"-->

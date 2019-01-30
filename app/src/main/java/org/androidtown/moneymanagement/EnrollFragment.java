@@ -16,6 +16,7 @@ import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ProgressBar;
 import android.widget.Spinner;
 
@@ -42,6 +43,8 @@ public class EnrollFragment extends Fragment {
     ProgressBar mProgressBar;
     SearchTask mAuthTask;
     ValueEventListener valueEventListener;
+
+    ImageButton mQuestionEnrollButton;
 
     String mSid, mSname, mPyear, mPtype, mPamount, title;
     int totalNum;
@@ -105,6 +108,21 @@ public class EnrollFragment extends Fragment {
             }
         });
 
+        mQuestionEnrollButton = view.findViewById(R.id.question_enroll);
+
+        mQuestionEnrollButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getContext(), QuestionPopup.class);
+
+                String title = getString(R.string.title_caution);
+                String content = getString(R.string.attention_enroll);
+                intent.putExtra("title", title);
+                intent.putExtra("content", content);
+
+                startActivity(intent);
+            }
+        });
 
         return view;
     }

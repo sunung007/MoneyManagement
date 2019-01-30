@@ -11,6 +11,8 @@
     <dimen name="app_bar_height">180dp</dimen>
     <dimen name="text_margin">16dp</dimen>
     <dimen name="round_button_angle">32dp</dimen>
+    <dimen name="round_question_angle">20dp</dimen>
+
 
     <dimen name="costom_edit_text_size">16dp</dimen>
 </resources>

@@ -16,6 +16,7 @@ import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.Toast;
@@ -37,6 +38,9 @@ public class SearchStudentFragment extends Fragment {
     EditText mSnameView;
     View mSearchView;
     ProgressBar mProgressBar;
+
+    ImageButton mQuestionSearchButton;
+    ImageButton mQuestionSearchOnlyTitleButton;
 
     SearchTask mAuthTask;
 
@@ -113,6 +117,36 @@ public class SearchStudentFragment extends Fragment {
             }
         });
 
+        mQuestionSearchButton = view.findViewById(R.id.question_search);
+        mQuestionSearchOnlyTitleButton = view.findViewById(R.id.question_search_only_title);
+
+        mQuestionSearchButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getContext(), QuestionPopup.class);
+
+                String title = getString(R.string.title_caution);
+                String content = getString(R.string.attention_search);
+                intent.putExtra("title", title);
+                intent.putExtra("content", content);
+
+                startActivity(intent);
+            }
+        });
+
+        mQuestionSearchOnlyTitleButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getContext(), QuestionPopup.class);
+
+                String title = getString(R.string.title_searching_only);
+                String content = getString(R.string.prompt_search_searching_only);
+                intent.putExtra("title", title);
+                intent.putExtra("content", content);
+
+                startActivity(intent);
+            }
+        });
 
         return view;
     }

@@ -46,7 +46,7 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="2dp"
         android:background="@drawable/round_button"
-        android:text="@string/button_enroll_accept"
+        android:text="@string/button_enroll"
         android:textAppearance="@style/TextAppearance.AppCompat.Menu"
         android:textColor="@color/colorWhite"
         app:layout_constraintEnd_toStartOf="@+id/button_detail_ok"
@@ -79,5 +79,7 @@
         app:layout_constraintBottom_toTopOf="@+id/button_search_result_ok"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/title_detail_info" />
+        app:layout_constraintTop_toTopOf="@+id/title_detail_info"
+        android:indeterminateTint="@color/colorPrimaryMoreLight"
+        />
 </android.support.constraint.ConstraintLayout>

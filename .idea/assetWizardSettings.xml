@@ -78,8 +78,11 @@
                         <option name="values">
                           <map>
                             <entry key="assetSourceType" value="FILE" />
-                            <entry key="outputName" value="ic_question_01" />
-                            <entry key="sourceFile" value="C:\Users\sunun\OneDrive - 한양대학교\학생회\홍보국\학생회비 체크 어플\img\question-01.svg" />
+                            <entry key="height" value="426" />
+                            <entry key="outputName" value="ic_login_logo" />
+                            <entry key="overrideSize" value="true" />
+                            <entry key="sourceFile" value="C:\Users\sunun\OneDrive - 한양대학교\학생회\홍보국\학생회비 체크 어플\img\login_logo.svg" />
+                            <entry key="width" value="865" />
                           </map>
                         </option>
                       </PersistentState>

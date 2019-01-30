@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle" android:padding="10dp">
+    <solid
+        android:color="@color/colorGrayMoreLight"/>
+    <padding
+        android:bottom="12dp"
+        android:left="24dp"
+        android:right="24dp"
+        android:top="12dp" />
+    <corners
+        android:bottomRightRadius="@dimen/round_question_angle"
+        android:bottomLeftRadius="@dimen/round_question_angle"
+        android:topLeftRadius="@dimen/round_question_angle"
+        android:topRightRadius="@dimen/round_question_angle"/>
+</shape>

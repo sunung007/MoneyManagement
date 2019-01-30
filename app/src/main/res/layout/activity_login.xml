@@ -9,6 +9,7 @@
     android:fillViewport="true"
     android:orientation="vertical"
     tools:context=".LoginActivity"
+    android:background="@drawable/ic_login_background"
     >
 
     <android.support.constraint.ConstraintLayout
@@ -20,15 +21,15 @@
 
         <ImageView
             android:id="@+id/imageView"
-            android:layout_width="334dp"
-            android:layout_height="207dp"
+            android:layout_width="300dp"
+            android:layout_height="194dp"
             android:layout_gravity="center"
-            android:layout_marginTop="50dp"
+            android:layout_marginTop="80dp"
             android:contentDescription="@string/content_description_developers_title"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/title_login2" />
+            app:srcCompat="@drawable/ic_login_logo" />
 
         <EditText
             android:id="@+id/email"
@@ -48,7 +49,9 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/imageView" />
+            app:layout_constraintTop_toBottomOf="@+id/imageView"
+            android:backgroundTint="@color/colorWhite"
+            />
 
         <EditText
             android:id="@+id/password"
@@ -58,7 +61,6 @@
             android:background="@drawable/round_edit_text"
             android:hint="@string/blank_password"
             android:imeActionId="6"
-            android:imeActionLabel="@string/action_sign_in_short"
             android:imeOptions="actionUnspecified"
             android:inputType="textPassword"
             android:maxLines="1"
@@ -68,7 +70,9 @@
             android:visibility="visible"
             app:layout_constraintEnd_toEndOf="@+id/email"
             app:layout_constraintStart_toStartOf="@+id/email"
-            app:layout_constraintTop_toBottomOf="@+id/email" />
+            app:layout_constraintTop_toBottomOf="@+id/email"
+            android:backgroundTint="@color/colorWhite"
+            />
 
 
         <Button
@@ -87,19 +91,6 @@
             android:textStyle="bold"
             />
 
-        <TextView
-            android:id="@+id/textView"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_gravity="center"
-            android:layout_marginBottom="16dp"
-            android:ems="10"
-            android:gravity="bottom"
-            android:text="@string/login_bottom_message"
-            android:textAlignment="center"
-            android:textColor="#64636B"
-            app:layout_constraintBottom_toBottomOf="parent" />
-
         <CheckBox
             android:id="@+id/auto_id_fill_checkBox"
             android:layout_width="wrap_content"
@@ -108,7 +99,10 @@
             android:text="@string/prompt_auto_id_fill"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="@+id/email_sign_in_button"
-            app:layout_constraintTop_toBottomOf="@+id/email_sign_in_button" />
+            app:layout_constraintTop_toBottomOf="@+id/email_sign_in_button"
+            android:buttonTint="@color/colorWhite"
+            android:textColor="@color/colorWhite"
+            />
 
         <CheckBox
             android:id="@+id/auto_login_checkBox"
@@ -119,7 +113,11 @@
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="@+id/auto_id_fill_checkBox"
             app:layout_constraintStart_toEndOf="@+id/auto_id_fill_checkBox"
-            app:layout_constraintTop_toTopOf="@+id/auto_id_fill_checkBox" />
+            app:layout_constraintTop_toTopOf="@+id/auto_id_fill_checkBox"
+            android:buttonTint="@color/colorWhite"
+            android:textColor="@color/colorWhite"
+
+            />
 
         <ProgressBar
             android:id="@+id/login_progressBar"
@@ -129,7 +127,9 @@
             app:layout_constraintBottom_toBottomOf="@+id/password"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/email" />
+            app:layout_constraintTop_toTopOf="@+id/email"
+            android:indeterminateTint="@color/colorPrimaryMoreLight"
+            />
 
 
     </android.support.constraint.ConstraintLayout>
