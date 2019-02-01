@@ -6,16 +6,17 @@
     <group android:checkableBehavior="single">
         <item
             android:id="@+id/nav_check"
-            android:icon="@drawable/menu_check"
+            android:icon="@drawable/ic_menu_check"
             android:title="@string/title_menu_check"
+            android:checked="true"
             />
         <item
             android:id="@+id/nav_enroll"
-            android:icon="@drawable/menu_enroll"
+            android:icon="@drawable/ic_menu_enroll"
             android:title="@string/title_menu_enroll" />
         <item
             android:id="@+id/nav_manage"
-            android:icon="@drawable/menu_manage"
+            android:icon="@drawable/ic_menu_manage"
             android:title="@string/title_menu_manage" />
     </group>
 
@@ -24,20 +25,13 @@
             <group android:checkableBehavior="single">
                 <item
                     android:id="@+id/developer"
-                    android:icon="@drawable/menu_development"
+                    android:icon="@drawable/ic_menu_developer"
                     android:title="@string/title_about_developers" />
-
-                <!--<item-->
-                    <!--android:id="@+id/caution"-->
-                    <!--android:icon="@drawable/menu_development"-->
-                    <!--android:title="@string/title_menu_developer" />-->
+                <item
+                    android:id="@+id/logout"
+                    android:icon="@drawable/ic_menu_logout"
+                    android:title="@string/title_menu_logout" />
             </group>
-
-
-            <item
-                android:id="@+id/logout"
-                android:icon="@drawable/logout"
-                android:title="@string/title_menu_logout" />
         </menu>
     </item>
 

@@ -29,7 +29,7 @@
         android:background="@color/colorNoColor"
         android:contentDescription="@string/content_description_question"
         android:padding="4dp"
-        android:src="@drawable/ic_question_01"
+        android:src="@drawable/ic_question"
         app:layout_constraintBottom_toBottomOf="@+id/textView19"
         app:layout_constraintStart_toEndOf="@+id/textView19"
         app:layout_constraintTop_toTopOf="@+id/textView19" />
@@ -63,7 +63,7 @@
             android:layout_height="wrap_content"
             android:background="@color/colorNoColor"
             android:ems="10"
-            android:hint="@string/hint_search_name"
+            android:hint="@string/prompt_search_name"
             android:inputType="textPersonName"
             android:paddingStart="8dp"
             android:paddingEnd="14dp"
@@ -208,7 +208,9 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:indeterminateTint="@color/colorPrimaryMoreLight"
+        />
 
 
 </android.support.constraint.ConstraintLayout>

@@ -2,18 +2,14 @@
 
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light">
-        <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
 
         <item name="android:statusBarColor">@color/colorPrimary</item>
         <item name="android:windowLightStatusBar">false</item>
-
-        <item name="android:actionBarStyle">@style/AppTheme.ActionBar</item>
-        <item name="android:actionMenuTextColor">@color/colorActionBarText</item>
-
     </style>
+
 
     <!-- No Action Bar -->
     <style name="AppTheme.NoActionBar" parent="Theme.AppCompat.Light">
@@ -39,31 +35,20 @@
         <item name="android:windowFullscreen">true</item>
     </style>
 
-
-    <!-- Setting action bar style -->
-    <style name="AppTheme.ActionBar" parent="Theme.AppCompat.Light.DarkActionBar">
-        <item name="android:background">@color/colorPrimary</item>
-        <item name="android:titleTextColor">@color/colorActionBarText</item>
-        <!--<item name="fontPath">@font/baminjua.ttf</item>-->
-    </style>
-
-    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar"/>
-
-    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" >
-        <!--<item name="android:titleTextColor">@color/colorPrimary</item>-->
-        <!--<item name="android:textColor">@color/colorPrimary</item>-->
-        <!--<item name="android:textStyle">bold</item>-->
-        <item name="android:titleTextStyle">@style/TitleBarTextAppearance</item>
-    </style>
-
-    <style name="TitleBarTextAppearance" parent="android:TextAppearance">
-        <item name="android:textStyle">bold</item>
-        <item name="android:textColor">@android:color/white</item>
-    </style>
-
     <style name="AppTheme.NoActionBar.Dialog" parent="Base.Theme.AppCompat.Light.Dialog">
         <item name="windowNoTitle">true</item>
     </style>
 
+
+    <!-- Setting action bar style -->
+    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar">
+        <item name="android:colorPrimary">@color/colorPrimary</item>
+        <item name="android:colorPrimaryDark">@color/colorPrimaryDark</item>
+    </style>
+
+    <style name="TitleBarTextAppearance" parent="android:TextAppearance">
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">18sp</item>
+    </style>
 
 </resources>

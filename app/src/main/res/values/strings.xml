@@ -1,5 +1,50 @@
 <resources>
 
+    <!--Spinner items.-->
+    <string-array name="array_sid">
+        <item>17학번</item>
+        <item>18학번</item>
+        <item>19학번</item>
+        <item>20학번</item>
+        <item>전체 학번</item>
+    </string-array>
+
+    <string-array name="array_enroll_sid">
+        <item>17학번</item>
+        <item>18학번</item>
+        <item>19학번</item>
+        <item>20학번</item>
+    </string-array>
+
+    <string-array name="array_year">
+        <item>17년도</item>
+        <item>18년도</item>
+        <item>19년도</item>
+        <item>20년도</item>
+    </string-array>
+
+    <string-array name="array_type">
+        <item>전액납부</item>
+        <item>1학기만</item>
+        <item>2학기만</item>
+        <item>3학기만</item>
+        <item>4학기만</item>
+        <item>5학기만</item>
+        <item>6학기만</item>
+        <item>7학기만</item>
+    </string-array>
+
+    <string-array name="array_amount">
+        <item>8만원</item>
+        <item>7만원</item>
+        <item>6만원</item>
+        <item>5만원</item>
+        <item>4만원</item>
+        <item>3만원</item>
+        <item>2만원</item>
+        <item>1만원</item>
+    </string-array>
+
     <!--Title of activities or app.-->
     <string name="app_name">컴소 학생회</string>
 
@@ -47,21 +92,18 @@
     <string name="prompt_auto_login">자동 로그인</string>
     <string name="prompt_auto_id_fill">아이디 저장</string>
 
+    <string name="prompt_search_name">이름을 입력하세요</string>
+
     <string name="prompt_authorization">
         개인정보 보호를 위해\n
         관리자 암호 4자리를 입력해주세요
     </string>
-    <string name="prompt_search_searching_only">
-        [납부자 연속 검색]에서는 최초 접속 시 데이터베이스를 기준으로 검색을 합니다.
-        다른 모드 등에 비해 속도가 빠르나, 도중 데이터가 변해도 감지해내지 못합니다.
-        따라서 야식사업 등 [학생회비 납부 여부를 연속으로 확인해야할 때] 사용할 것을 추천합니다.
-    </string>
 
 
     <!--ETC...-->
-    <string name="name_account">한양대 컴소</string>
-    <string name="subname_account">학생회</string>
-    <string name="hint_search_name">이름을 입력하세요</string>
+    <string name="name_account">컴퓨터소프트웨어학부 학생회</string>
+    <string name="subname_account">hyucsedb@gmail.com</string>
+
 
     <string name="content_description_developers_title">한양대학교 컴퓨터소프트웨어학부 로고</string>
     <string name="content_description_facebook_logo">페이스북 로고</string>
@@ -109,64 +151,28 @@
     <string name="nav_header_desc">Navigation header</string>
     <string name="action_settings">Settings</string>
 
-
-    <string-array name="array_sid">
-        <item>17학번</item>
-        <item>18학번</item>
-        <item>19학번</item>
-        <item>20학번</item>
-        <item>전체 학번</item>
-    </string-array>
-
-    <string-array name="array_enroll_sid">
-        <item>17학번</item>
-        <item>18학번</item>
-        <item>19학번</item>
-        <item>20학번</item>
-    </string-array>
-
-    <string-array name="array_year">
-        <item>17년도</item>
-        <item>18년도</item>
-        <item>19년도</item>
-        <item>20년도</item>
-    </string-array>
-
-    <string-array name="array_type">
-        <item>전액납부</item>
-        <item>1학기만</item>
-        <item>2학기만</item>
-        <item>3학기만</item>
-        <item>4학기만</item>
-        <item>5학기만</item>
-        <item>6학기만</item>
-        <item>7학기만</item>
-    </string-array>
-
-    <string-array name="array_amount">
-        <item>8만원</item>
-        <item>7만원</item>
-        <item>6만원</item>
-        <item>5만원</item>
-        <item>4만원</item>
-        <item>3만원</item>
-        <item>2만원</item>
-        <item>1만원</item>
-    </string-array>
-
+    <!--Attention-->
     <string name="attention_search">
-        \n- 16학번 이상의 학우들은 전체 학번으로 검색하여 미납자인지만 확인해주세요.
-        \n- [학생회비 지원대상이 아닌 경우] 일부 학기에 해당하는 학생회비만 납부하였고,
-        납부에 해당한 학기가 지났음을 의미합니다.
+        🔔 16학번 이상의 학우
+        \n전체 학번으로 검색하여 "미납자"인지만 확인해주세요.
+        \n🔔 지원 대상이 아닙니다
+        \n일부 학기에 해당하는 학생회비만 납부하였고, 납부에 해당한 학기가 지났음을 의미합니다.
+    </string>
+
+    <string name="attention_search_searching_only">
+        🔔 ```납부자 연속 검색```
+        \n접속 당시의 데이터베이스를 기준으로 검색을 합니다.
+        따라서 속도가 빠르지만, 도중 추가/변경 사항이 있어도 그를 반영하지 못합니다.
+        \n🔔 사용방법
+        \n야식사업 등 학생회비 납부 여부를 "연속"으로 확인해야할 때 사용할 것을 추천합니다.
     </string>
 
     <string name="attention_enroll">
-        - 학생회비는 한 학기에 1만원 기준입니다.
-        \n- [납부유형] 남은 학기 전액을 납부하였을 경우에는 전액납부를,
-        그렇지 않은 경우에는 납부한 학기를 입력하세요.
-        (ex: 3만원 납부 = 3학기치 납부)
-        \n\t** 만약 17학번이 18년도에 6만원을 납부하였다면, 그 학우는 전액납부한 것입니다.
-        \n- [납부금액] 해당 학우가 실제 납부한 금액입니다.
+        🔔 학생회비
+        \n학생회비는 한 학기에 1만원 기준입니다.
+        \n🔔 납부유형
+        \n남은 학기 전액을 납부하였을 경우에는 전액납부를, 그렇지 않은 경우에는 납부한 학기를 입력하세요.
+        \n(예: 3만원 납부 = [납부유형] 3학기만)
     </string>
 
 </resources>

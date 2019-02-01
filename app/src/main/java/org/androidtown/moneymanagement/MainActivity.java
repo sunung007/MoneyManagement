@@ -35,12 +35,16 @@ public class MainActivity extends AppCompatActivity
     Toolbar mToolbar;
     NavigationView mNavigationView;
 
+    private boolean isAuthrorized = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        String title = getString(R.string.title_search);
         mToolbar = findViewById(R.id.main_toolbar);
+        mToolbar.setTitle(title);
         setSupportActionBar(mToolbar);
 
         // Set first fragment to search mode.
@@ -106,6 +110,7 @@ public class MainActivity extends AppCompatActivity
         }
         else {
             previousFragmentID = R.id.nav_check;
+            mNavigationView.setCheckedItem(R.id.nav_check);
             super.onBackPressed();
         }
     }
@@ -145,6 +150,7 @@ public class MainActivity extends AppCompatActivity
             fragment = new SearchStudentFragment();
         }
         else if (id == R.id.nav_enroll && previousFragmentID != id) {
+            fragmentTitle = "납부자 신규 등록";
             Intent intent = new Intent(getApplicationContext(), AuthorizationPopup.class);
             startActivityForResult(intent, 4);
         }
@@ -281,11 +287,15 @@ public class MainActivity extends AppCompatActivity
         }
 
         if(resultCode == RESULT_CANCELED) {
+            mNavigationView.setCheckedItem(previousFragmentID);
+
             // Close drawer layout.
             DrawerLayout drawer = findViewById(R.id.drawer_layout);
             drawer.closeDrawer(GravityCompat.START);
         }
     }
+
+
 
 }
 

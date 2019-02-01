@@ -12,7 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/colorSearchBackground"
-        android:hint="@string/hint_search_name"
+        android:hint="@string/prompt_search_name"
         android:inputType="text"
         android:minHeight="50dp"
         android:paddingStart="48dp"

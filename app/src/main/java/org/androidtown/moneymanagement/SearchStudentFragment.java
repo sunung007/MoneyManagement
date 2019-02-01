@@ -140,7 +140,7 @@ public class SearchStudentFragment extends Fragment {
                 Intent intent = new Intent(getContext(), QuestionPopup.class);
 
                 String title = getString(R.string.title_searching_only);
-                String content = getString(R.string.prompt_search_searching_only);
+                String content = getString(R.string.attention_search_searching_only);
                 intent.putExtra("title", title);
                 intent.putExtra("content", content);
 
