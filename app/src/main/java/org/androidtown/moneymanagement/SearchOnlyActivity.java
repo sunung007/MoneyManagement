@@ -12,8 +12,10 @@ import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.view.Gravity;
 import android.view.KeyEvent;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
@@ -91,10 +93,43 @@ public class SearchOnlyActivity extends AppCompatActivity {
     }
 
     @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_search_only, menu);
+        return true;
+    }
+
+    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if(item.getItemId() == android.R.id.home) {
-            finish();
-            return true;
+        int id = item.getItemId();
+        if(id == android.R.id.home) {
+            if(isLoading) {
+                String message = "데이터베이스를 로딩 중입니다.";
+                Toast toast = Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT);
+                toast.setGravity(Gravity.CENTER_HORIZONTAL | Gravity.BOTTOM, 0, 0);
+                toast.show();
+            }
+            else {
+                finish();
+                return true;
+            }
+        }
+        else if(id == R.id.search_only_toolbar_refresh) {
+            // Close keypad.
+            InputMethodManager imm = (InputMethodManager) getSystemService(Activity.INPUT_METHOD_SERVICE);
+            imm.hideSoftInputFromWindow(mSnameView.getWindowToken(), 0);
+
+            mSnameView.getText().clear();
+
+            FragmentManager fm = getSupportFragmentManager();
+            FragmentTransaction ft = fm.beginTransaction();
+            Fragment fragment = fm.findFragmentById(R.id.search_only_result_fragment);
+
+            if(fragment != null && fragment.isVisible()) {
+                ft.remove(fragment);
+                ft.commit();
+            }
+
+            setAllStudent();
         }
 
         return super.onOptionsItemSelected(item);
@@ -115,6 +150,7 @@ public class SearchOnlyActivity extends AppCompatActivity {
 
     private void setAllStudent () {
         // Set progress bar to visible.
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
         mProgressBar.setVisibility(View.VISIBLE);
 
         mAuthTask = new LoadingAllStudetnTask();
@@ -155,6 +191,8 @@ public class SearchOnlyActivity extends AppCompatActivity {
             // There was an error; don't attempt login and focus the first
             // form field with an error.
             mProgressBar.setVisibility(View.GONE);
+            getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+
             focusView.requestFocus();
         }
         else {
@@ -179,6 +217,8 @@ public class SearchOnlyActivity extends AppCompatActivity {
 
                 ft.replace(R.id.search_only_result_fragment, fragment);
                 ft.commit();
+
+//                mSnameView.getText().clear();
             }
             else {
                 // If the result array list is empty, which means
@@ -304,6 +344,8 @@ public class SearchOnlyActivity extends AppCompatActivity {
             mProgressBar.setVisibility(View.GONE);
             isLoading = false;
 
+            getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+
             if (!success) {
                 // If the result array list is empty, which means
                 // the student that user put in is not in DB, just float Toast.
@@ -327,6 +369,7 @@ public class SearchOnlyActivity extends AppCompatActivity {
         protected void onCancelled() {
             mAuthTask = null;
             mProgressBar.setVisibility(View.GONE);
+            getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
         }
     }
 

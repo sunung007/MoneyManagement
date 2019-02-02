@@ -154,6 +154,7 @@ public class SearchStudentFragment extends Fragment {
 
     private void searchStudent() {
         // Set progress bar to visible.
+        MainActivity.screenUntouchable();
         mProgressBar.setVisibility(View.VISIBLE);
 
         // Reset errors and array.
@@ -178,6 +179,8 @@ public class SearchStudentFragment extends Fragment {
             // There was an error; don't attempt login and focus the first
             // form field with an error.
             mProgressBar.setVisibility(View.GONE);
+            MainActivity.screenTouchable();
+
             focusView.requestFocus();
         }
         else {
@@ -367,6 +370,7 @@ public class SearchStudentFragment extends Fragment {
         protected void onPostExecute(final Boolean success) {
             mAuthTask = null;
             mProgressBar.setVisibility(View.GONE);
+            MainActivity.screenTouchable();
 
             // Whether work in doInBackground() is success.
             if (success) {
@@ -375,7 +379,9 @@ public class SearchStudentFragment extends Fragment {
                 InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Activity.INPUT_METHOD_SERVICE);
                 imm.hideSoftInputFromWindow(getView().getWindowToken(), 0);
 
-                // Open popup activity.
+                mSnameView.getText().clear();
+
+                // Open result popup activity.
                 Intent intent = new Intent(getActivity().getApplicationContext(), SearchResultPopup.class);
                 intent.putParcelableArrayListExtra("result", target);
 
@@ -407,6 +413,7 @@ public class SearchStudentFragment extends Fragment {
         protected void onCancelled() {
             mAuthTask = null;
             mProgressBar.setVisibility(View.GONE);
+            MainActivity.screenTouchable();
         }
     }
 }

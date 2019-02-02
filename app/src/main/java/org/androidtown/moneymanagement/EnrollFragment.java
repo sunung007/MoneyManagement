@@ -129,6 +129,7 @@ public class EnrollFragment extends Fragment {
 
 
     private void searchStudent() {
+        MainActivity.screenUntouchable();
         mProgressBar.setVisibility(View.VISIBLE);
 
         // Reset errors.
@@ -155,6 +156,8 @@ public class EnrollFragment extends Fragment {
             // There was an error; don't attempt login and focus the first
             // form field with an error.
             mProgressBar.setVisibility(View.GONE);
+            MainActivity.screenTouchable();
+
             focusView.requestFocus();
         } else {
             mAuthTask = new SearchTask();
@@ -267,6 +270,7 @@ public class EnrollFragment extends Fragment {
         protected void onPostExecute(final Boolean success) {
             mAuthTask = null;
             mProgressBar.setVisibility(View.GONE);
+            MainActivity.screenTouchable();
 
             // Close keypad.
             InputMethodManager imm
@@ -312,6 +316,7 @@ public class EnrollFragment extends Fragment {
         protected void onCancelled() {
             mAuthTask = null;
             mProgressBar.setVisibility(View.GONE);
+            MainActivity.screenTouchable();
         }
 
         StudentInfo setNewStudent() {

@@ -13,9 +13,10 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Gravity;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Toast;
 
@@ -34,6 +35,8 @@ public class MainActivity extends AppCompatActivity
 
     Toolbar mToolbar;
     NavigationView mNavigationView;
+
+    static Window thisWindow;
 
     private boolean isAuthrorized = false;
 
@@ -58,6 +61,8 @@ public class MainActivity extends AppCompatActivity
                 this, drawer, mToolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
         toggle.syncState();
+
+        thisWindow = getWindow();
 
         previousFragmentManager = getSupportFragmentManager();
 
@@ -115,18 +120,8 @@ public class MainActivity extends AppCompatActivity
         }
     }
 
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.main, menu);
-        return true;
-    }
-
-
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
-        // Handle navigation view item clicks here.
         int id = item.getItemId();
 
         // Close soft key.
@@ -295,7 +290,13 @@ public class MainActivity extends AppCompatActivity
         }
     }
 
+    public static void screenUntouchable() {
+        thisWindow.addFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+    }
 
+    public static void screenTouchable () {
+        thisWindow.clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+    }
 
 }
 

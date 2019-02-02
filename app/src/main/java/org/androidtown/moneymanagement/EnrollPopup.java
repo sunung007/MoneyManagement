@@ -13,6 +13,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.Gravity;
 import android.view.View;
 import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -93,7 +94,9 @@ public class EnrollPopup extends AppCompatActivity {
         buttonEnroll.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                getWindow().addFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
                 mProgressBar.setVisibility(View.VISIBLE);
+
                 EnrollStudent enrollStudent = new EnrollStudent();
                 enrollStudent.execute((Void) null);
             }
@@ -134,6 +137,7 @@ public class EnrollPopup extends AppCompatActivity {
         @Override
         protected void onPostExecute(Boolean aBoolean) {
             mProgressBar.setVisibility(View.GONE);
+            getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
 
             String resultMessage;
 

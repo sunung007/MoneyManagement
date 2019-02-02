@@ -12,6 +12,7 @@ import android.view.Gravity;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.Toast;
@@ -70,6 +71,7 @@ public class DetailStudentDeleteCheckPopup extends AppCompatActivity {
         mDeleteButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                getWindow().addFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
                 mProgressBar.setVisibility(View.VISIBLE);
 
                 mAuthTask = new DeleteStudent(position, totalNum);
@@ -179,6 +181,8 @@ public class DetailStudentDeleteCheckPopup extends AppCompatActivity {
             mAuthTask = null;
             String resultMessage;
 
+            getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+
             if (success) {
                 resultMessage = "삭제되었습니다.";
             } else {
@@ -197,6 +201,8 @@ public class DetailStudentDeleteCheckPopup extends AppCompatActivity {
         @Override
         protected void onCancelled() {
             mProgressBar.setVisibility(View.GONE);
+            getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+
             mAuthTask = null;
         }
     }

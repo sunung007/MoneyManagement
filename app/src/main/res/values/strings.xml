@@ -79,6 +79,7 @@
     <string name="button_ok">확인</string>
     <string name="button_enroll">등록</string>
     <string name="button_delete">삭제</string>
+    <string name="button_refresh">새로고침</string>
 
 
     <!--Prompt contents of many input text blanks.-->
@@ -160,7 +161,7 @@
     </string>
 
     <string name="attention_search_searching_only">
-        🔔 ```납부자 연속 검색```
+        🔔 납부자 연속 검색
         \n접속 당시의 데이터베이스를 기준으로 검색을 합니다.
         따라서 속도가 빠르지만, 도중 추가/변경 사항이 있어도 그를 반영하지 못합니다.
         \n🔔 사용방법

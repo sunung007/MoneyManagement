@@ -9,6 +9,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.Gravity;
 import android.view.View;
 import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.Toast;
@@ -55,9 +56,11 @@ public class ModifyStudentModifyCheckPopup extends AppCompatActivity {
         mModifyButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-            mProgressBar.setVisibility(View.VISIBLE);
-            ModifyStudent modifyStudent = new ModifyStudent();
-            modifyStudent.execute((Void) null);
+                getWindow().addFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+                mProgressBar.setVisibility(View.VISIBLE);
+
+                ModifyStudent modifyStudent = new ModifyStudent();
+                modifyStudent.execute((Void) null);
             }
         });
 
@@ -82,6 +85,8 @@ public class ModifyStudentModifyCheckPopup extends AppCompatActivity {
         @Override
         protected void onPostExecute(Boolean aBoolean) {
             mProgressBar.setVisibility(View.GONE);
+            getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+
             String resultMessage;
 
             if(aBoolean) {

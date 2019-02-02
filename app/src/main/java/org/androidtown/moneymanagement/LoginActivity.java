@@ -61,6 +61,8 @@ public class LoginActivity extends AppCompatActivity {
     // For auto login.
     private SharedPreferences sharedPreferences;
 
+    long loginStartTime;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -213,7 +215,10 @@ public class LoginActivity extends AppCompatActivity {
         } else {
             // Show a progress spinner, and kick off a background task to
             // perform the user login attempt.
+//            getWindow().addFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
             mProgressBar.setVisibility(View.VISIBLE);
+
+            loginStartTime = System.currentTimeMillis();
 
             doLogin();
         }
@@ -229,7 +234,7 @@ public class LoginActivity extends AppCompatActivity {
             if (inputMethodManager.isActive()) {
                 inputMethodManager.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
             }
-        } catch (NullPointerException e) {
+        } catch (Exception e) {
 
         }
 
@@ -244,14 +249,15 @@ public class LoginActivity extends AppCompatActivity {
                 editor.putBoolean("auto_login_checked", true);
             }
 
-            editor.commit();
+            editor.apply();
         }
-
 
         firebaseAuth.signInWithEmailAndPassword(mEmail, mPassword)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
+//                        getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+
                         String resultMessage;
 
                         if (task.isSuccessful()) {

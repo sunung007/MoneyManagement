@@ -150,6 +150,7 @@ public class ManageStudentFragment extends Fragment {
     }
 
     public void loadStudentsList() {
+        MainActivity.screenUntouchable();
         mProgressBar.setVisibility(View.VISIBLE);
         isLoading = true;
 
@@ -262,6 +263,7 @@ public class ManageStudentFragment extends Fragment {
         protected void onPostExecute(final Boolean success) {
             mAuthTask = null;
             mProgressBar.setVisibility(View.GONE);
+            MainActivity.screenTouchable();
 
             if (success) {
                 Collections.sort(studentInfos, new SortStudents());
@@ -294,6 +296,7 @@ public class ManageStudentFragment extends Fragment {
         protected void onCancelled() {
             mAuthTask = null;
             mProgressBar.setVisibility(View.GONE);
+            MainActivity.screenTouchable();
         }
     }
 
