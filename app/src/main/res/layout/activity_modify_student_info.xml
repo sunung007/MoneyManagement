@@ -7,7 +7,7 @@
     android:layout_gravity="center_horizontal"
     android:background="@drawable/round_popup"
     android:padding="5dp"
-    tools:context=".ModifyStudentInfo">
+    tools:context=".Manage.ModifyInfoPopup">
 
     <TextView
         android:id="@+id/textView29"
@@ -55,7 +55,7 @@
             android:textAppearance="@style/TextAppearance.AppCompat.Body1"
             tools:layout_editor_absoluteX="31dp"
             android:inputType="number"
-            />
+            tools:ignore="Autofill,LabelFor" />
 
         <TextView
             android:id="@+id/textView37"
@@ -74,7 +74,8 @@
             android:inputType="text"
             android:text="@string/prompt_name"
             android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-            tools:layout_editor_absoluteX="130dp" />
+            tools:layout_editor_absoluteX="130dp"
+            tools:ignore="Autofill,LabelFor" />
     </LinearLayout>
 
     <TextView

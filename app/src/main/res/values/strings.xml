@@ -56,9 +56,12 @@
     <string name="title_searching_only">납부자 연속 검색</string>
 
     <string name="title_enroll">학생회비 납부자 신규 등록</string>
+    <string name="title_enroll_subtitle">납부자 신규 등록</string>
     <string name="title_menu_enroll">신규 등록</string>
 
     <string name="title_menu_manage">전체 관리</string>
+    <string name="title_manage">납부자 전체 명단 관리</string>
+
     <string name="title_developers_info">개발자 정보</string>
     <string name="title_modify">학우 정보 수정</string>
 
@@ -71,6 +74,7 @@
     <string name="title_search_name">검색할 학우의 이름을 입력하세요.</string>
     <string name="title_detail_student_delete_check">정말 삭제하시겠습니까</string>
     <string name="title_detail_student_modify_check">수정하시겠습니까</string>
+    <string name="title_enroll_check">등록하시겠습니까?</string>
     <string name="title_authorization">관리자 암호를 입력해주세요</string>
 
     <!--Name of buttons.-->
@@ -101,10 +105,27 @@
     </string>
 
 
+    <!--Caution-->
+    <string name="caution_exit_back_button">\'뒤로\' 버튼을 한번 더 누르시면 종료됩니다.</string>
+    <string name="caution_no_student">찾는 대상이 납부자 명단에 없습니다.</string>
+    <string name="caution_db_load_fail">데이터베이스 로딩에 실패했습니다.</string>
+    <string name="caution_db_on_load">데이터베이스를 로딩 중입니다.</string>
+    <string name="caution_enroll_already">이미 등록된 학우가 있습니다.</string>
+    <string name="caution_enroll_success">등록되었습니다.</string>
+    <string name="caution_enroll_fail">등록에 실패했습니다.</string>
+    <string name="caution_delete_success">삭제되었습니다.</string>
+    <string name="caution_delete_fail">삭제에 실패했습니다.</string>
+    <string name="caution_modify_success">수정했습니다.</string>
+    <string name="caution_modify_fail">수정에 실패했습니다.</string>
+    <string name="caution_login_success">로그인 성공</string>
+    <string name="caution_login_fail">로그인 실패</string>
+
+
     <!--ETC...-->
+    <string name="code">1004</string>
+
     <string name="name_account">컴퓨터소프트웨어학부 학생회</string>
     <string name="subname_account">hyucsedb@gmail.com</string>
-
 
     <string name="content_description_developers_title">한양대학교 컴퓨터소프트웨어학부 로고</string>
     <string name="content_description_facebook_logo">페이스북 로고</string>

@@ -28,47 +28,35 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 
-// There are many parts that can be deleted.
-// But, later, we may add the function that search ID and password in DB server.
-// When we do that, we must use that function.
-// So now, I just put them in baskets.
+import java.util.Objects;
+
 
 public class LoginActivity extends AppCompatActivity {
 
-    DatabaseReference mRootRef = FirebaseDatabase.getInstance().getReference();
-    DatabaseReference conditionRef = mRootRef.child("student");
-
-    static final int REQUEST_READ_CONTACTS = 0;
-
-    EditText mEmailView;
-    EditText mPasswordView;
-
-    View mLoginFormView;
-    ProgressBar mProgressBar;
-    CheckBox mAutoIdFillCheck;
-    CheckBox mAutoLoginCheck;
-
-    private FirebaseAuth firebaseAuth;
+    public long loginStartTime;
+    public boolean autoLoginStop = false;
 
     private String mEmail;
     private String mPassword;
 
-    public boolean autoLoginStop = false;
+    private EditText mEmailView;
+    private EditText mPasswordView;
 
-    // For auto login.
+    private ProgressBar mProgressBar;
+    private CheckBox mAutoIdFillCheck;
+    private CheckBox mAutoLoginCheck;
+
+    private FirebaseAuth firebaseAuth;
+
     private SharedPreferences sharedPreferences;
 
-    long loginStartTime;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        // Set soft keyboard not to hide when it is up.
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
 
         mProgressBar = findViewById(R.id.login_progressBar);
@@ -77,18 +65,15 @@ public class LoginActivity extends AppCompatActivity {
         mProgressBar.invalidate();
 
         mEmailView = findViewById(R.id.email);
-        mPasswordView = findViewById(R.id.password);
-        mLoginFormView = findViewById(R.id.login_form);
-
-        mAutoIdFillCheck = findViewById(R.id.auto_id_fill_checkBox);
-        mAutoLoginCheck = findViewById(R.id.auto_login_checkBox);
-        mAutoLoginCheck.setVisibility(View.GONE);
 
         firebaseAuth = FirebaseAuth.getInstance();
 
         Intent intent = getIntent();
         autoLoginStop = intent.getBooleanExtra("auto_login_stop", false);
 
+        mAutoIdFillCheck = findViewById(R.id.auto_id_fill_checkBox);
+        mAutoLoginCheck = findViewById(R.id.auto_login_checkBox);
+        mAutoLoginCheck.setVisibility(View.GONE);
         mAutoIdFillCheck.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
@@ -102,7 +87,6 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
-        // Login button listener
         Button mEmailSignInButton = findViewById(R.id.email_sign_in_button);
         mEmailSignInButton.setOnClickListener(new OnClickListener() {
             @Override
@@ -111,7 +95,7 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
-        // Edit action listener
+        mPasswordView = findViewById(R.id.password);
         mPasswordView.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView textView, int id, KeyEvent keyEvent) {
@@ -122,7 +106,6 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
-        // Enter key listener on password edit text.
         mPasswordView.setOnKeyListener(new View.OnKeyListener() {
             @Override
             public boolean onKey(View view, int i, KeyEvent keyEvent) {
@@ -133,28 +116,28 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
-        // To hide soft keyboard.
+        View mLoginFormView = findViewById(R.id.login_form);
         mLoginFormView.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
                 InputMethodManager inputMethodManager
                         = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
 
+                assert inputMethodManager != null;
                 if (inputMethodManager.isActive()) {
                     inputMethodManager.hideSoftInputFromWindow(
-                            getCurrentFocus().getWindowToken(), 0);
+                            Objects.requireNonNull(getCurrentFocus()).getWindowToken(), 0);
                 }
             }
         });
 
 
-        // Auto login field.
         sharedPreferences = getSharedPreferences("id_and_password", Activity.MODE_PRIVATE);
         mEmail = sharedPreferences.getString("id", "");
         mPassword = sharedPreferences.getString("password", "");
 
-        Boolean isAutoIdFillChecked = sharedPreferences.getBoolean("auto_id_fill_checked", false);
-        Boolean isAutoLoginChecked = sharedPreferences.getBoolean("auto_login_checked", false);
+        boolean isAutoIdFillChecked = sharedPreferences.getBoolean("auto_id_fill_checked", false);
+        boolean isAutoLoginChecked = sharedPreferences.getBoolean("auto_login_checked", false);
 
         if(isAutoIdFillChecked) {
             mEmailView.setText(mEmail);
@@ -164,29 +147,28 @@ public class LoginActivity extends AppCompatActivity {
                 mPasswordView.setText(mPassword);
                 mAutoLoginCheck.setChecked(true);
 
-                if(!autoLoginStop)
-                    attemptLogin();
+                if(!autoLoginStop) attemptLogin();
             }
         }
     }
 
+    @Override
+    protected void onPause() {
+        getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+        mProgressBar.setVisibility(View.GONE);
+        super.onPause();
+    }
 
-    // Attempts to sign in or register the account specified by the login form.
-    // If there are form errors (invalid email, missing fields, etc.), the
-    // errors are presented and no actual login attempt is made.
     private void attemptLogin() {
-        // Reset errors.
         mEmailView.setError(null);
         mPasswordView.setError(null);
 
-        // Store values at the time of the login attempt.
         mEmail = mEmailView.getText().toString();
         mPassword = mPasswordView.getText().toString();
 
         boolean cancel = false;
         View focusView = null;
 
-        // Check for a valid password, if the user entered one.
         if(TextUtils.isEmpty(mPassword)) {
             mPasswordView.setError(getString(R.string.error_field_required));
             focusView = mPasswordView;
@@ -197,7 +179,6 @@ public class LoginActivity extends AppCompatActivity {
             cancel = true;
         }
 
-        // Check for a valid email address.
         if (TextUtils.isEmpty(mEmail)) {
             mEmailView.setError(getString(R.string.error_field_required));
             focusView = mEmailView;
@@ -209,14 +190,10 @@ public class LoginActivity extends AppCompatActivity {
         }
 
         if (cancel) {
-            // There was an error; don't attempt login and focus the first
-            // form field with an error.
             focusView.requestFocus();
         } else {
-            // Show a progress spinner, and kick off a background task to
-            // perform the user login attempt.
-//            getWindow().addFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
             mProgressBar.setVisibility(View.VISIBLE);
+            getWindow().addFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
 
             loginStartTime = System.currentTimeMillis();
 
@@ -227,14 +204,15 @@ public class LoginActivity extends AppCompatActivity {
     private void doLogin() {
 
         try {
-            // Close soft key.
             InputMethodManager inputMethodManager =
                     (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
 
+            assert inputMethodManager != null;
             if (inputMethodManager.isActive()) {
-                inputMethodManager.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
+                inputMethodManager.hideSoftInputFromWindow(
+                        Objects.requireNonNull(getCurrentFocus()).getWindowToken(), 0);
             }
-        } catch (Exception e) {
+        } catch (Exception ignored) {
 
         }
 
@@ -256,28 +234,24 @@ public class LoginActivity extends AppCompatActivity {
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
-//                        getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+                        getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+                        mProgressBar.setVisibility(View.GONE);
 
-                        String resultMessage;
+                        String message;
 
                         if (task.isSuccessful()) {
-                            mProgressBar.setVisibility(View.GONE);
-
-                            // Change intent
                             Intent intent = new Intent(getApplicationContext(), MainActivity.class);
 
-                            resultMessage = "로그인 성공";
-                            Toast toast = Toast.makeText(getApplicationContext(), resultMessage, Toast.LENGTH_SHORT);
+                            message = getResources().getString(R.string.caution_login_success);
+                            Toast toast = Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT);
                             toast.setGravity(Gravity.CENTER_HORIZONTAL|Gravity.BOTTOM, 0, 0);
                             toast.show();
 
                             startActivity(intent);
                             finish();
                         } else {
-                            mProgressBar.setVisibility(View.GONE);
-
-                            resultMessage = "로그인 실패";
-                            Toast toast = Toast.makeText(getApplicationContext(), resultMessage, Toast.LENGTH_SHORT);
+                            message = getResources().getString(R.string.caution_login_fail);
+                            Toast toast = Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT);
                             toast.setGravity(Gravity.CENTER_HORIZONTAL|Gravity.BOTTOM, 0, 0);
                             toast.show();                        }
                     }

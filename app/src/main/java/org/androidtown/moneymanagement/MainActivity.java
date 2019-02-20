@@ -3,6 +3,7 @@ package org.androidtown.moneymanagement;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -22,6 +23,12 @@ import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+
+import org.androidtown.moneymanagement.Enroll.EnrollFragment;
+import org.androidtown.moneymanagement.Manage.ManageFragment;
+import org.androidtown.moneymanagement.Search.SearchFragment;
+
+import java.util.Objects;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -50,12 +57,10 @@ public class MainActivity extends AppCompatActivity
         mToolbar.setTitle(title);
         setSupportActionBar(mToolbar);
 
-        // Set first fragment to search mode.
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-        ft.replace(R.id.main_fragment, new SearchStudentFragment());
+        ft.replace(R.id.main_fragment, new SearchFragment());
         ft.commit();
 
-        // Set drawer layout
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, mToolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -66,7 +71,6 @@ public class MainActivity extends AppCompatActivity
 
         previousFragmentManager = getSupportFragmentManager();
 
-        // Set navigation view
         mNavigationView = findViewById(R.id.nav_view);
         mNavigationView.setNavigationItemSelectedListener(this);
 
@@ -76,9 +80,10 @@ public class MainActivity extends AppCompatActivity
                 InputMethodManager inputMethodManager =
                         (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
 
+                assert inputMethodManager != null;
                 if (inputMethodManager.isActive()) {
                     inputMethodManager.hideSoftInputFromWindow(
-                            getCurrentFocus().getWindowToken(), 0);
+                            Objects.requireNonNull(getCurrentFocus()).getWindowToken(), 0);
                 }
             }
         });
@@ -92,8 +97,8 @@ public class MainActivity extends AppCompatActivity
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         }
-        else if (ManageStudentFragment.isLoading) {
-            String message = "데이터베이스를 로딩 중입니다.";
+        else if (ManageFragment.isLoading) {
+            String message = getResources().getString(R.string.caution_db_on_load);
             Toast toast = Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT);
             toast.setGravity(Gravity.CENTER_HORIZONTAL | Gravity.BOTTOM, 0, 0);
             toast.show();
@@ -105,7 +110,7 @@ public class MainActivity extends AppCompatActivity
             backKeyPressedTime = System.currentTimeMillis();
             backCount++;
 
-            String message = "'뒤로' 버튼을 한번 더 누르시면 종료됩니다.";
+            String message = getResources().getString(R.string.caution_exit_back_button);
             Toast toast = Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT);
             toast.setGravity(Gravity.CENTER_HORIZONTAL | Gravity.BOTTOM, 0, 0);
             toast.show();
@@ -121,15 +126,16 @@ public class MainActivity extends AppCompatActivity
     }
 
     @Override
-    public boolean onNavigationItemSelected(MenuItem item) {
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         int id = item.getItemId();
 
-        // Close soft key.
         InputMethodManager inputMethodManager =
                 (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
 
+        assert inputMethodManager != null;
         if(inputMethodManager.isActive()) {
-            inputMethodManager.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
+            inputMethodManager.hideSoftInputFromWindow(
+                    Objects.requireNonNull(getCurrentFocus()).getWindowToken(), 0);
         }
 
 
@@ -141,21 +147,21 @@ public class MainActivity extends AppCompatActivity
 
         // When the navigation item is selected, change fragment.
         if(id == R.id.nav_check) {
-            fragmentTitle = "납부자 검색";
-            fragment = new SearchStudentFragment();
+            fragmentTitle = getResources().getString(R.string.title_search);
+            fragment = new SearchFragment();
         }
         else if (id == R.id.nav_enroll && previousFragmentID != id) {
-            fragmentTitle = "납부자 신규 등록";
+            fragmentTitle = getResources().getString(R.string.title_enroll_subtitle);
             Intent intent = new Intent(getApplicationContext(), AuthorizationPopup.class);
             startActivityForResult(intent, 4);
         }
         else if (id == R.id.nav_manage && previousFragmentID != id) {
-            fragmentTitle = "납부자 전체 명단 관리";
+            fragmentTitle = getResources().getString(R.string.title_manage);
             Intent intent = new Intent(getApplicationContext(), AuthorizationPopup.class);
             startActivityForResult(intent, 5);
         }
         else if (id == R.id.developer) {
-            fragmentTitle = "개발자 정보";
+            fragmentTitle = getResources().getString(R.string.title_developers_info);
             fragment = new DevelopersFragment();
         }
         else if (id == R.id.logout) {
@@ -166,7 +172,7 @@ public class MainActivity extends AppCompatActivity
                 firebaseAuth.signOut();
             }
 
-            String message = "로그아웃";
+            String message = getResources().getString(R.string.title_menu_logout);
             Toast toast = Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT);
             toast.setGravity(Gravity.CENTER_HORIZONTAL|Gravity.BOTTOM, 0, 0);
             toast.show();
@@ -181,14 +187,11 @@ public class MainActivity extends AppCompatActivity
         }
 
 
-        // If fragment to open is same with current fragment,
-        // do not change.
         if(previousFragmentID == id) {
             fragment = fm.findFragmentById(R.id.main_fragment);
             ft.detach(fragment).attach(fragment);
             ft.commit();
 
-            // Close drawer layout.
             DrawerLayout drawer = findViewById(R.id.drawer_layout);
             drawer.closeDrawer(GravityCompat.START);
         }
@@ -215,12 +218,13 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     protected void onPause() {
-        // Close soft key.
         InputMethodManager inputMethodManager =
                 (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
 
+        assert inputMethodManager != null;
         if(inputMethodManager.isActive()) {
-            inputMethodManager.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
+            inputMethodManager.hideSoftInputFromWindow(
+                    Objects.requireNonNull(getCurrentFocus()).getWindowToken(), 0);
         }
 
         super.onPause();
@@ -230,13 +234,10 @@ public class MainActivity extends AppCompatActivity
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 
         if(requestCode == 4 && resultCode == RESULT_OK) {
-
             Fragment fragment = new EnrollFragment();
             FragmentManager fm = getSupportFragmentManager();
             FragmentTransaction ft = fm.beginTransaction();
 
-            // If fragment to open is same with current fragment,
-            // do not change.
             previousFragmentID = R.id.nav_enroll;
             ft.setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_left,
                     R.anim.enter_from_left, R.anim.exit_to_right);
@@ -257,7 +258,7 @@ public class MainActivity extends AppCompatActivity
 
         else if(requestCode == 5 && resultCode == RESULT_OK) {
 
-            Fragment fragment = new ManageStudentFragment();
+            Fragment fragment = new ManageFragment();
             FragmentManager fm = getSupportFragmentManager();
             FragmentTransaction ft = fm.beginTransaction();
 

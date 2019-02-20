@@ -19,6 +19,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import java.util.Objects;
+
 public class AuthorizationPopup extends AppCompatActivity {
 
     EditText mPasswordView;
@@ -45,12 +47,13 @@ public class AuthorizationPopup extends AppCompatActivity {
         mCancelButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                // Close soft key.
                 InputMethodManager inputMethodManager =
                         (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
 
+                assert inputMethodManager != null;
                 if(inputMethodManager.isActive()) {
-                    inputMethodManager.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
+                    inputMethodManager.hideSoftInputFromWindow(
+                            Objects.requireNonNull(getCurrentFocus()).getWindowToken(), 0);
                 }
 
                 setResult(RESULT_CANCELED);
@@ -89,6 +92,7 @@ public class AuthorizationPopup extends AppCompatActivity {
         InputMethodManager inputMethodManager =
                 (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
 
+        assert inputMethodManager != null;
         inputMethodManager.toggleSoftInput(InputMethodManager.SHOW_FORCED, InputMethodManager.HIDE_IMPLICIT_ONLY);
     }
 
@@ -111,16 +115,15 @@ public class AuthorizationPopup extends AppCompatActivity {
         }
 
         if (cancel) {
-            // There was an error; don't attempt login and focus the first
-            // form field with an error.
             focusView.requestFocus();
         } else {
             // Close soft key.
             InputMethodManager inputMethodManager =
                     (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
 
+            assert inputMethodManager != null;
             if(inputMethodManager.isActive()) {
-                inputMethodManager.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
+                inputMethodManager.hideSoftInputFromWindow(Objects.requireNonNull(getCurrentFocus()).getWindowToken(), 0);
             }
 
             String message = "인증에 성공하였습니다.";
@@ -134,9 +137,8 @@ public class AuthorizationPopup extends AppCompatActivity {
 
     }
 
-    // TODO: use crypto
     public boolean isPasswordValid(String _password) {
-        return _password.equals("1004");
+        return _password.equals(getResources().getString(R.string.code));
     }
 
     @Override
@@ -145,12 +147,13 @@ public class AuthorizationPopup extends AppCompatActivity {
         getWindow().getDecorView().getHitRect(dialogBounds);
 
         if (!dialogBounds.contains((int) ev.getX(), (int) ev.getY())) {
-            // Close soft key.
             InputMethodManager inputMethodManager =
                     (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
 
+            assert inputMethodManager != null;
             if(inputMethodManager.isActive()) {
-                inputMethodManager.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
+                inputMethodManager.hideSoftInputFromWindow(
+                        Objects.requireNonNull(getCurrentFocus()).getWindowToken(), 0);
             }
 
             return false;

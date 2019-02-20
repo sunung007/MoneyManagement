@@ -2,6 +2,7 @@ package org.androidtown.moneymanagement;
 
 // Created by TedPark on 16. 4. 11..
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.support.v4.content.ContextCompat;
@@ -46,15 +47,16 @@ public class ClearEditText extends AppCompatEditText
     }
 
 
+    @SuppressLint("ClickableViewAccessibility")
     private void init() {
 
         Drawable tempDrawable = ContextCompat.getDrawable(getContext(), R.drawable.ic_close);
+        assert tempDrawable != null;
         clearDrawable = DrawableCompat.wrap(tempDrawable);
         DrawableCompat.setTintList(clearDrawable, getHintTextColors());
         clearDrawable.setBounds(0, 0, clearDrawable.getIntrinsicWidth(), clearDrawable.getIntrinsicHeight());
 
         setClearIconVisible(false);
-
 
         super.setOnTouchListener(this);
         super.setOnFocusChangeListener(this);

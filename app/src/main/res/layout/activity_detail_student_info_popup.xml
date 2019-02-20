@@ -7,7 +7,7 @@
     android:layout_gravity="center_horizontal"
     android:background="@drawable/round_popup"
     android:padding="5dp"
-    tools:context=".EnrollPopup">
+    tools:context=".Enroll.EnrollCheckPopup">
 
     <TextView
         android:id="@+id/title_detail_info"

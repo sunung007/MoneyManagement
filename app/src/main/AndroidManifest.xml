@@ -31,34 +31,34 @@
             android:name=".MainActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".EnrollPopup"
+            android:name=".Enroll.EnrollCheckPopup"
             android:theme="@style/AppTheme.NoActionBar.Dialog" />
         <activity
-            android:name=".DetailStudentInfoPopup"
+            android:name=".Manage.DetailInfoPopup"
             android:theme="@style/AppTheme.NoActionBar.Dialog" />
         <activity
-            android:name=".DetailStudentDeleteCheckPopup"
+            android:name=".Manage.DeleteCheckPopup"
             android:theme="@style/AppTheme.NoActionBar.Dialog" />
         <activity
-            android:name=".SearchResultPopup"
+            android:name=".Search.SearchResultPopup"
             android:theme="@style/AppTheme.NoActionBar.Dialog" />
         <activity
-            android:name=".ModifyStudentInfo"
+            android:name=".Manage.ModifyInfoPopup"
             android:theme="@style/AppTheme.NoActionBar.Dialog" />
         <activity
-            android:name=".ModifyStudentModifyCheckPopup"
+            android:name=".Manage.ModifyCheckPopup"
             android:theme="@style/AppTheme.NoActionBar.Dialog" />
         <activity
             android:name=".AuthorizationPopup"
             android:theme="@style/AppTheme.NoActionBar.Dialog" />
         <activity
-            android:name=".SearchOnlyActivity"
+            android:name=".Search.SearchOnlyActivity"
             android:label="@string/title_searching_only"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".QuestionPopup"
             android:theme="@style/AppTheme.NoActionBar.Dialog"
-            ></activity>
+            />
     </application>
 
 </manifest>

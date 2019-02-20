@@ -6,7 +6,7 @@
     android:layout_height="wrap_content"
     android:layout_gravity="center_horizontal"
     android:background="@drawable/round_button"
-    tools:context=".DetailStudentDeleteCheckPopup">
+    tools:context=".Manage.DeleteCheckPopup">
 
     <TextView
         android:id="@+id/textView21"
