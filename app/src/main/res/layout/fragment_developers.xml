@@ -104,7 +104,6 @@
             app:layout_constraintTop_toBottomOf="@+id/textView8" />
 
         <LinearLayout
-            android:id="@+id/developer_email"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
@@ -114,10 +113,11 @@
             android:orientation="horizontal"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView9">
+            app:layout_constraintTop_toBottomOf="@+id/textView9"
+            tools:ignore="UseCompoundDrawables">
 
             <ImageView
-                android:id="@+id/imageView5"
+                android:id="@+id/developer_message1"
                 android:layout_width="24dp"
                 android:layout_height="24dp"
                 android:layout_marginEnd="8dp"
@@ -127,7 +127,7 @@
                 tools:layout_editor_absoluteY="450dp" />
 
             <TextView
-                android:id="@+id/textView24"
+                android:id="@+id/developer_message2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/title_developers_email"

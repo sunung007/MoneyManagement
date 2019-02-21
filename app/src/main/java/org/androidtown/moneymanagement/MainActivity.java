@@ -33,19 +33,17 @@ import java.util.Objects;
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
-    static int previousFragmentID = R.id.nav_check;
-    static FragmentManager previousFragmentManager;
+    public int backCount = 0;
+    private long backKeyPressedTime = 0;
+    private String fragmentTitle = null;
 
-    long backKeyPressedTime = 0;
-    int backCount = 0;
-    String fragmentTitle = null;
+    private static int previousFragmentID = R.id.nav_check;
 
-    Toolbar mToolbar;
-    NavigationView mNavigationView;
+    private Toolbar mToolbar;
+    private NavigationView mNavigationView;
+    private static Window thisWindow;
+    public static FragmentManager previousFragmentManager;
 
-    static Window thisWindow;
-
-    private boolean isAuthrorized = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -139,13 +137,11 @@ public class MainActivity extends AppCompatActivity
         }
 
 
-        // Initialize fragment, and set about animation part.
         Fragment fragment = null;
         FragmentManager fm = getSupportFragmentManager();
         FragmentTransaction ft = fm.beginTransaction();
 
 
-        // When the navigation item is selected, change fragment.
         if(id == R.id.nav_check) {
             fragmentTitle = getResources().getString(R.string.title_search);
             fragment = new SearchFragment();
@@ -208,7 +204,6 @@ public class MainActivity extends AppCompatActivity
 
             mToolbar.setTitle(fragmentTitle);
 
-            // Close drawer layout.
             DrawerLayout drawer = findViewById(R.id.drawer_layout);
             drawer.closeDrawer(GravityCompat.START);
         }
@@ -251,7 +246,6 @@ public class MainActivity extends AppCompatActivity
             if(fragmentTitle != null)
                 mToolbar.setTitle(fragmentTitle);
 
-            // Close drawer layout.
             DrawerLayout drawer = findViewById(R.id.drawer_layout);
             drawer.closeDrawer(GravityCompat.START);
         }
@@ -262,8 +256,6 @@ public class MainActivity extends AppCompatActivity
             FragmentManager fm = getSupportFragmentManager();
             FragmentTransaction ft = fm.beginTransaction();
 
-            // If fragment to open is same with current fragment,
-            // do not change.
             previousFragmentID = R.id.nav_manage;
             ft.setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_left,
                     R.anim.enter_from_left, R.anim.exit_to_right);
@@ -277,7 +269,6 @@ public class MainActivity extends AppCompatActivity
             if(fragmentTitle != null)
                 mToolbar.setTitle(fragmentTitle);
 
-            // Close drawer layout.
             DrawerLayout drawer = findViewById(R.id.drawer_layout);
             drawer.closeDrawer(GravityCompat.START);
         }
@@ -285,7 +276,6 @@ public class MainActivity extends AppCompatActivity
         if(resultCode == RESULT_CANCELED) {
             mNavigationView.setCheckedItem(previousFragmentID);
 
-            // Close drawer layout.
             DrawerLayout drawer = findViewById(R.id.drawer_layout);
             drawer.closeDrawer(GravityCompat.START);
         }

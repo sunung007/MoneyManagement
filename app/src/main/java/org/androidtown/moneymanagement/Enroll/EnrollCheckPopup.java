@@ -45,7 +45,7 @@ public class EnrollCheckPopup extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-        setContentView(R.layout.activity_enroll_popup);
+        setContentView(R.layout.popup_enroll);
 
         mProgressBar = findViewById(R.id.enroll_popup_progressBar);
         mProgressBar.setVisibility(View.GONE);

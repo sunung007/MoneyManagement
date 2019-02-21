@@ -130,7 +130,7 @@
     <string name="content_description_developers_title">한양대학교 컴퓨터소프트웨어학부 로고</string>
     <string name="content_description_facebook_logo">페이스북 로고</string>
     <string name="content_description_find_student">돋보기</string>
-    <string name="content_description_question">누르면 주의사항 혹은 사용법에 관한 pop up이 뜹니다.</string>
+    <string name="content_description_question">누르면 주의사항 혹은 사용법에 관한 팝업창이 뜹니다.</string>
     <string name="content_description_close">닫기</string>
 
     <string name="tip_modify_student">수정할 내용을 클릭하세요.</string>
@@ -161,7 +161,7 @@
     <string name="about_developers_developer2">17학번 류지범 dyeon11@gmail.com</string>
 
     <string name="title_about_version">버전 정보</string>
-    <string name="about_version">[최종 수정일] 2019년 1월 30일</string>
+    <string name="about_version">[최종 수정일] 2019년 2월 21일</string>
     <string name="title_developers_email">건의사항 보내기</string>
 
 

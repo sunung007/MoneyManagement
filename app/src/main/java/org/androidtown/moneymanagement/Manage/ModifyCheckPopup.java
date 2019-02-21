@@ -43,7 +43,7 @@ public class ModifyCheckPopup extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-        setContentView(R.layout.activity_modify_student_modify_check_popup);
+        setContentView(R.layout.popup_modify_check_popup);
 
         thisContext = getApplicationContext();
         thisActivity = this;

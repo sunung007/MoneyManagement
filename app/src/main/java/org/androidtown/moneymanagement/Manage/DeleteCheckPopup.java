@@ -40,7 +40,7 @@ public class DeleteCheckPopup extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-        setContentView(R.layout.activity_detail_student_delete_check);
+        setContentView(R.layout.activity_detail_delete_check);
 
         thisActivity = this;
 

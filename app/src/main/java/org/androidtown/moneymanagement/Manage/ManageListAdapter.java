@@ -50,7 +50,7 @@ public class ManageListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.manage_student_list, parent, false);
+                .inflate(R.layout.list_manage, parent, false);
 
         return new MyManageViewHolder(v);
     }

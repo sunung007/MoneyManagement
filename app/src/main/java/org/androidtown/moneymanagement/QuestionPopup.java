@@ -26,7 +26,7 @@ public class QuestionPopup extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-        setContentView(R.layout.activity_question_popup);
+        setContentView(R.layout.popup_question);
 
         mTitleView = findViewById(R.id.question_title);
         mContentView = findViewById(R.id.question_content);

@@ -41,7 +41,7 @@ public class ModifyInfoPopup extends AppCompatActivity {
 
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-        setContentView(R.layout.activity_modify_student_info);
+        setContentView(R.layout.popup_modify_info);
 
         student = new Student();
 

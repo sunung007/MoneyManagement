@@ -29,7 +29,7 @@ public class SearchResultPopup extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_search_result_popup);
+        setContentView(R.layout.popup_search_result);
         getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
 
         Intent intent = getIntent();

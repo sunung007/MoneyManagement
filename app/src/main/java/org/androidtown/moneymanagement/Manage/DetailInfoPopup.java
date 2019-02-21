@@ -31,7 +31,7 @@ public class DetailInfoPopup extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-        setContentView(R.layout.activity_detail_student_info_popup);
+        setContentView(R.layout.popup_detail_info);
 
         mActivity = DetailInfoPopup.this;
         Intent intent = getIntent();
