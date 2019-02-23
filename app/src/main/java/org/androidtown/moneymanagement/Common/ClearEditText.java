@@ -1,4 +1,4 @@
-package org.androidtown.moneymanagement;
+package org.androidtown.moneymanagement.Common;
 
 // Created by TedPark on 16. 4. 11..
 
@@ -13,6 +13,8 @@ import android.text.TextWatcher;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
+
+import org.androidtown.moneymanagement.R;
 
 public class ClearEditText extends AppCompatEditText
         implements TextWatcher, View.OnTouchListener, View.OnFocusChangeListener {

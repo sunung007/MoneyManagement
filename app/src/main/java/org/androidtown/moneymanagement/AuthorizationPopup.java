@@ -110,6 +110,7 @@ public class AuthorizationPopup extends AppCompatActivity {
             cancel = true;
         } else if (!TextUtils.isEmpty(password) && !isPasswordValid(password)) {
             mPasswordView.setError(getString(R.string.error_invalid_password));
+            mPasswordView.getText().clear();
             focusView = mPasswordView;
             cancel = true;
         }
@@ -117,7 +118,6 @@ public class AuthorizationPopup extends AppCompatActivity {
         if (cancel) {
             focusView.requestFocus();
         } else {
-            // Close soft key.
             InputMethodManager inputMethodManager =
                     (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
 
@@ -126,7 +126,7 @@ public class AuthorizationPopup extends AppCompatActivity {
                 inputMethodManager.hideSoftInputFromWindow(Objects.requireNonNull(getCurrentFocus()).getWindowToken(), 0);
             }
 
-            String message = "인증에 성공하였습니다.";
+            String message = getResources().getString(R.string.caution_authorize_success);
             Toast toast = Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT);
             toast.setGravity(Gravity.CENTER_HORIZONTAL|Gravity.BOTTOM, 0, 0);
             toast.show();

@@ -14,18 +14,21 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ProgressBar;
 import android.widget.Spinner;
+import android.widget.SpinnerAdapter;
 
-import org.androidtown.moneymanagement.DBHelper;
+import org.androidtown.moneymanagement.Common.Array;
+import org.androidtown.moneymanagement.Common.DBHelper;
+import org.androidtown.moneymanagement.Common.Mode;
+import org.androidtown.moneymanagement.Common.Student;
 import org.androidtown.moneymanagement.MainActivity;
-import org.androidtown.moneymanagement.Mode;
 import org.androidtown.moneymanagement.QuestionPopup;
 import org.androidtown.moneymanagement.R;
-import org.androidtown.moneymanagement.Student;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -65,8 +68,25 @@ public class EnrollFragment extends Fragment {
         thisActivity = getActivity();
         students = new ArrayList<>();
 
+        Array spinnerArray;
+        SpinnerAdapter spinnerAdapter;
+
+        spinnerArray = new Array(Mode.SID_ENROLL, getContext());
+        spinnerAdapter = new ArrayAdapter<>(Objects.requireNonNull(getContext()),
+                R.layout.spinner_custom, spinnerArray.getArrayList());
+        ((ArrayAdapter) spinnerAdapter).setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
+
         mSidView = view.findViewById(R.id.enroll_sid);
+        mSidView.setAdapter(spinnerAdapter);
+
+        spinnerArray = new Array(Mode.YEAR, getContext());
+        spinnerAdapter = new ArrayAdapter<>(Objects.requireNonNull(getContext()),
+                R.layout.spinner_custom, spinnerArray.getArrayList());
+        ((ArrayAdapter) spinnerAdapter).setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
+
         mPyearView = view.findViewById(R.id.enroll_pyear);
+        mPyearView.setAdapter(spinnerAdapter);
+
         mPtypeView = view.findViewById(R.id.enroll_ptype);
         mPamountView = view.findViewById(R.id.enroll_pamount);
         mProgressBar = view.findViewById(R.id.enroll_progressBar);

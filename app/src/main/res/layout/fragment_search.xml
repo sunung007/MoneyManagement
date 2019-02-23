@@ -55,27 +55,26 @@
             android:background="@drawable/round_edit_text"
             android:layout_gravity="center|center_vertical|center_horizontal"
             >
-
             <Spinner
                 android:id="@+id/sid"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:dropDownWidth="match_parent"
-                android:entries="@array/array_sid"
                 android:gravity="end|fill"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView3" />
+                app:layout_constraintTop_toBottomOf="@+id/textView3"
+                android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
+                />
         </FrameLayout>
 
-        <org.androidtown.moneymanagement.ClearEditText
+        <org.androidtown.moneymanagement.Common.ClearEditText
             android:id="@+id/sname"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
             android:layout_marginBottom="4dp"
             android:background="@drawable/round_edit_text"
-            android:ems="5"
             android:gravity="bottom"
             android:hint="@string/prompt_search_name"
             android:inputType="textPersonName"

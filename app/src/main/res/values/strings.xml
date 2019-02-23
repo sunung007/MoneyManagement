@@ -1,27 +1,10 @@
 <resources>
 
     <!--Spinner items.-->
-    <string-array name="array_sid">
-        <item>17학번</item>
-        <item>18학번</item>
-        <item>19학번</item>
-        <item>20학번</item>
-        <item>전체 학번</item>
-    </string-array>
+    <string name="unit_year">년도</string>
+    <string name="unit_sid">학번</string>
+    <string name="additional_sid">전체 학번</string>
 
-    <string-array name="array_enroll_sid">
-        <item>17학번</item>
-        <item>18학번</item>
-        <item>19학번</item>
-        <item>20학번</item>
-    </string-array>
-
-    <string-array name="array_year">
-        <item>17년도</item>
-        <item>18년도</item>
-        <item>19년도</item>
-        <item>20년도</item>
-    </string-array>
 
     <string-array name="array_type">
         <item>전액납부</item>
@@ -108,18 +91,24 @@
     <!--Caution-->
     <string name="caution_exit_back_button">\'뒤로\' 버튼을 한번 더 누르시면 종료됩니다.</string>
     <string name="caution_no_student">찾는 대상이 납부자 명단에 없습니다.</string>
+
     <string name="caution_db_load_fail">데이터베이스 로딩에 실패했습니다.</string>
     <string name="caution_db_on_load">데이터베이스를 로딩 중입니다.</string>
+
     <string name="caution_enroll_already">이미 등록된 학우가 있습니다.</string>
     <string name="caution_enroll_success">등록되었습니다.</string>
     <string name="caution_enroll_fail">등록에 실패했습니다.</string>
+
     <string name="caution_delete_success">삭제되었습니다.</string>
     <string name="caution_delete_fail">삭제에 실패했습니다.</string>
+
     <string name="caution_modify_success">수정했습니다.</string>
     <string name="caution_modify_fail">수정에 실패했습니다.</string>
+
     <string name="caution_login_success">로그인 성공</string>
     <string name="caution_login_fail">로그인 실패</string>
 
+    <string name="caution_authorize_success">인증에 성공하였습니다.</string>
 
     <!--ETC...-->
     <string name="code">1004</string>

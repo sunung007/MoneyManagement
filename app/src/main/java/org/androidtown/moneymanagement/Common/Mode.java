@@ -1,4 +1,4 @@
-package org.androidtown.moneymanagement;
+package org.androidtown.moneymanagement.Common;
 
 public enum Mode {
     SEARCH_STUDENT_FRAGMENT,
@@ -7,4 +7,8 @@ public enum Mode {
     ENROLL_CHECK_POPUP,
     DELETE_CHECK_POPUP,
     MANAGE_FRAGMENT,
+
+    SID_SEARCH,
+    SID_ENROLL,
+    YEAR,
 }

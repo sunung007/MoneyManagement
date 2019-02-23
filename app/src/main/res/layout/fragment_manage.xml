@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     tools:context=".Manage.ManageFragment">
 
-    <org.androidtown.moneymanagement.ClearEditText
+    <org.androidtown.moneymanagement.Common.ClearEditText
         android:id="@+id/manage_searchBar"
         style="@style/TextAppearance.AppCompat.Subhead"
         android:layout_width="match_parent"
@@ -24,7 +24,7 @@
         app:layout_constraintTop_toTopOf="parent"
         tools:ignore="MissingConstraints">
 
-    </org.androidtown.moneymanagement.ClearEditText>
+    </org.androidtown.moneymanagement.Common.ClearEditText>
 
     <ImageView
         android:id="@+id/imageView4"

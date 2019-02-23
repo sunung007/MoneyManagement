@@ -53,7 +53,8 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/imageView"
             android:backgroundTint="@color/colorWhite"
-            tools:ignore="Autofill,SpUsage" />
+            android:importantForAutofill="no"
+            tools:ignore="SpUsage" />
 
         <EditText
             android:id="@+id/password"

@@ -57,7 +57,7 @@
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent" />
 
-        <org.androidtown.moneymanagement.ClearEditText
+        <org.androidtown.moneymanagement.Common.ClearEditText
             android:id="@+id/enroll_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -99,9 +99,10 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:entries="@array/array_enroll_sid"
             tools:layout_editor_absoluteX="8dp"
-            tools:layout_editor_absoluteY="195dp" />
+            tools:layout_editor_absoluteY="195dp"
+            android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
+            />
 
     </LinearLayout>
 
@@ -129,7 +130,9 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:entries="@array/array_year" />
+            android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
+
+            />
     </LinearLayout>
 
     <LinearLayout
@@ -156,7 +159,9 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:entries="@array/array_type" />
+            android:entries="@array/array_type"
+            android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
+            />
 
     </LinearLayout>
 
@@ -185,7 +190,9 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:entries="@array/array_amount" />
+            android:entries="@array/array_amount"
+            android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
+            />
     </LinearLayout>
 
     <Button

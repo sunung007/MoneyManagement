@@ -15,7 +15,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import org.androidtown.moneymanagement.R;
-import org.androidtown.moneymanagement.Student;
+import org.androidtown.moneymanagement.Common.Student;
 
 import java.util.ArrayList;
 

@@ -19,9 +19,9 @@ import android.widget.Toast;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
-import org.androidtown.moneymanagement.DBHelper;
+import org.androidtown.moneymanagement.Common.DBHelper;
 import org.androidtown.moneymanagement.R;
-import org.androidtown.moneymanagement.Student;
+import org.androidtown.moneymanagement.Common.Student;
 
 public class ModifyCheckPopup extends AppCompatActivity {
 
@@ -43,7 +43,7 @@ public class ModifyCheckPopup extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-        setContentView(R.layout.popup_modify_check_popup);
+        setContentView(R.layout.popup_modify_check);
 
         thisContext = getApplicationContext();
         thisActivity = this;

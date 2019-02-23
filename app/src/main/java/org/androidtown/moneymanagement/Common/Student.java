@@ -1,4 +1,4 @@
-package org.androidtown.moneymanagement;
+package org.androidtown.moneymanagement.Common;
 
 import android.os.Parcel;
 import android.os.Parcelable;

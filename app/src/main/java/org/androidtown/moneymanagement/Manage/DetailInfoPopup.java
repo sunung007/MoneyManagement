@@ -15,7 +15,7 @@ import android.widget.Toast;
 
 import org.androidtown.moneymanagement.Enroll.EnrollCheckPopup;
 import org.androidtown.moneymanagement.R;
-import org.androidtown.moneymanagement.Student;
+import org.androidtown.moneymanagement.Common.Student;
 
 public class DetailInfoPopup extends AppCompatActivity {
 

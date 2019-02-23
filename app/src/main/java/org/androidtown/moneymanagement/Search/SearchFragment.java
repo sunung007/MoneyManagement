@@ -14,19 +14,22 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ProgressBar;
 import android.widget.Spinner;
+import android.widget.SpinnerAdapter;
 import android.widget.Toast;
 
-import org.androidtown.moneymanagement.DBHelper;
+import org.androidtown.moneymanagement.Common.Array;
+import org.androidtown.moneymanagement.Common.DBHelper;
+import org.androidtown.moneymanagement.Common.Mode;
+import org.androidtown.moneymanagement.Common.Student;
 import org.androidtown.moneymanagement.MainActivity;
-import org.androidtown.moneymanagement.Mode;
 import org.androidtown.moneymanagement.QuestionPopup;
 import org.androidtown.moneymanagement.R;
-import org.androidtown.moneymanagement.Student;
 
 import java.util.ArrayList;
 import java.util.Objects;
@@ -53,12 +56,23 @@ public class SearchFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, final ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_search, container, false);
+        View mSearchView = view.findViewById(R.id.student_search_view);
+
         thisView = view;
         thisActivity = getActivity();
 
+        Array spinnerArray;
+        SpinnerAdapter spinnerAdapter;
+
+        spinnerArray = new Array(Mode.SID_SEARCH, getContext());
+        spinnerAdapter = new ArrayAdapter<>(Objects.requireNonNull(getContext()),
+                R.layout.spinner_custom, spinnerArray.getArrayList());
+        ((ArrayAdapter) spinnerAdapter).setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
+
         mSidSpinner = view.findViewById(R.id.sid);
+        mSidSpinner.setAdapter(spinnerAdapter);
+
         mSnameEdit = view.findViewById(R.id.sname);
-        View mSearchView = view.findViewById(R.id.student_search_view);
 
         mProgressBar = view.findViewById(R.id.search_progressBar);
         mProgressBar.setVisibility(View.GONE);

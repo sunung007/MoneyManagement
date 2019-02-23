@@ -145,13 +145,14 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="4dp"
-        android:entries="@array/array_year"
+        android:paddingStart="6dp"
         android:text="@string/prompt_year"
         android:textAppearance="@style/TextAppearance.AppCompat.Body1"
         app:layout_constraintBottom_toBottomOf="@+id/textView39"
         app:layout_constraintEnd_toEndOf="@+id/modify_amount"
         app:layout_constraintStart_toEndOf="@+id/textView39"
-        app:layout_constraintTop_toTopOf="@+id/textView39" />
+        app:layout_constraintTop_toTopOf="@+id/textView39"
+        tools:ignore="RtlSymmetry" />
 
     <TextView
         android:id="@+id/textView35"

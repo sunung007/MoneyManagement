@@ -9,8 +9,7 @@
         android:id="@+id/view4"
         android:layout_width="274dp"
         android:layout_height="1dp"
-        android:background="@drawable/gradiant"
-        ></View>
+        android:background="@drawable/gradiant" />
 
     <LinearLayout
         android:layout_width="match_parent"

@@ -19,10 +19,10 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import org.androidtown.moneymanagement.DBHelper;
-import org.androidtown.moneymanagement.Mode;
+import org.androidtown.moneymanagement.Common.DBHelper;
+import org.androidtown.moneymanagement.Common.Mode;
 import org.androidtown.moneymanagement.R;
-import org.androidtown.moneymanagement.Student;
+import org.androidtown.moneymanagement.Common.Student;
 
 import java.util.ArrayList;
 

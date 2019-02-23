@@ -8,7 +8,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import org.androidtown.moneymanagement.R;
-import org.androidtown.moneymanagement.Student;
+import org.androidtown.moneymanagement.Common.Student;
 
 import java.util.ArrayList;
 

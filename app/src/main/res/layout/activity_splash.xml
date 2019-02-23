@@ -22,5 +22,5 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/splash_logo_cse" />
+        app:srcCompat="@drawable/cse_logo_splash" />
 </LinearLayout>

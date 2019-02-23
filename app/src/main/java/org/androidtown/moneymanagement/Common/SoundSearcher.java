@@ -1,4 +1,4 @@
-package org.androidtown.moneymanagement;
+package org.androidtown.moneymanagement.Common;
 
 
 /**

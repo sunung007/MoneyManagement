@@ -10,13 +10,17 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.Window;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.SpinnerAdapter;
 import android.widget.Toast;
 
+import org.androidtown.moneymanagement.Common.Array;
+import org.androidtown.moneymanagement.Common.Mode;
+import org.androidtown.moneymanagement.Common.Student;
 import org.androidtown.moneymanagement.R;
-import org.androidtown.moneymanagement.Student;
 
 import java.util.Objects;
 
@@ -65,7 +69,18 @@ public class ModifyInfoPopup extends AppCompatActivity {
 
         mTypeView = findViewById(R.id.modify_type);
         mAmountView = findViewById(R.id.modify_amount);
+
+        Array spinnerArray;
+        SpinnerAdapter spinnerAdapter;
+
+        spinnerArray = new Array(Mode.YEAR, getApplicationContext());
+        spinnerAdapter = new ArrayAdapter<>(Objects.requireNonNull(getApplicationContext()),
+                R.layout.spinner_custom, spinnerArray.getArrayList());
+        ((ArrayAdapter) spinnerAdapter).setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
+
         mYearView = findViewById(R.id.modify_year);
+        mYearView.setAdapter(spinnerAdapter);
+
 
         if(student.type.contains("전액") || student.type.contains("학기")) {
             int typeID = 0;
