@@ -256,15 +256,14 @@ public class DBHelper {
                         DatabaseReference curRef;
 
                         int i;
-                        for (i = 0; i <= curIndex; i++) {
+                        for (i = 0; i <= curIndex && child.hasNext(); ++i)
                             child.next();
-                        }
 
                         i = curIndex;
                         while (child.hasNext()) {
                             ds = child.next();
 
-                            curRef = conditionRef.child(String.valueOf(i));
+                            curRef = conditionRef.child(String.valueOf(i++));
 
                             curRef.child("Sname").setValue(Objects.requireNonNull(ds.child("Sname").getValue()).toString());
                             curRef.child("Sid").setValue(Objects.requireNonNull(ds.child("Sid").getValue()).toString());
@@ -272,7 +271,6 @@ public class DBHelper {
                             curRef.child("Ptype").setValue(Objects.requireNonNull(ds.child("Ptype").getValue()).toString());
                             curRef.child("Pyear").setValue(Objects.requireNonNull(ds.child("Pyear").getValue()).toString());
 
-                            i++;
                         }
 
                         curRef = conditionRef.child(String.valueOf(endIndex));

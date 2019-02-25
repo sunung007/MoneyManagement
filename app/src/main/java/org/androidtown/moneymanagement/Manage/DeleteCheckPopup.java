@@ -51,7 +51,7 @@ public class DeleteCheckPopup extends AppCompatActivity {
 
             position = Integer.parseInt(student.index);
         } catch (Exception e) {
-            String message = "Delete failed.";
+            String message = getResources().getString(R.string.caution_delete_fail);
             Toast toast = Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT);
             toast.setGravity(Gravity.CENTER_HORIZONTAL|Gravity.BOTTOM, 0, 0);
             toast.show();

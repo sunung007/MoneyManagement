@@ -21,6 +21,8 @@ import java.util.Locale;
 
 public class ManageListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
+    private int totalNum;
+
     private ArrayList<Student> students;
     private ArrayList<Student> searchList = new ArrayList<>();
 
@@ -40,9 +42,10 @@ public class ManageListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         }
     }
 
-    ManageListAdapter(ArrayList<Student> scr) {
-        students = new ArrayList<>(scr);
+    ManageListAdapter(ArrayList<Student> src) {
+        students = new ArrayList<>(src);
         searchList.addAll(students);
+        totalNum = src.size();
     }
 
 
@@ -72,7 +75,7 @@ public class ManageListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             public void onClick(View view) {
                 Intent intent = new Intent(view.getContext(), DetailInfoPopup.class);
                 intent.putExtra("student", student);
-                intent.putExtra("size", getItemCount());
+                intent.putExtra("size", totalNum);
                 intent.putExtra("mode", 0);
                 view.getContext().startActivity(intent);
             }

@@ -20,6 +20,7 @@ import java.util.ArrayList;
 
 public class EnrollAlreadyListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
+    private int totalNum;
     private ArrayList<Student> students;
 
     public static class MyEnrollViewHolder extends RecyclerView.ViewHolder {
@@ -41,8 +42,10 @@ public class EnrollAlreadyListAdapter extends RecyclerView.Adapter<RecyclerView.
         }
     }
 
-    EnrollAlreadyListAdapter(ArrayList<Student> scr) {
-        students = new ArrayList<>(scr);
+    EnrollAlreadyListAdapter(ArrayList<Student> src) {
+        students = new ArrayList<>();
+        students.addAll(src);
+        totalNum = src.size();
     }
 
     @NonNull
@@ -71,7 +74,7 @@ public class EnrollAlreadyListAdapter extends RecyclerView.Adapter<RecyclerView.
             public void onClick(View view) {
                 Intent intent = new Intent(view.getContext(), DetailInfoPopup.class);
                 intent.putExtra("student", student);
-                intent.putExtra("size", EnrollFragment.size);
+                intent.putExtra("size", totalNum);
                 intent.putExtra("mode", 1);
 
                 view.getContext().startActivity(intent);
