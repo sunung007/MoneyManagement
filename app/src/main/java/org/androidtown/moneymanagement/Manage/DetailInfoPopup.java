@@ -19,7 +19,6 @@ import org.androidtown.moneymanagement.Common.Student;
 
 public class DetailInfoPopup extends AppCompatActivity {
 
-    private int totalNum;
     private int mode;
 
     private Student student;
@@ -39,9 +38,8 @@ public class DetailInfoPopup extends AppCompatActivity {
         try {
             student = intent.getParcelableExtra("student");
             mode = intent.getIntExtra("mode", 0);
-            totalNum = intent.getIntExtra("size", 1);
         } catch (Exception e) {
-            String message = "Loading failed.";
+            String message = getResources().getString(R.string.caution_db_load_fail);
             Toast.makeText(getApplicationContext(), message,Toast.LENGTH_SHORT).show();
             finish();
         }
@@ -68,7 +66,6 @@ public class DetailInfoPopup extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent = new Intent(getApplicationContext(), ModifyInfoPopup.class);
                 intent.putExtra("student", student);
-                intent.putExtra("size", totalNum);
                 startActivityForResult(intent, 2);
             }
         });
@@ -78,7 +75,6 @@ public class DetailInfoPopup extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent = new Intent(getApplicationContext(), DeleteCheckPopup.class);
                 intent.putExtra("student", student);
-                intent.putExtra("size", totalNum);
                 startActivityForResult(intent, 1);
             }
         });

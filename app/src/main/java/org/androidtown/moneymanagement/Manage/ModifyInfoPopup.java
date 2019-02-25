@@ -26,8 +26,6 @@ import java.util.Objects;
 
 public class ModifyInfoPopup extends AppCompatActivity {
 
-    public int totalNum;
-
     private Student student;
     private Student changedInfo;
 
@@ -53,9 +51,8 @@ public class ModifyInfoPopup extends AppCompatActivity {
 
         try {
             student = intent.getParcelableExtra("student");
-            totalNum = intent.getIntExtra("size", 1);
         } catch (Exception e) {
-            String message = "Loading failed.";
+            String message = getResources().getString(R.string.caution_db_load_fail);
             Toast.makeText(getApplicationContext(), message,Toast.LENGTH_SHORT).show();
             finish();
         }

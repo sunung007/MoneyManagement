@@ -62,6 +62,11 @@ public class Student implements Parcelable {
         support = _support;
     }
 
+    public boolean isNull() {
+        return index == null || amount == null || type == null ||
+                year == null || sid == null || name == null || support == null;
+    }
+
     @Override
     public int describeContents() {
         return 0;

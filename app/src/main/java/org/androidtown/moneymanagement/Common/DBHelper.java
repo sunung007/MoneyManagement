@@ -52,8 +52,6 @@ public class DBHelper {
             name = _name;
             sid = _sid;
             mode = _mode;
-
-            totalNum = 0;
             students = new ArrayList<>();
 
             isAllStudents = false;
@@ -232,10 +230,9 @@ public class DBHelper {
         private Student student;
         private Mode mode;
 
-        public DeleteTask (Student _student, int _position, int _totalNum, Mode _mode) {
+        public DeleteTask (Student _student, int _position, Mode _mode) {
             student = _student;
             curIndex = _position;
-            endIndex = _totalNum - 1;
             mode = _mode;
         }
 
@@ -254,6 +251,8 @@ public class DBHelper {
                         Iterator<DataSnapshot> child = dataSnapshot.getChildren().iterator();
                         DataSnapshot ds;
                         DatabaseReference curRef;
+
+                        endIndex = (int) dataSnapshot.getChildrenCount() - 1;
 
                         int i;
                         for (i = 0; i <= curIndex && child.hasNext(); ++i)
@@ -347,8 +346,8 @@ public class DBHelper {
 
                     @Override
                     public void onCancelled(@NonNull DatabaseError databaseError) {
-                        while(dbStudent.name != null) {
-                            dbStudent.sid = dbStudent.name = null;
+                        while(!dbStudent.name.equals("")) {
+                            dbStudent.sid = dbStudent.name = "";
                         }
                     }
                 };
@@ -376,6 +375,7 @@ public class DBHelper {
                 conditionRef.removeEventListener(valueEventListener);
             }
 
+            if(dbStudent.isNull()) return false;
             return dbStudent.sid.equals(student.sid)
                     && dbStudent.name.equals(student.name)
                     && dbStudent.amount.equals(student.amount)

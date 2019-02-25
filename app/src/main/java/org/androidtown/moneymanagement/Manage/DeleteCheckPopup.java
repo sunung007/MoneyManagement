@@ -25,7 +25,6 @@ import org.androidtown.moneymanagement.Common.Student;
 public class DeleteCheckPopup extends AppCompatActivity {
 
     private int position;
-    private int totalNum;
     private Student student;
 
     @SuppressLint("StaticFieldLeak")
@@ -47,8 +46,6 @@ public class DeleteCheckPopup extends AppCompatActivity {
         try {
             Intent intent = getIntent();
             student = intent.getParcelableExtra("student");
-            totalNum = intent.getIntExtra("size", 1);
-
             position = Integer.parseInt(student.index);
         } catch (Exception e) {
             String message = getResources().getString(R.string.caution_delete_fail);
@@ -73,7 +70,7 @@ public class DeleteCheckPopup extends AppCompatActivity {
                 mProgressBar.setVisibility(View.VISIBLE);
 
                 DBHelper.DeleteTask deleteTask
-                        = new DBHelper.DeleteTask(student, position, totalNum, Mode.DELETE_CHECK_POPUP);
+                        = new DBHelper.DeleteTask(student, position, Mode.DELETE_CHECK_POPUP);
                 deleteTask.execute((Void) null);
             }
         });
