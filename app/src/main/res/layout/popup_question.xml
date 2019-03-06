@@ -10,7 +10,7 @@
     tools:context=".QuestionPopup">
 
     <TextView
-        android:id="@+id/question_title"
+        android:id="@+id/text_question_title"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:background="@drawable/round_button"
@@ -28,21 +28,20 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageButton
-        android:id="@+id/question_close"
+        android:id="@+id/imageButton_question_close"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
         android:background="@color/colorNoColor"
         android:contentDescription="@string/content_description_close"
-        app:layout_constraintBottom_toBottomOf="@+id/question_title"
-        app:layout_constraintEnd_toEndOf="@+id/question_title"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/ic_close"
         android:tint="@color/colorGrayMoreLight"
-        />
+        app:layout_constraintBottom_toBottomOf="@+id/text_question_title"
+        app:layout_constraintEnd_toEndOf="@+id/text_question_title"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_close" />
 
     <TextView
-        android:id="@+id/question_content"
+        android:id="@+id/text_question_content"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -55,6 +54,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/question_title"
+        app:layout_constraintTop_toBottomOf="@+id/text_question_title"
         app:layout_constraintVertical_bias="0.0" />
 </android.support.constraint.ConstraintLayout>

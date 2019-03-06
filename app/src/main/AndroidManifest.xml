@@ -1,11 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="org.androidtown.moneymanagement"
-
-    >
-
+    package="org.androidtown.moneymanagement">
     <!-- To auto-complete the email text field in the login form with the user's emails -->
     <uses-permission android:name="android.permission.GET_ACCOUNTS" />
     <uses-permission android:name="android.permission.READ_PROFILE" />
@@ -21,25 +17,40 @@
         tools:ignore="GoogleAppIndexingWarning">
         <activity
             android:name=".SplashActivity"
-            android:theme="@style/AppTheme.NoActionBar.FullScreen"
             android:screenOrientation="portrait"
-            >
+            android:theme="@style/AppTheme.NoActionBar.FullScreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity
             android:name=".LoginActivity"
-            android:theme="@style/AppTheme.NoActionBar"
-            android:windowSoftInputMode="stateHidden"
             android:screenOrientation="portrait"
-            />
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="stateHidden" />
         <activity
             android:name=".MainActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".AuthorizationPopup"
+            android:theme="@style/AppTheme.NoActionBar.Dialog" />
+        <activity
+            android:name=".Search.SearchOnlyActivity"
+            android:label="@string/title_searching_only"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar"
+            tools:ignore="InnerclassSeparator" />
+        <activity
+            android:name=".Enroll.EnrollNewbieActivity"
             android:theme="@style/AppTheme.NoActionBar"
             android:screenOrientation="portrait"
-            />
+            tools:ignore="InnerclassSeparator" />
+        <activity
+            android:name=".QuestionPopup"
+            android:theme="@style/AppTheme.NoActionBar.Dialog" />
         <activity
             android:name=".Enroll.EnrollCheckPopup"
             android:theme="@style/AppTheme.NoActionBar.Dialog"
@@ -64,21 +75,6 @@
             android:name=".Manage.ModifyCheckPopup"
             android:theme="@style/AppTheme.NoActionBar.Dialog"
             tools:ignore="InnerclassSeparator" />
-        <activity
-            android:name=".AuthorizationPopup"
-            android:theme="@style/AppTheme.NoActionBar.Dialog"
-            />
-        <activity
-            android:name=".Search.SearchOnlyActivity"
-            android:label="@string/title_searching_only"
-            android:theme="@style/AppTheme.NoActionBar"
-            tools:ignore="InnerclassSeparator"
-            android:screenOrientation="portrait"
-            />
-        <activity
-            android:name=".QuestionPopup"
-            android:theme="@style/AppTheme.NoActionBar.Dialog"
-            />
     </application>
 
 </manifest>

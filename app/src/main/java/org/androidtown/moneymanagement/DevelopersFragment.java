@@ -7,12 +7,15 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import java.util.Objects;
 
 
 public class DevelopersFragment extends Fragment {
@@ -34,8 +37,9 @@ public class DevelopersFragment extends Fragment {
         message2 = view.findViewById(R.id.developer_message2);
         message2.setOnClickListener(messageOnClickListener);
         message2.setOnTouchListener(mEmailViewOnTouchListener);
-        //noinspection deprecation
-        message2.setTextColor(getResources().getColor(R.color.colorPrimaryLight));
+        message2.setTextColor(ContextCompat.getColor(
+                Objects.requireNonNull(getContext()), R.color.colorPrimaryLight));
+
 
         return view;
     }
@@ -55,16 +59,16 @@ public class DevelopersFragment extends Fragment {
             int action = motionEvent.getAction();
 
             if(action == MotionEvent.ACTION_DOWN) {
-                //noinspection deprecation
-                message1.setColorFilter(getResources().getColor(R.color.colorPrimary));
-                //noinspection deprecation
-                message2.setTextColor(getResources().getColor(R.color.colorPrimary));
+                message1.setColorFilter(ContextCompat.getColor(
+                        Objects.requireNonNull(getContext()), R.color.colorPrimary));
+                message2.setTextColor(ContextCompat.getColor(
+                        Objects.requireNonNull(getContext()), R.color.colorPrimary));
             }
             else if(action == MotionEvent.ACTION_UP || action == MotionEvent.ACTION_CANCEL) {
-                //noinspection deprecation
-                message1.setColorFilter(getResources().getColor(R.color.colorPrimaryLight));
-                //noinspection deprecation
-                message2.setTextColor(getResources().getColor(R.color.colorPrimaryLight));
+                message1.setColorFilter(ContextCompat.getColor(
+                        Objects.requireNonNull(getContext()), R.color.colorPrimaryLight));
+                message2.setTextColor(ContextCompat.getColor(
+                        Objects.requireNonNull(getContext()), R.color.colorPrimaryLight));
             }
 
             return false;

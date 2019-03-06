@@ -2,16 +2,11 @@
 <resources>
 
     <color name="colorPrimary">#003366</color>
-    <!--<color name="colorPrimary">#234FA0</color>-->
     <color name="colorPrimaryDark">#09215E</color>
     <color name="colorPrimaryLight">#215c97</color>
     <color name="colorPrimaryMoreLight">#4186cc</color>
-
-    <!--<color name="colorLine">#4a4a4a</color>-->
-    <color name="colorLine">#003366</color>
-
     <color name="colorAccent">#D81B60</color>
-    <color name="colorActionBarText">#FFFFFF</color>
+    <color name="colorLine">#003366</color>
 
     <color name="colorSearchBackground">#c6d2df</color>
 

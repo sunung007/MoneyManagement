@@ -11,11 +11,11 @@ import android.view.View;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
+import org.androidtown.moneymanagement.Common.Mode;
+import org.androidtown.moneymanagement.Common.Student;
 import org.androidtown.moneymanagement.Enroll.EnrollCheckPopup;
 import org.androidtown.moneymanagement.R;
-import org.androidtown.moneymanagement.Common.Student;
 
 public class DetailInfoPopup extends AppCompatActivity {
 
@@ -33,22 +33,17 @@ public class DetailInfoPopup extends AppCompatActivity {
         setContentView(R.layout.popup_detail_info);
 
         mActivity = DetailInfoPopup.this;
+
         Intent intent = getIntent();
+        student = intent.getParcelableExtra("student");
+        mode = intent.getIntExtra("mode", 0);
 
-        try {
-            student = intent.getParcelableExtra("student");
-            mode = intent.getIntExtra("mode", 0);
-        } catch (Exception e) {
-            String message = getResources().getString(R.string.caution_db_load_fail);
-            Toast.makeText(getApplicationContext(), message,Toast.LENGTH_SHORT).show();
-            finish();
-        }
 
-        TextView mTitleView = findViewById(R.id.title_detail_info);
-        TextView mYearView = findViewById(R.id.detail_year);
-        TextView mTypeView = findViewById(R.id.detail_type);
-        TextView mAmountView = findViewById(R.id.detail_amount);
-        TextView mSupportView = findViewById(R.id.detail_support);
+        TextView mTitleView = findViewById(R.id.text_detail_info_title);
+        TextView mYearView = findViewById(R.id.text_detail_info_year);
+        TextView mTypeView = findViewById(R.id.text_detail_info_type);
+        TextView mAmountView = findViewById(R.id.text_detail_info_amount);
+        TextView mSupportView = findViewById(R.id.text_detail_info_support);
 
         String title = student.sid + " " + student.name + " 상세정보";
         mTitleView.setText(title);
@@ -57,36 +52,19 @@ public class DetailInfoPopup extends AppCompatActivity {
         mAmountView.setText(student.amount);
         mSupportView.setText(student.support);
 
-        Button mModifyButton = findViewById(R.id.button_search_result_ok);
-        Button mOkButton = findViewById(R.id.button_detail_ok);
-        Button mDeleteButton = findViewById(R.id.button_detail_delete);
 
-        mModifyButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), ModifyInfoPopup.class);
-                intent.putExtra("student", student);
-                startActivityForResult(intent, 2);
-            }
-        });
+        Button mModifyButton = findViewById(R.id.button_detail_info_modify);
+        mModifyButton.setOnClickListener(mModifyButtonOnClickListener);
 
-        mDeleteButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), DeleteCheckPopup.class);
-                intent.putExtra("student", student);
-                startActivityForResult(intent, 1);
-            }
-        });
+        Button mDeleteButton = findViewById(R.id.button_detail_info_delete);
+        mDeleteButton.setOnClickListener(mDeleteButtonOnClickListener);
 
-        mOkButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                finish();
-            }
-        });
+        Button mOkButton = findViewById(R.id.button_detail_info_ok);
+        mOkButton.setOnClickListener(mOkButtonOnClickListener);
     }
 
+
+    //TODO: modify
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if(resultCode == RESULT_OK) {
@@ -96,7 +74,7 @@ public class DetailInfoPopup extends AppCompatActivity {
             // mode 1 is from EnrollFragment.
             if(mode == 0) {
                 ManageFragment.refreshFragment();
-            } else {
+            } else if(mode == 1){
                 EnrollCheckPopup enrollPopup = (EnrollCheckPopup) EnrollCheckPopup.thisActivity;
                 enrollPopup.finish();
             }
@@ -106,4 +84,29 @@ public class DetailInfoPopup extends AppCompatActivity {
     public Context getContext() {
         return this.getApplicationContext();
     }
+
+    private View.OnClickListener mModifyButtonOnClickListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+            Intent intent = new Intent(getApplicationContext(), ModifyInfoPopup.class);
+            intent.putExtra("student", student);
+            startActivityForResult(intent, Mode.DETAIL_INFO_POPUP.ordinal());
+        }
+    };
+
+    private View.OnClickListener mDeleteButtonOnClickListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+            Intent intent = new Intent(getApplicationContext(), DeleteCheckPopup.class);
+            intent.putExtra("student", student);
+            startActivityForResult(intent, Mode.DETAIL_INFO_POPUP.ordinal());
+        }
+    };
+
+    private View.OnClickListener mOkButtonOnClickListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+            finish();
+        }
+    };
 }

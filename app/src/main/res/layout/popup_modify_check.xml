@@ -6,7 +6,7 @@
     android:layout_height="wrap_content"
     android:layout_gravity="center_horizontal"
     android:background="@drawable/round_button"
-    tools:context=".Manage.DeleteCheckPopup">
+    tools:context=".Manage.ModifyCheckPopup">
 
     <TextView
         android:id="@+id/textView21"
@@ -25,40 +25,39 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/button_detail_modify_modify"
+        android:id="@+id/button_modify_check_modify"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:background="@drawable/round_button"
         android:text="@string/button_modify"
         android:textAppearance="@style/TextAppearance.AppCompat.Menu"
         android:textColor="@color/colorWhite"
-        app:layout_constraintEnd_toStartOf="@+id/button_detail_modify_cancel"
+        app:layout_constraintEnd_toStartOf="@+id/button_modify_check_cancel"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView21" />
 
     <Button
-        android:id="@+id/button_detail_modify_cancel"
+        android:id="@+id/button_modify_check_cancel"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:background="@drawable/round_button"
         android:text="@string/button_cancel"
         android:textAppearance="@style/TextAppearance.AppCompat.Menu"
         android:textColor="@color/colorWhite"
-        app:layout_constraintBottom_toBottomOf="@+id/button_detail_modify_modify"
+        app:layout_constraintBottom_toBottomOf="@+id/button_modify_check_modify"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/button_detail_modify_modify"
-        app:layout_constraintTop_toTopOf="@+id/button_detail_modify_modify" />
+        app:layout_constraintStart_toEndOf="@+id/button_modify_check_modify"
+        app:layout_constraintTop_toTopOf="@+id/button_modify_check_modify" />
 
     <ProgressBar
-        android:id="@+id/modify_check_progressBar"
+        android:id="@+id/progressBar_modify_check"
         style="?android:attr/progressBarStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:indeterminateTint="@color/colorPrimaryMoreLight"
         app:layout_constraintBottom_toBottomOf="@+id/textView21"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:indeterminateTint="@color/colorPrimaryMoreLight"
-        />
+        app:layout_constraintTop_toTopOf="parent" />
 
 </android.support.constraint.ConstraintLayout>

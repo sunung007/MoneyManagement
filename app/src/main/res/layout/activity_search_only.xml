@@ -8,14 +8,13 @@
     tools:context=".Search.SearchOnlyActivity">
 
     <android.support.v7.widget.Toolbar
-        android:id="@+id/search_only_toolbar"
+        android:id="@+id/toolbar_search_only"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="?attr/colorPrimary"
         android:minHeight="?attr/actionBarSize"
         android:theme="@style/AppTheme.AppBarOverlay"
-        app:titleTextAppearance="@style/TitleBarTextAppearance"
-        />
+        app:titleTextAppearance="@style/TitleBarTextAppearance" />
 
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
@@ -47,7 +46,7 @@
             app:layout_constraintTop_toBottomOf="@+id/textView33" />
 
         <org.androidtown.moneymanagement.Common.ClearEditText
-            android:id="@+id/search_only_sname"
+            android:id="@+id/edit_search_only_name"
             style="@style/TextAppearance.AppCompat.Subhead"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -64,7 +63,7 @@
             app:layout_constraintTop_toBottomOf="@+id/textView34" />
 
         <Button
-            android:id="@+id/search_only_search_button"
+            android:id="@+id/button_search_only"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="32dp"
@@ -76,22 +75,22 @@
             android:textColor="@color/colorWhite"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/search_only_sname" />
+            app:layout_constraintTop_toBottomOf="@+id/edit_search_only_name" />
 
         <FrameLayout
-            android:id="@+id/search_only_result_fragment"
+            android:id="@+id/fragment_search_only_result"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_marginTop="50dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/search_only_search_button">
+            app:layout_constraintTop_toBottomOf="@+id/button_search_only">
 
         </FrameLayout>
 
         <ProgressBar
-            android:id="@+id/search_only_progressBar"
+            android:id="@+id/progressBar_search_only"
             style="?android:attr/progressBarStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -99,12 +98,11 @@
             android:layout_marginTop="8dp"
             android:layout_marginEnd="8dp"
             android:layout_marginBottom="8dp"
+            android:indeterminateTint="@color/colorPrimaryMoreLight"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            android:indeterminateTint="@color/colorPrimaryMoreLight"
-            />
+            app:layout_constraintTop_toTopOf="parent" />
 
     </android.support.constraint.ConstraintLayout>
 </LinearLayout>

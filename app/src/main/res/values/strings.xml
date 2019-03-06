@@ -40,7 +40,11 @@
 
     <string name="title_enroll">학생회비 납부자 신규 등록</string>
     <string name="title_enroll_subtitle">납부자 신규 등록</string>
+    <string name="title_enroll_newbie">신입생 다중 등록</string>
     <string name="title_menu_enroll">신규 등록</string>
+    <string name="title_enroll_newbie_title">현재 등록되는 학우 정보</string>
+    <string name="title_enroll_newbie_type">전액 납부(8만원)</string>
+    <string name="title_enroll_newbie_name">신입생 명단</string>
 
     <string name="title_menu_manage">전체 관리</string>
     <string name="title_manage">납부자 전체 명단 관리</string>
@@ -59,6 +63,7 @@
     <string name="title_detail_student_modify_check">수정하시겠습니까</string>
     <string name="title_enroll_check">등록하시겠습니까?</string>
     <string name="title_authorization">관리자 암호를 입력해주세요</string>
+
 
     <!--Name of buttons.-->
     <string name="button_cancel">취소</string>
@@ -79,6 +84,8 @@
     <string name="prompt_amount">납부금액</string>
     <string name="prompt_auto_login">자동 로그인</string>
     <string name="prompt_auto_id_fill">아이디 저장</string>
+
+    <string name="prompt_enroll_newbie">엔터로 학생을 구분하세요.</string>
 
     <string name="prompt_search_name">이름을 입력하세요</string>
 
@@ -109,6 +116,11 @@
     <string name="caution_login_fail">로그인 실패</string>
 
     <string name="caution_authorize_success">인증에 성공하였습니다.</string>
+
+    <!--TODO: 수정-->
+    <string name="caution_enroll_newbie_no_save">
+        지금 나가시면 작성 중인 내용은 사라집니다.
+        \'뒤로\' 버튼을 한번 더 누르시면 현재 창을 닫습니다.</string>
 
     <!--ETC...-->
     <string name="code">1004</string>
@@ -150,7 +162,7 @@
     <string name="about_developers_developer2">17학번 류지범 dyeon11@gmail.com</string>
 
     <string name="title_about_version">버전 정보</string>
-    <string name="about_version">[최종 수정일] 2019년 2월 21일</string>
+    <string name="about_version">[최종 수정일] 2019년 3월 6일</string>
     <string name="title_developers_email">건의사항 보내기</string>
 
 
@@ -165,7 +177,7 @@
     <!--Attention-->
     <string name="attention_search">
         🔔 16학번 이상의 학우
-        \n전체 학번으로 검색하여 "미납자"인지만 확인해주세요.
+        \n전체 학번으로 검색하여 \"미납자\"인지만 확인해주세요.
         \n🔔 지원 대상이 아닙니다
         \n일부 학기에 해당하는 학생회비만 납부하였고, 납부에 해당한 학기가 지났음을 의미합니다.
     </string>
@@ -184,6 +196,15 @@
         \n🔔 납부유형
         \n남은 학기 전액을 납부하였을 경우에는 전액납부를, 그렇지 않은 경우에는 납부한 학기를 입력하세요.
         \n(예: 3만원 납부 = [납부유형] 3학기만)
+    </string>
+
+    <!--TODO:바꿔야해-->
+    <string name="attention_enroll_newbie">
+        🔔 신입생 다중 등록
+        \n학생회비를 \"전액납부\"한 현재 년도의 신입생 등록합니다.
+        동명이인 체크를 하지 않으며, 전액납부한 신입생들만 등록 가능합니다.
+        \n🔔 사용방법
+        \n학기 초 등록할 신입생들이 많을 때 사용할 것을 추천합니다.
     </string>
 
 </resources>

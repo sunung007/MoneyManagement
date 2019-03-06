@@ -39,7 +39,7 @@
         app:layout_constraintTop_toBottomOf="@+id/textView30" />
 
     <EditText
-        android:id="@+id/authorization_password"
+        android:id="@+id/edit_authorization_password"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -68,7 +68,7 @@
         android:textColor="@color/colorWhite"
         app:layout_constraintEnd_toStartOf="@+id/button_authorization_cancel"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/authorization_password" />
+        app:layout_constraintTop_toBottomOf="@+id/edit_authorization_password" />
 
     <Button
         android:id="@+id/button_authorization_cancel"

@@ -13,10 +13,9 @@
     >
 
     <android.support.constraint.ConstraintLayout
+        android:id="@+id/constraint_login"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/login_form"
-        >
+        android:layout_height="wrap_content">
 
 
         <ImageView
@@ -34,13 +33,14 @@
             app:srcCompat="@drawable/cse_logo_white" />
 
         <EditText
-            android:id="@+id/email"
+            android:id="@+id/edit_login_email"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="50dp"
             android:layout_marginTop="32dp"
             android:layout_marginEnd="50dp"
             android:background="@drawable/round_edit_text"
+            android:backgroundTint="@color/colorWhite"
             android:hint="@string/blank_id"
             android:inputType="textEmailAddress"
             android:maxLines="1"
@@ -52,15 +52,15 @@
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/imageView"
-            android:backgroundTint="@color/colorWhite"
             tools:ignore="Autofill,SpUsage" />
 
         <EditText
-            android:id="@+id/password"
+            android:id="@+id/edit_login_password"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
             android:background="@drawable/round_edit_text"
+            android:backgroundTint="@color/colorWhite"
             android:hint="@string/blank_password"
             android:imeActionId="6"
             android:imeOptions="actionUnspecified"
@@ -70,15 +70,14 @@
             android:textAppearance="@style/TextAppearance.AppCompat.Body1"
             android:textSize="@dimen/costom_edit_text_size"
             android:visibility="visible"
-            app:layout_constraintEnd_toEndOf="@+id/email"
-            app:layout_constraintStart_toStartOf="@+id/email"
-            app:layout_constraintTop_toBottomOf="@+id/email"
-            android:backgroundTint="@color/colorWhite"
+            app:layout_constraintEnd_toEndOf="@+id/edit_login_email"
+            app:layout_constraintStart_toStartOf="@+id/edit_login_email"
+            app:layout_constraintTop_toBottomOf="@+id/edit_login_email"
             tools:ignore="Autofill,SpUsage" />
 
 
         <Button
-            android:id="@+id/email_sign_in_button"
+            android:id="@+id/button_login_sign_in"
             style="@style/Widget.AppCompat.Button"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -87,51 +86,48 @@
             android:text="@string/login_name"
             android:textAppearance="@style/TextAppearance.AppCompat.Menu"
             android:textColor="@color/colorWhite"
-            app:layout_constraintEnd_toEndOf="@+id/password"
-            app:layout_constraintStart_toStartOf="@+id/password"
-            app:layout_constraintTop_toBottomOf="@+id/password"
             android:textStyle="bold"
-            />
+            app:layout_constraintEnd_toEndOf="@+id/edit_login_password"
+            app:layout_constraintStart_toStartOf="@+id/edit_login_password"
+            app:layout_constraintTop_toBottomOf="@+id/edit_login_password" />
 
         <CheckBox
-            android:id="@+id/auto_id_fill_checkBox"
+            android:id="@+id/checkBox_login_auto_id"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:text="@string/prompt_auto_id_fill"
-            android:textStyle="bold"
-            app:layout_constraintStart_toStartOf="@+id/email_sign_in_button"
-            app:layout_constraintTop_toBottomOf="@+id/email_sign_in_button"
             android:buttonTint="@color/colorWhite"
+            android:text="@string/prompt_auto_id_fill"
             android:textColor="@color/colorWhite"
-            />
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="@+id/button_login_sign_in"
+            app:layout_constraintTop_toBottomOf="@+id/button_login_sign_in" />
 
         <CheckBox
-            android:id="@+id/auto_login_checkBox"
+            android:id="@+id/checkBox_login_auto_login"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
-            android:text="@string/prompt_auto_login"
-            android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="@+id/auto_id_fill_checkBox"
-            app:layout_constraintStart_toEndOf="@+id/auto_id_fill_checkBox"
-            app:layout_constraintTop_toTopOf="@+id/auto_id_fill_checkBox"
             android:buttonTint="@color/colorWhite"
+            android:text="@string/prompt_auto_login"
             android:textColor="@color/colorWhite"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@+id/checkBox_login_auto_id"
+            app:layout_constraintStart_toEndOf="@+id/checkBox_login_auto_id"
+            app:layout_constraintTop_toTopOf="@+id/checkBox_login_auto_id"
 
             />
 
         <ProgressBar
-            android:id="@+id/login_progressBar"
+            android:id="@+id/progressBar_login"
             style="@style/Widget.AppCompat.ProgressBar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_constraintBottom_toBottomOf="@+id/password"
+            android:indeterminateTint="@color/colorPrimaryMoreLight"
+            app:layout_constraintBottom_toBottomOf="@+id/edit_login_password"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/email"
-            android:indeterminateTint="@color/colorPrimaryMoreLight"
-            />
+            app:layout_constraintTop_toTopOf="@+id/edit_login_email" />
 
 
     </android.support.constraint.ConstraintLayout>

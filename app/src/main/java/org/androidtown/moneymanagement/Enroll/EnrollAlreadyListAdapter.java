@@ -25,7 +25,7 @@ public class EnrollAlreadyListAdapter extends RecyclerView.Adapter<RecyclerView.
     public static class MyEnrollViewHolder extends RecyclerView.ViewHolder {
 
         TextView mSidView;
-        TextView mSnameView;
+        TextView mNameView;
         TextView mTypeView;
         TextView mSupportView;
         CardView mListView;
@@ -33,11 +33,11 @@ public class EnrollAlreadyListAdapter extends RecyclerView.Adapter<RecyclerView.
         MyEnrollViewHolder(View view) {
             super(view);
 
-            mSidView = view.findViewById(R.id.enroll_already_students_sid);
-            mSnameView = view.findViewById(R.id.enroll_already_students_sname);
-            mTypeView = view.findViewById(R.id.enroll_already_students_type);
-            mSupportView = view.findViewById(R.id.enroll_already_students_support);
-            mListView = view.findViewById(R.id.enroll_already_student_list);
+            mSidView = view.findViewById(R.id.text_list_enroll_already_sid);
+            mNameView = view.findViewById(R.id.text_list_enroll_already_name);
+            mTypeView = view.findViewById(R.id.text_list_enroll_already_type);
+            mSupportView = view.findViewById(R.id.text_list_enroll_already_support);
+            mListView = view.findViewById(R.id.cardView_list_enroll_already);
         }
     }
 
@@ -49,7 +49,8 @@ public class EnrollAlreadyListAdapter extends RecyclerView.Adapter<RecyclerView.
     @NonNull
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View v = LayoutInflater.from(parent.getContext())
+        View v = LayoutInflater
+                .from(parent.getContext())
                 .inflate(R.layout.list_enroll_already, parent, false);
 
         return new EnrollAlreadyListAdapter.MyEnrollViewHolder(v);
@@ -63,7 +64,7 @@ public class EnrollAlreadyListAdapter extends RecyclerView.Adapter<RecyclerView.
         final Student student = students.get(position);
 
         myViewHolder.mSidView.setText(student.sid);
-        myViewHolder.mSnameView.setText(student.name);
+        myViewHolder.mNameView.setText(student.name);
         myViewHolder.mTypeView.setText(student.type);
         myViewHolder.mSupportView.setText(student.support);
 

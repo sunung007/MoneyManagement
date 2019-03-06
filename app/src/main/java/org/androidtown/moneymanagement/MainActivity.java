@@ -1,6 +1,5 @@
 package org.androidtown.moneymanagement;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -16,24 +15,19 @@ import android.support.v7.widget.Toolbar;
 import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.Window;
-import android.view.WindowManager;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
+import org.androidtown.moneymanagement.Common.Special;
 import org.androidtown.moneymanagement.Enroll.EnrollFragment;
 import org.androidtown.moneymanagement.Manage.ManageFragment;
 import org.androidtown.moneymanagement.Search.SearchFragment;
 
-import java.util.Objects;
-
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
-    public int backCount = 0;
     private long backKeyPressedTime = 0;
     private String fragmentTitle = null;
 
@@ -41,7 +35,6 @@ public class MainActivity extends AppCompatActivity
 
     private Toolbar mToolbar;
     private NavigationView mNavigationView;
-    private static Window thisWindow;
     public static FragmentManager previousFragmentManager;
 
 
@@ -51,38 +44,30 @@ public class MainActivity extends AppCompatActivity
         setContentView(R.layout.activity_main);
 
         String title = getString(R.string.title_search);
-        mToolbar = findViewById(R.id.main_toolbar);
+        mToolbar = findViewById(R.id.toolbar_main);
         mToolbar.setTitle(title);
         setSupportActionBar(mToolbar);
 
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-        ft.replace(R.id.main_fragment, new SearchFragment());
+        ft.replace(R.id.fragment_main, new SearchFragment());
         ft.commit();
 
-        DrawerLayout drawer = findViewById(R.id.drawer_layout);
+        DrawerLayout drawer = findViewById(R.id.drawer_main);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, mToolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
-        thisWindow = getWindow();
 
         previousFragmentManager = getSupportFragmentManager();
 
-        mNavigationView = findViewById(R.id.nav_view);
+        mNavigationView = findViewById(R.id.navigation_main);
         mNavigationView.setNavigationItemSelectedListener(this);
 
         mNavigationView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                InputMethodManager inputMethodManager =
-                        (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-
-                assert inputMethodManager != null;
-                if (inputMethodManager.isActive()) {
-                    inputMethodManager.hideSoftInputFromWindow(
-                            Objects.requireNonNull(getCurrentFocus()).getWindowToken(), 0);
-                }
+                Special.closeKeyboard(MainActivity.this);
             }
         });
     }
@@ -90,28 +75,20 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public void onBackPressed() {
-        DrawerLayout drawer = findViewById(R.id.drawer_layout);
+        DrawerLayout drawer = findViewById(R.id.drawer_main);
 
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         }
         else if (ManageFragment.isLoading) {
-            String message = getResources().getString(R.string.caution_db_on_load);
-            Toast toast = Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT);
-            toast.setGravity(Gravity.CENTER_HORIZONTAL | Gravity.BOTTOM, 0, 0);
-            toast.show();
+            Special.printMessage(getApplicationContext(), R.string.caution_db_on_load);
         }
         else if ((previousFragmentID == R.id.nav_check
                 || getSupportFragmentManager().getBackStackEntryCount() == 0)
                 && System.currentTimeMillis() - backKeyPressedTime >= 2000) {
 
             backKeyPressedTime = System.currentTimeMillis();
-            backCount++;
-
-            String message = getResources().getString(R.string.caution_exit_back_button);
-            Toast toast = Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT);
-            toast.setGravity(Gravity.CENTER_HORIZONTAL | Gravity.BOTTOM, 0, 0);
-            toast.show();
+            Special.printMessage(getApplicationContext(), R.string.caution_exit_back_button);
         }
         else if (System.currentTimeMillis() - backKeyPressedTime < 2000){
             finish();
@@ -125,23 +102,14 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-        int id = item.getItemId();
-
-        InputMethodManager inputMethodManager =
-                (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
-
-        assert inputMethodManager != null;
-        if(inputMethodManager.isActive()) {
-            inputMethodManager.hideSoftInputFromWindow(
-                    Objects.requireNonNull(getCurrentFocus()).getWindowToken(), 0);
-        }
-
+        Special.closeKeyboard(MainActivity.this);
 
         Fragment fragment = null;
         FragmentManager fm = getSupportFragmentManager();
         FragmentTransaction ft = fm.beginTransaction();
 
 
+        int id = item.getItemId();
         if(id == R.id.nav_check) {
             fragmentTitle = getResources().getString(R.string.title_search);
             fragment = new SearchFragment();
@@ -184,18 +152,18 @@ public class MainActivity extends AppCompatActivity
 
 
         if(previousFragmentID == id) {
-            fragment = fm.findFragmentById(R.id.main_fragment);
+            fragment = fm.findFragmentById(R.id.fragment_main);
             ft.detach(fragment).attach(fragment);
             ft.commit();
 
-            DrawerLayout drawer = findViewById(R.id.drawer_layout);
+            DrawerLayout drawer = findViewById(R.id.drawer_main);
             drawer.closeDrawer(GravityCompat.START);
         }
         else if(id != R.id.nav_enroll && id != R.id.nav_manage && fragment != null) {
             previousFragmentID = id;
             ft.setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_left,
                     R.anim.enter_from_left, R.anim.exit_to_right);
-            ft.replace(R.id.main_fragment, fragment);
+            ft.replace(R.id.fragment_main, fragment);
 
             if (fm.getBackStackEntryCount() == 0)
                 ft.addToBackStack(null);
@@ -204,7 +172,7 @@ public class MainActivity extends AppCompatActivity
 
             mToolbar.setTitle(fragmentTitle);
 
-            DrawerLayout drawer = findViewById(R.id.drawer_layout);
+            DrawerLayout drawer = findViewById(R.id.drawer_main);
             drawer.closeDrawer(GravityCompat.START);
         }
 
@@ -213,15 +181,7 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     protected void onPause() {
-        InputMethodManager inputMethodManager =
-                (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
-
-        assert inputMethodManager != null;
-        if(inputMethodManager.isActive()) {
-            inputMethodManager.hideSoftInputFromWindow(
-                    Objects.requireNonNull(getCurrentFocus()).getWindowToken(), 0);
-        }
-
+        Special.closeKeyboard(this);
         super.onPause();
     }
 
@@ -236,7 +196,7 @@ public class MainActivity extends AppCompatActivity
             previousFragmentID = R.id.nav_enroll;
             ft.setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_left,
                     R.anim.enter_from_left, R.anim.exit_to_right);
-            ft.replace(R.id.main_fragment, fragment);
+            ft.replace(R.id.fragment_main, fragment);
 
             if(fm.getBackStackEntryCount() == 0)
                 ft.addToBackStack(null);
@@ -246,7 +206,7 @@ public class MainActivity extends AppCompatActivity
             if(fragmentTitle != null)
                 mToolbar.setTitle(fragmentTitle);
 
-            DrawerLayout drawer = findViewById(R.id.drawer_layout);
+            DrawerLayout drawer = findViewById(R.id.drawer_main);
             drawer.closeDrawer(GravityCompat.START);
         }
 
@@ -259,7 +219,7 @@ public class MainActivity extends AppCompatActivity
             previousFragmentID = R.id.nav_manage;
             ft.setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_left,
                     R.anim.enter_from_left, R.anim.exit_to_right);
-            ft.replace(R.id.main_fragment, fragment);
+            ft.replace(R.id.fragment_main, fragment);
 
             if(fm.getBackStackEntryCount() == 0)
                 ft.addToBackStack(null);
@@ -269,26 +229,17 @@ public class MainActivity extends AppCompatActivity
             if(fragmentTitle != null)
                 mToolbar.setTitle(fragmentTitle);
 
-            DrawerLayout drawer = findViewById(R.id.drawer_layout);
+            DrawerLayout drawer = findViewById(R.id.drawer_main);
             drawer.closeDrawer(GravityCompat.START);
         }
 
         if(resultCode == RESULT_CANCELED) {
             mNavigationView.setCheckedItem(previousFragmentID);
 
-            DrawerLayout drawer = findViewById(R.id.drawer_layout);
+            DrawerLayout drawer = findViewById(R.id.drawer_main);
             drawer.closeDrawer(GravityCompat.START);
         }
     }
-
-    public static void screenUntouchable() {
-        thisWindow.addFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
-    }
-
-    public static void screenTouchable () {
-        thisWindow.clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
-    }
-
 }
 
 

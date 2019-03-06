@@ -8,19 +8,17 @@ import android.graphics.Rect;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.view.Gravity;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.Window;
-import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ProgressBar;
-import android.widget.Toast;
 
 import org.androidtown.moneymanagement.Common.DBHelper;
 import org.androidtown.moneymanagement.Common.Mode;
-import org.androidtown.moneymanagement.R;
+import org.androidtown.moneymanagement.Common.Special;
 import org.androidtown.moneymanagement.Common.Student;
+import org.androidtown.moneymanagement.R;
 
 public class DeleteCheckPopup extends AppCompatActivity {
 
@@ -33,48 +31,38 @@ public class DeleteCheckPopup extends AppCompatActivity {
     private static Activity thisActivity;
 
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-        setContentView(R.layout.activity_detail_delete_check);
+        setContentView(R.layout.popup_delete_check);
 
         thisActivity = this;
 
-        try {
-            Intent intent = getIntent();
-            student = intent.getParcelableExtra("student");
-            position = Integer.parseInt(student.index);
-        } catch (Exception e) {
-            String message = getResources().getString(R.string.caution_delete_fail);
-            Toast toast = Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT);
-            toast.setGravity(Gravity.CENTER_HORIZONTAL|Gravity.BOTTOM, 0, 0);
-            toast.show();
+        Intent intent = getIntent();
+        student = intent.getParcelableExtra("student");
+        position = Integer.parseInt(student.index);
 
-            finish();
-        }
 
-        Button mDeleteButton = findViewById(R.id.button_detail_delete_delete);
-        Button mCancelButton = findViewById(R.id.button_detail_delete_cancel);
-
-        mProgressBar = findViewById(R.id.delete_check_progressBar);
-        mProgressBar.bringToFront();
+        mProgressBar = findViewById(R.id.progressBar_detail_delete);
         mProgressBar.setVisibility(View.GONE);
+        mProgressBar.bringToFront();
 
+
+        Button mDeleteButton = findViewById(R.id.button_delete_delete);
         mDeleteButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                getWindow().addFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
-                mProgressBar.setVisibility(View.VISIBLE);
+                Special.startLoad(getWindow(), mProgressBar);
 
-                DBHelper.DeleteTask deleteTask
-                        = new DBHelper.DeleteTask(student, position, Mode.DELETE_CHECK_POPUP);
+                DBHelper.DeleteTask deleteTask =
+                        new DBHelper.DeleteTask(student, position, Mode.DELETE_CHECK_POPUP);
                 deleteTask.execute((Void) null);
             }
         });
 
+        Button mCancelButton = findViewById(R.id.button_delete_cancel);
         mCancelButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -88,23 +76,19 @@ public class DeleteCheckPopup extends AppCompatActivity {
         Rect dialogBounds = new Rect();
         getWindow().getDecorView().getHitRect(dialogBounds);
 
-        if (!dialogBounds.contains((int) ev.getX(), (int) ev.getY())) {
+        if (!dialogBounds.contains((int) ev.getX(), (int) ev.getY()))
             return false;
-        }
 
         return super.dispatchTouchEvent(ev);
     }
 
 
     public static void onPost(Boolean result) {
-        mProgressBar.setVisibility(View.GONE);
-        thisActivity.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
-
         String message = thisActivity.getResources()
                 .getString(result ? R.string.caution_delete_success : R.string.caution_delete_fail);
-        Toast toast = Toast.makeText(thisActivity.getApplicationContext(), message, Toast.LENGTH_SHORT);
-        toast.setGravity(Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL, 0, 0);
-        toast.show();
+
+        Special.finishLoad(thisActivity.getWindow(), mProgressBar);
+        Special.printMessage(thisActivity.getApplicationContext(), message);
 
         thisActivity.setResult(RESULT_OK);
         thisActivity.finish();

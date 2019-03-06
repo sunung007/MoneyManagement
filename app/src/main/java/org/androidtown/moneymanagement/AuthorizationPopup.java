@@ -9,7 +9,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
-import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
@@ -17,13 +16,13 @@ import android.view.Window;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toast;
 
-import java.util.Objects;
+import org.androidtown.moneymanagement.Common.Special;
 
 public class AuthorizationPopup extends AppCompatActivity {
 
-    EditText mPasswordView;
+    private EditText mPasswordView;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,35 +31,9 @@ public class AuthorizationPopup extends AppCompatActivity {
         getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         setContentView(R.layout.popup_authrization);
 
-        mPasswordView = findViewById(R.id.authorization_password);
 
-        Button mOkButton = findViewById(R.id.button_authorization_ok);
-        Button mCancelButton = findViewById(R.id.button_authorization_cancel);
-
-        mOkButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                checkPassword();
-            }
-        });
-
-        mCancelButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                InputMethodManager inputMethodManager =
-                        (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
-
-                assert inputMethodManager != null;
-                if(inputMethodManager.isActive()) {
-                    inputMethodManager.hideSoftInputFromWindow(
-                            Objects.requireNonNull(getCurrentFocus()).getWindowToken(), 0);
-                }
-
-                setResult(RESULT_CANCELED);
-                finish();
-            }
-        });
-
+        // TODO: 코드 정리
+        mPasswordView = findViewById(R.id.edit_authorization_password);
         mPasswordView.setOnKeyListener(new View.OnKeyListener() {
             @Override
             public boolean onKey(View view, int i, KeyEvent keyEvent) {
@@ -89,11 +62,33 @@ public class AuthorizationPopup extends AppCompatActivity {
             }
         });
 
-        InputMethodManager inputMethodManager =
-                (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
 
-        assert inputMethodManager != null;
-        inputMethodManager.toggleSoftInput(InputMethodManager.SHOW_FORCED, InputMethodManager.HIDE_IMPLICIT_ONLY);
+        Button mOkButton = findViewById(R.id.button_authorization_ok);
+        mOkButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                checkPassword();
+            }
+        });
+
+        Button mCancelButton = findViewById(R.id.button_authorization_cancel);
+        mCancelButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Special.closeKeyboard(AuthorizationPopup.this);
+
+                setResult(RESULT_CANCELED);
+                finish();
+            }
+        });
+
+
+        InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+        if(imm != null) {
+            imm.toggleSoftInput(
+                    InputMethodManager.SHOW_FORCED,
+                    InputMethodManager.HIDE_IMPLICIT_ONLY);
+        }
     }
 
 
@@ -101,35 +96,22 @@ public class AuthorizationPopup extends AppCompatActivity {
         mPasswordView.setError(null);
 
         boolean cancel = false;
-        View focusView = null;
 
         String password = mPasswordView.getText().toString();
         if(password.length() != 4) {
             mPasswordView.setError(getString(R.string.error_field_required));
-            focusView = mPasswordView;
             cancel = true;
         } else if (!TextUtils.isEmpty(password) && !isPasswordValid(password)) {
             mPasswordView.setError(getString(R.string.error_invalid_password));
-            mPasswordView.getText().clear();
-            focusView = mPasswordView;
             cancel = true;
         }
 
         if (cancel) {
-            focusView.requestFocus();
+            mPasswordView.requestFocus();
+            mPasswordView.setText("");
         } else {
-            InputMethodManager inputMethodManager =
-                    (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
-
-            assert inputMethodManager != null;
-            if(inputMethodManager.isActive()) {
-                inputMethodManager.hideSoftInputFromWindow(Objects.requireNonNull(getCurrentFocus()).getWindowToken(), 0);
-            }
-
-            String message = getResources().getString(R.string.caution_authorize_success);
-            Toast toast = Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT);
-            toast.setGravity(Gravity.CENTER_HORIZONTAL|Gravity.BOTTOM, 0, 0);
-            toast.show();
+            Special.closeKeyboard(AuthorizationPopup.this);
+            Special.printMessage(getApplicationContext(), R.string.caution_authorize_success);
 
             setResult(RESULT_OK);
             finish();
@@ -147,15 +129,7 @@ public class AuthorizationPopup extends AppCompatActivity {
         getWindow().getDecorView().getHitRect(dialogBounds);
 
         if (!dialogBounds.contains((int) ev.getX(), (int) ev.getY())) {
-            InputMethodManager inputMethodManager =
-                    (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
-
-            assert inputMethodManager != null;
-            if(inputMethodManager.isActive()) {
-                inputMethodManager.hideSoftInputFromWindow(
-                        Objects.requireNonNull(getCurrentFocus()).getWindowToken(), 0);
-            }
-
+            Special.closeKeyboard(AuthorizationPopup.this);
             return false;
         }
 

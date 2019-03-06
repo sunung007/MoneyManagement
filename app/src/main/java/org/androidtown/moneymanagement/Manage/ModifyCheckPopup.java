@@ -8,20 +8,18 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.view.Gravity;
 import android.view.View;
 import android.view.Window;
-import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ProgressBar;
-import android.widget.Toast;
 
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import org.androidtown.moneymanagement.Common.DBHelper;
-import org.androidtown.moneymanagement.R;
+import org.androidtown.moneymanagement.Common.Special;
 import org.androidtown.moneymanagement.Common.Student;
+import org.androidtown.moneymanagement.R;
 
 public class ModifyCheckPopup extends AppCompatActivity {
 
@@ -48,24 +46,17 @@ public class ModifyCheckPopup extends AppCompatActivity {
         thisContext = getApplicationContext();
         thisActivity = this;
 
-        mProgressBar = findViewById(R.id.modify_check_progressBar);
+        mProgressBar = findViewById(R.id.progressBar_modify_check);
         mProgressBar.setVisibility(View.GONE);
+        mProgressBar.bringToFront();
 
-        try {
-            Intent intent = getIntent();
-            changedStudent = intent.getParcelableExtra("changed_student");
-            beforeStudent = intent.getParcelableExtra("before_student");
-        } catch (Exception e) {
-            String message = getResources().getString(R.string.caution_modify_fail);
-            Toast toast = Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT);
-            toast.setGravity(Gravity.CENTER_HORIZONTAL|Gravity.BOTTOM, 0, 0);
-            toast.show();
+        Intent intent = getIntent();
+        changedStudent = intent.getParcelableExtra("changed_student");
+        beforeStudent = intent.getParcelableExtra("before_student");
 
-            finish();
-        }
 
-        Button mModifyButton = findViewById(R.id.button_detail_modify_modify);
-        Button mCancelButton = findViewById(R.id.button_detail_modify_cancel);
+        Button mModifyButton = findViewById(R.id.button_modify_check_modify);
+        Button mCancelButton = findViewById(R.id.button_modify_check_cancel);
 
         mModifyButton.setOnClickListener(mModifyButtonOnClickListener);
         mCancelButton.setOnClickListener(new View.OnClickListener() {
@@ -77,12 +68,10 @@ public class ModifyCheckPopup extends AppCompatActivity {
 
     }
 
-    View.OnClickListener mModifyButtonOnClickListener = new View.OnClickListener() {
+    private View.OnClickListener mModifyButtonOnClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
-            mProgressBar.setVisibility(View.VISIBLE);
-            getWindow().addFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
-            mProgressBar.bringToFront();
+            Special.startLoad(getWindow(), mProgressBar);
 
             DBHelper.PositionCheck positionCheck = new DBHelper.PositionCheck(beforeStudent);
             positionCheck.execute((Void) null);
@@ -103,16 +92,11 @@ public class ModifyCheckPopup extends AppCompatActivity {
 
             message = thisContext.getResources().getString(R.string.caution_modify_success);
             thisActivity.setResult(RESULT_OK);
-        } else {
-            message = thisContext.getResources().getString(R.string.caution_modify_fail);
         }
+        else message = thisContext.getResources().getString(R.string.caution_modify_fail);
 
-        Toast toast = Toast.makeText(thisContext, message, Toast.LENGTH_SHORT);
-        toast.setGravity(Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL, 0, 0);
-        toast.show();
-
-        mProgressBar.setVisibility(View.GONE);
-        thisActivity.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+        Special.printMessage(thisActivity.getApplicationContext(), message);
+        Special.finishLoad(thisActivity.getWindow(), mProgressBar);
 
         thisActivity.finish();
     }

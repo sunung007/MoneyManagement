@@ -7,10 +7,10 @@
     android:layout_gravity="center_horizontal"
     android:background="@drawable/round_popup"
     android:padding="5dp"
-    tools:context=".Enroll.EnrollCheckPopup">
+    tools:context=".Manage.DetailInfoPopup">
 
     <TextView
-        android:id="@+id/title_detail_info"
+        android:id="@+id/text_detail_info_title"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:background="@drawable/round_button"
@@ -34,10 +34,10 @@
         android:textAppearance="@style/TextAppearance.AppCompat.Body1"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/title_detail_info" />
+        app:layout_constraintTop_toBottomOf="@+id/text_detail_info_title" />
 
     <TextView
-        android:id="@+id/detail_year"
+        android:id="@+id/text_detail_info_year"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -58,13 +58,13 @@
         android:text="@string/prompt_type"
         android:textAppearance="@style/TextAppearance.AppCompat.Body1"
         android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="@+id/detail_year"
+        app:layout_constraintBottom_toBottomOf="@+id/text_detail_info_year"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/detail_year"
+        app:layout_constraintTop_toTopOf="@+id/text_detail_info_year"
         app:layout_constraintVertical_bias="0.0" />
 
     <TextView
-        android:id="@+id/detail_type"
+        android:id="@+id/text_detail_info_type"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -90,7 +90,7 @@
         app:layout_constraintTop_toBottomOf="@+id/textView25" />
 
     <TextView
-        android:id="@+id/detail_amount"
+        android:id="@+id/text_detail_info_amount"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -111,13 +111,13 @@
         android:text="@string/title_support"
         android:textAppearance="@style/TextAppearance.AppCompat.Body1"
         android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="@+id/detail_amount"
+        app:layout_constraintBottom_toBottomOf="@+id/text_detail_info_amount"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/detail_amount"
+        app:layout_constraintTop_toTopOf="@+id/text_detail_info_amount"
         app:layout_constraintVertical_bias="0.0" />
 
     <TextView
-        android:id="@+id/detail_support"
+        android:id="@+id/text_detail_info_support"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -132,7 +132,7 @@
         app:layout_constraintVertical_bias="0.333" />
 
     <Button
-        android:id="@+id/button_search_result_ok"
+        android:id="@+id/button_detail_info_modify"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
@@ -140,13 +140,13 @@
         android:text="@string/button_modify"
         android:textAppearance="@style/TextAppearance.AppCompat.Menu"
         android:textColor="@color/colorWhite"
-        app:layout_constraintEnd_toStartOf="@+id/button_detail_delete"
+        app:layout_constraintEnd_toStartOf="@+id/button_detail_info_delete"
         app:layout_constraintHorizontal_bias="0.4"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView27" />
 
     <Button
-        android:id="@+id/button_detail_delete"
+        android:id="@+id/button_detail_info_delete"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="4dp"
@@ -155,22 +155,22 @@
         android:text="@string/button_delete"
         android:textAppearance="@style/TextAppearance.AppCompat.Menu"
         android:textColor="@color/colorWhite"
-        app:layout_constraintEnd_toStartOf="@+id/button_detail_ok"
-        app:layout_constraintStart_toEndOf="@+id/button_search_result_ok"
-        app:layout_constraintTop_toTopOf="@+id/button_search_result_ok" />
+        app:layout_constraintEnd_toStartOf="@+id/button_detail_info_ok"
+        app:layout_constraintStart_toEndOf="@+id/button_detail_info_modify"
+        app:layout_constraintTop_toTopOf="@+id/button_detail_info_modify" />
 
     <Button
-        android:id="@+id/button_detail_ok"
+        android:id="@+id/button_detail_info_ok"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:background="@drawable/round_button"
         android:text="@string/button_ok"
         android:textAppearance="@style/TextAppearance.AppCompat.Menu"
         android:textColor="@color/colorWhite"
-        app:layout_constraintBottom_toBottomOf="@+id/button_search_result_ok"
+        app:layout_constraintBottom_toBottomOf="@+id/button_detail_info_modify"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/button_detail_delete"
-        app:layout_constraintTop_toTopOf="@+id/button_detail_delete"
+        app:layout_constraintStart_toEndOf="@+id/button_detail_info_delete"
+        app:layout_constraintTop_toTopOf="@+id/button_detail_info_delete"
         app:layout_constraintVertical_bias="1.0" />
 
 </android.support.constraint.ConstraintLayout>

@@ -2,7 +2,7 @@
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/enroll_popup_entire"
+    android:id="@+id/constraint_enroll_check"
     android:layout_width="300dp"
     android:layout_height="wrap_content"
     android:layout_gravity="center_horizontal"
@@ -11,7 +11,7 @@
     tools:context=".Enroll.EnrollCheckPopup">
 
     <TextView
-        android:id="@+id/title_detail_info"
+        android:id="@+id/text_enroll_check_title"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:background="@drawable/round_button"
@@ -32,16 +32,16 @@
         android:maxHeight="200dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/title_detail_info">
+        app:layout_constraintTop_toBottomOf="@+id/text_enroll_check_title">
 
         <android.support.v7.widget.RecyclerView
-            android:id="@+id/already_enrolleds_students"
+            android:id="@+id/recycler_enroll_check"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
     </FrameLayout>
 
     <Button
-        android:id="@+id/button_search_result_ok"
+        android:id="@+id/button_enroll_check_ok"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginEnd="2dp"
@@ -49,12 +49,12 @@
         android:text="@string/button_enroll"
         android:textAppearance="@style/TextAppearance.AppCompat.Menu"
         android:textColor="@color/colorWhite"
-        app:layout_constraintEnd_toStartOf="@+id/button_detail_ok"
+        app:layout_constraintEnd_toStartOf="@+id/button_enroll_check_cancel"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/frameLayout" />
 
     <Button
-        android:id="@+id/button_detail_ok"
+        android:id="@+id/button_enroll_check_cancel"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginStart="2dp"
@@ -62,13 +62,13 @@
         android:text="@string/button_cancel"
         android:textAppearance="@style/TextAppearance.AppCompat.Menu"
         android:textColor="@color/colorWhite"
-        app:layout_constraintBottom_toBottomOf="@+id/button_search_result_ok"
+        app:layout_constraintBottom_toBottomOf="@+id/button_enroll_check_ok"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/button_search_result_ok"
-        app:layout_constraintTop_toTopOf="@+id/button_search_result_ok" />
+        app:layout_constraintStart_toEndOf="@+id/button_enroll_check_ok"
+        app:layout_constraintTop_toTopOf="@+id/button_enroll_check_ok" />
 
     <ProgressBar
-        android:id="@+id/enroll_popup_progressBar"
+        android:id="@+id/progressBar_enroll_check"
         style="?android:attr/progressBarStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -76,10 +76,9 @@
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
-        app:layout_constraintBottom_toTopOf="@+id/button_search_result_ok"
+        android:indeterminateTint="@color/colorPrimaryMoreLight"
+        app:layout_constraintBottom_toTopOf="@+id/button_enroll_check_ok"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/title_detail_info"
-        android:indeterminateTint="@color/colorPrimaryMoreLight"
-        />
+        app:layout_constraintTop_toTopOf="@+id/text_enroll_check_title" />
 </android.support.constraint.ConstraintLayout>

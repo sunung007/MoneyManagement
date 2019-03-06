@@ -3,7 +3,6 @@ package org.androidtown.moneymanagement.Enroll;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -13,7 +12,7 @@ import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.inputmethod.InputMethodManager;
+import android.view.Window;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -25,8 +24,8 @@ import android.widget.SpinnerAdapter;
 import org.androidtown.moneymanagement.Common.Array;
 import org.androidtown.moneymanagement.Common.DBHelper;
 import org.androidtown.moneymanagement.Common.Mode;
+import org.androidtown.moneymanagement.Common.Special;
 import org.androidtown.moneymanagement.Common.Student;
-import org.androidtown.moneymanagement.MainActivity;
 import org.androidtown.moneymanagement.QuestionPopup;
 import org.androidtown.moneymanagement.R;
 
@@ -37,26 +36,27 @@ import java.util.Objects;
 
 public class EnrollFragment extends Fragment {
 
-    private static String mSid;
-    private static String mSname;
-    private static String mPyear;
-    private static String mPtype;
-    private static String mPamount;
-
     public static int size;
+
+    private static String mSid;
+    private static String mName;
+    private static String mYear;
+    private static String mType;
+    private static String mAmount;
 
     private static ArrayList<Student> students;
 
-    private Spinner mSidView;
-    private Spinner mPyearView;
-    private Spinner mPtypeView;
-    private Spinner mPamountView;
+    private Spinner mSidSpinner;
+    private Spinner mYearSpinner;
+    private Spinner mTypeSpinner;
+    private Spinner mAmountSpinner;
 
-    private EditText mSnameView;
+    private EditText mNameText;
     @SuppressLint("StaticFieldLeak")
     private static ProgressBar mProgressBar;
     @SuppressLint("StaticFieldLeak")
     private static Activity thisActivity;
+    private static Window thisWindow;
 
 
     @NonNull
@@ -67,33 +67,38 @@ public class EnrollFragment extends Fragment {
 
         thisActivity = getActivity();
         students = new ArrayList<>();
+        thisWindow = Objects.requireNonNull(getActivity()).getWindow();
 
-        Array spinnerArray;
-        SpinnerAdapter spinnerAdapter;
-
-        spinnerArray = new Array(Mode.SID_ENROLL, getContext());
-        spinnerAdapter = new ArrayAdapter<>(Objects.requireNonNull(getContext()),
-                R.layout.spinner_custom, spinnerArray.getArrayList());
+        Array spinnerArray = new Array(Mode.SID_ENROLL, getContext());
+        SpinnerAdapter spinnerAdapter =  new ArrayAdapter<>(
+                        Objects.requireNonNull(getContext()),
+                        R.layout.spinner_custom,
+                        spinnerArray.getArrayList());
         ((ArrayAdapter) spinnerAdapter).setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
 
-        mSidView = view.findViewById(R.id.enroll_sid);
-        mSidView.setAdapter(spinnerAdapter);
+        mSidSpinner = view.findViewById(R.id.spinner_enroll_sid);
+        mSidSpinner.setAdapter(spinnerAdapter);
+
 
         spinnerArray = new Array(Mode.YEAR, getContext());
-        spinnerAdapter = new ArrayAdapter<>(Objects.requireNonNull(getContext()),
-                R.layout.spinner_custom, spinnerArray.getArrayList());
+        spinnerAdapter = new ArrayAdapter<>(
+                Objects.requireNonNull(getContext()),
+                R.layout.spinner_custom,
+                spinnerArray.getArrayList());
         ((ArrayAdapter) spinnerAdapter).setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
 
-        mPyearView = view.findViewById(R.id.enroll_pyear);
-        mPyearView.setAdapter(spinnerAdapter);
+        mYearSpinner = view.findViewById(R.id.spinner_enroll_year);
+        mYearSpinner.setAdapter(spinnerAdapter);
 
-        mPtypeView = view.findViewById(R.id.enroll_ptype);
-        mPamountView = view.findViewById(R.id.enroll_pamount);
-        mProgressBar = view.findViewById(R.id.enroll_progressBar);
+
+        mTypeSpinner = view.findViewById(R.id.spinner_enroll_type);
+        mAmountSpinner = view.findViewById(R.id.spinner_enroll_amount);
+
+        mProgressBar = view.findViewById(R.id.progressBar_enroll);
         mProgressBar.setVisibility(View.GONE);
 
 
-        Button studentSearchButton = view.findViewById(R.id.enroll_button);
+        Button studentSearchButton = view.findViewById(R.id.button_enroll);
         studentSearchButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -101,12 +106,24 @@ public class EnrollFragment extends Fragment {
             }
         });
 
+        Button mNewbieEnrollButton = view.findViewById(R.id.button_enroll_newbie);
+        mNewbieEnrollButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //TODO: 설정
+                Intent intent = new Intent(getContext(), EnrollNewbieActivity.class);
+                startActivity(intent);
+            }
+        });
 
-        mSnameView = view.findViewById(R.id.enroll_name);
-        mSnameView.setOnKeyListener(new View.OnKeyListener() {
+
+        // TODO: code edit
+        mNameText = view.findViewById(R.id.edit_enroll_name);
+        mNameText.setOnKeyListener(new View.OnKeyListener() {
             @Override
             public boolean onKey(View view, int i, KeyEvent keyEvent) {
-                if ((keyEvent.getAction() == KeyEvent.ACTION_DOWN) && (i == KeyEvent.KEYCODE_ENTER)) {
+                if ((keyEvent.getAction() == KeyEvent.ACTION_DOWN)
+                        && (i == KeyEvent.KEYCODE_ENTER)) {
                     searchStudent();
                 }
                 return false;
@@ -114,19 +131,11 @@ public class EnrollFragment extends Fragment {
         });
 
 
-        View mEnrollView = view.findViewById(R.id.student_enroll_view);
+        View mEnrollView = view.findViewById(R.id.constraint_enroll);
         mEnrollView.setOnKeyListener(new View.OnKeyListener() {
             @Override
             public boolean onKey(View view, int i, KeyEvent keyEvent) {
-                InputMethodManager inputMethodManager
-                        = (InputMethodManager) Objects.requireNonNull(getActivity())
-                        .getSystemService(Context.INPUT_METHOD_SERVICE);
-
-                assert inputMethodManager != null;
-                if(inputMethodManager.isActive()) {
-                    inputMethodManager.hideSoftInputFromWindow(
-                            Objects.requireNonNull(getActivity().getCurrentFocus()).getWindowToken(), 0);
-                }
+                Special.closeKeyboard(thisActivity);
                 return false;
             }
         });
@@ -147,57 +156,64 @@ public class EnrollFragment extends Fragment {
             }
         });
 
+        ImageButton mQuestionNewbieEnrollButton = view.findViewById(R.id.question_enroll_newbie);
+        mQuestionNewbieEnrollButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getContext(), QuestionPopup.class);
+
+                String title = getString(R.string.title_enroll_newbie);
+                String content = getString(R.string.attention_enroll_newbie);
+                intent.putExtra("title", title);
+                intent.putExtra("content", content);
+
+                startActivity(intent);
+            }
+        });
+
         return view;
     }
 
 
     private void searchStudent() {
-        MainActivity.screenUntouchable();
-        mProgressBar.setVisibility(View.VISIBLE);
+        Special.startLoad(thisWindow, mProgressBar);
 
-        mSnameView.setError(null);
-        mSid = mSidView.getSelectedItem().toString().substring(0, 2);
-        mSname = mSnameView.getText().toString().trim();
-        mPtype = mPtypeView.getSelectedItem().toString().trim();
-        mPamount = mPamountView.getSelectedItem().toString().trim();
-        mPyear = mPyearView.getSelectedItem().toString().trim();
+        mNameText.setError(null);
 
-        boolean cancel = false;
+        mName = mNameText.getText().toString().trim();
+        mSid = mSidSpinner.getSelectedItem().toString().substring(0, 2);
+        mType = mTypeSpinner.getSelectedItem().toString().trim();
+        mAmount = mAmountSpinner.getSelectedItem().toString().trim();
+        mYear = mYearSpinner.getSelectedItem().toString().trim();
 
-        if (TextUtils.isEmpty(mSname)) {
-            mSnameView.setError(getString(R.string.error_field_required));
-            cancel = true;
-        }
-
-        if (cancel) {
-            mProgressBar.setVisibility(View.GONE);
-            MainActivity.screenTouchable();
-
-            mSnameView.requestFocus();
+        if (TextUtils.isEmpty(mName)) {
+            Special.finishLoad(thisWindow, mProgressBar);
+            mNameText.setError(getString(R.string.error_field_required));
+            mNameText.requestFocus();
         } else {
-            DBHelper.SearchTask searchTask = new DBHelper.SearchTask(mSname, mSid, Mode.ENROLL_FRAGMENT);
+            DBHelper.SearchTask searchTask = new DBHelper.SearchTask(mName, mSid, Mode.ENROLL_FRAGMENT);
             searchTask.execute((Void) null);
         }
     }
 
-    static Student setNewStudent() {
-        Student student = new Student(mPamount, mPtype, mPyear, mSid, mSname);
+    private static Student setNewStudent() {
+        Student student = new Student(mAmount, mType, mYear, mSid, mName);
 
+        // TODO: 필요 없을텐데?
         String cSupport;
         double currentYear, tmpAll;
         int tmpYear, tmpType;
         currentYear = Calendar.getInstance().get(Calendar.YEAR)
                 + (Calendar.getInstance().get(Calendar.MONTH) + 1.0)/12;
 
-        if (mPtype.contains("전액")) {
+        if (mType.contains("전액")) {
             cSupport = "YES";
-        } else if (mPtype.contains("미납")) {
+        } else if (mType.contains("미납")) {
             cSupport = "NO";
-        } else if (mPtype.contains("학기")) {
-            // The condition is about whether a person can support by student's money.
+        } else if (mType.contains("학기")) {
             try {
-                tmpYear = Integer.parseInt(mPyear.substring(0, 2), 10) + 2000;
-                tmpType = Integer.parseInt(mPamount.substring(0, 1), 10);
+                tmpYear = Integer.parseInt(mYear.substring(0, 2), 10) + 2000;
+                tmpType = Integer.parseInt(mAmount.substring(0, 1), 10);
 
                 tmpAll = tmpYear + tmpType/2.0;
 
@@ -214,11 +230,11 @@ public class EnrollFragment extends Fragment {
     }
 
     public static void onPost(int _totalNum, ArrayList<Student> _students) {
+        Special.finishLoad(thisWindow, mProgressBar);
+
         students = new ArrayList<>(_students);
         Student student = new Student(setNewStudent());
 
-        mProgressBar.setVisibility(View.GONE);
-        MainActivity.screenTouchable();
 
         Intent intent = new Intent(thisActivity.getApplicationContext(), EnrollCheckPopup.class);
 
@@ -231,7 +247,7 @@ public class EnrollFragment extends Fragment {
             intent.putExtra("total_num", _totalNum);
             intent.putExtra("title", title);
 
-            thisActivity.startActivityForResult(intent, 1);
+            thisActivity.startActivity(intent);
         } else {
             title = thisActivity.getResources().getString(R.string.title_enroll_check);
 
@@ -240,7 +256,7 @@ public class EnrollFragment extends Fragment {
             intent.putExtra("total_num", _totalNum);
             intent.putExtra("title", title);
 
-            thisActivity.startActivityForResult(intent, 1);
+            thisActivity.startActivity(intent);
         }
     }
 }

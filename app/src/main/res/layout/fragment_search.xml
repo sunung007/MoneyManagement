@@ -2,16 +2,15 @@
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/student_search_view"
+    android:id="@+id/constraint_search"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Search.SearchFragment"
     android:background="@color/colorWhite"
-    >
+    tools:context=".Search.SearchFragment">
 
 
     <TextView
-        android:id="@+id/textView3"
+        android:id="@+id/text_search_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
@@ -32,9 +31,9 @@
         android:contentDescription="@string/content_description_question"
         android:padding="4dp"
         android:src="@drawable/ic_question"
-        app:layout_constraintBottom_toBottomOf="@+id/textView3"
-        app:layout_constraintStart_toEndOf="@+id/textView3"
-        app:layout_constraintTop_toTopOf="@+id/textView3" />
+        app:layout_constraintBottom_toBottomOf="@+id/text_search_title"
+        app:layout_constraintStart_toEndOf="@+id/text_search_title"
+        app:layout_constraintTop_toTopOf="@+id/text_search_title" />
 
     <LinearLayout
         android:id="@+id/linearLayout8"
@@ -47,29 +46,28 @@
         android:orientation="vertical"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView3">
+        app:layout_constraintTop_toBottomOf="@+id/text_search_title">
 
         <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/round_edit_text"
             android:layout_gravity="center|center_vertical|center_horizontal"
-            >
+            android:background="@drawable/round_edit_text">
+
             <Spinner
-                android:id="@+id/sid"
+                android:id="@+id/spinner_search_sid"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:dropDownWidth="match_parent"
                 android:gravity="end|fill"
+                android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView3"
-                android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
-                />
+                app:layout_constraintTop_toBottomOf="@+id/text_search_title" />
         </FrameLayout>
 
         <org.androidtown.moneymanagement.Common.ClearEditText
-            android:id="@+id/sname"
+            android:id="@+id/edit_search_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
@@ -87,7 +85,7 @@
             app:layout_constraintTop_toBottomOf="@+id/view4" />
 
         <Button
-            android:id="@+id/student_search_button"
+            android:id="@+id/button_search"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/round_button"
@@ -103,7 +101,7 @@
     </LinearLayout>
 
     <TextView
-        android:id="@+id/textView12"
+        android:id="@+id/text_search_only"
         android:layout_width="wrap_content"
         android:layout_height="33dp"
         android:layout_marginStart="32dp"
@@ -115,7 +113,7 @@
         app:layout_constraintTop_toBottomOf="@+id/linearLayout8" />
 
     <ImageButton
-        android:id="@+id/question_search_only_title"
+        android:id="@+id/question_search_only"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="4dp"
@@ -123,12 +121,12 @@
         android:contentDescription="@string/content_description_question"
         android:padding="4dp"
         android:src="@drawable/ic_question"
-        app:layout_constraintBottom_toBottomOf="@+id/textView12"
-        app:layout_constraintStart_toEndOf="@+id/textView12"
-        app:layout_constraintTop_toTopOf="@+id/textView12" />
+        app:layout_constraintBottom_toBottomOf="@+id/text_search_only"
+        app:layout_constraintStart_toEndOf="@+id/text_search_only"
+        app:layout_constraintTop_toTopOf="@+id/text_search_only" />
 
     <Button
-        android:id="@+id/search_searching_only_button"
+        android:id="@+id/button_search_only"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
@@ -141,18 +139,17 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView12" />
+        app:layout_constraintTop_toBottomOf="@+id/text_search_only" />
 
     <ProgressBar
-        android:id="@+id/search_progressBar"
+        android:id="@+id/progressBar_search"
         style="?android:attr/progressBarStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:indeterminateTint="@color/colorPrimaryMoreLight"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:indeterminateTint="@color/colorPrimaryMoreLight"
-        />
+        app:layout_constraintTop_toTopOf="parent" />
 
 </android.support.constraint.ConstraintLayout>

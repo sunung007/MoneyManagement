@@ -22,38 +22,43 @@ import java.util.Locale;
 public class ManageListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     private ArrayList<Student> students;
-    private ArrayList<Student> searchList = new ArrayList<>();
+    private ArrayList<Student> searchList;
 
     public static class MyManageViewHolder extends RecyclerView.ViewHolder {
 
-        TextView mSidView, mSnameView, mTypeView, mSupportView;
+        TextView mSidView;
+        TextView mNameView;
+        TextView mTypeView;
+        TextView mSupportView;
         CardView mListView;
 
         MyManageViewHolder(View view) {
             super(view);
 
-            mSidView = view.findViewById(R.id.manager_sid);
-            mSnameView = view.findViewById(R.id.manager_name);
-            mTypeView = view.findViewById(R.id.manager_type);
-            mSupportView = view.findViewById(R.id.manager_support);
-            mListView = view.findViewById(R.id.manager_student_list);
+            mSidView = view.findViewById(R.id.text_list_manage_sid);
+            mNameView = view.findViewById(R.id.text_list_manage_name);
+            mTypeView = view.findViewById(R.id.text_list_manager_type);
+            mSupportView = view.findViewById(R.id.text_list_manage_support);
+            mListView = view.findViewById(R.id.cardView_manage);
         }
     }
 
     ManageListAdapter(ArrayList<Student> src) {
         students = new ArrayList<>(src);
-        searchList.addAll(students);
+        searchList = new ArrayList<>(students);
     }
 
 
     @NonNull
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View v = LayoutInflater.from(parent.getContext())
+        View v = LayoutInflater
+                .from(parent.getContext())
                 .inflate(R.layout.list_manage, parent, false);
 
         return new MyManageViewHolder(v);
     }
+
 
     @SuppressLint("ClickableViewAccessibility")
     @Override
@@ -63,7 +68,7 @@ public class ManageListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         final Student student = searchList.get(position);
 
         myViewHolder.mSidView.setText(student.sid);
-        myViewHolder.mSnameView.setText(student.name);
+        myViewHolder.mNameView.setText(student.name);
         myViewHolder.mTypeView.setText(student.type);
         myViewHolder.mSupportView.setText(student.support);
 
@@ -100,27 +105,24 @@ public class ManageListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         query = query.toLowerCase(Locale.getDefault());
         searchList.clear();
 
-        if (query.length() == 0) {
-            searchList.addAll(students);
-        } else {
+        if (query.length() == 0) searchList.addAll(students);
+        else {
             for (Student iter : students) {
                 String name = iter.name;
 
-                if (SoundSearcher.matchString(name, query)) {
+                if (SoundSearcher.matchString(name, query))
                     searchList.add(iter);
-                }
-                else if (name.toLowerCase().contains(query)) {
+                else if (name.toLowerCase().contains(query))
                     searchList.add(iter);
-                }
             }
         }
 
         notifyDataSetChanged();
     }
 
+
     @Override
     public int getItemCount() {
         return searchList.size();
     }
-
 }

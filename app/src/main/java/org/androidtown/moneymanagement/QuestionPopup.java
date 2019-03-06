@@ -5,21 +5,15 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.view.Gravity;
 import android.view.View;
 import android.view.Window;
 import android.widget.ImageButton;
 import android.widget.TextView;
-import android.widget.Toast;
+
+import org.androidtown.moneymanagement.Common.Special;
 
 public class QuestionPopup extends AppCompatActivity {
-    String title;
-    String content;
 
-    TextView mTitleView;
-    TextView mContentView;
-
-    ImageButton mCloseButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,36 +22,27 @@ public class QuestionPopup extends AppCompatActivity {
         getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         setContentView(R.layout.popup_question);
 
-        mTitleView = findViewById(R.id.question_title);
-        mContentView = findViewById(R.id.question_content);
-        mCloseButton = findViewById(R.id.question_close);
+        TextView mTitleView = findViewById(R.id.text_question_title);
+        TextView mContentView = findViewById(R.id.text_question_content);
 
 
         try {
             Intent intent = getIntent();
+            String title = intent.getStringExtra("title");
+            String content = intent.getStringExtra("content");
 
-            title = intent.getStringExtra("title");
-            content = intent.getStringExtra("content");
-
-            if(title == null && content == null) {
-                throw new Exception();
-            }
+            if(title == null && content == null) throw new Exception();
 
             mTitleView.setText(title);
             mContentView.setText(content);
 
         } catch (Exception e) {
-            String message;
-            message = "Loading failed.";
-
-            Toast toast = Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT);
-            toast.setGravity(Gravity.CENTER_HORIZONTAL|Gravity.BOTTOM, 0, 0);
-            toast.show();
-
+            Special.printMessage(getApplicationContext(), R.string.caution_db_load_fail);
             finish();
             return;
         }
 
+        ImageButton mCloseButton = findViewById(R.id.imageButton_question_close);
         mCloseButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

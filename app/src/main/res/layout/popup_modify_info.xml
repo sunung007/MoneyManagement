@@ -47,15 +47,15 @@
             android:textStyle="bold" />
 
         <EditText
-            android:id="@+id/modify_sid"
+            android:id="@+id/text_modify_info_sid"
             android:layout_width="70dp"
             android:layout_height="wrap_content"
             android:layout_marginEnd="8dp"
+            android:inputType="number"
             android:text="@string/prompt_sid"
             android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-            tools:layout_editor_absoluteX="31dp"
-            android:inputType="number"
-            tools:ignore="Autofill,LabelFor" />
+            tools:ignore="Autofill,LabelFor"
+            tools:layout_editor_absoluteX="31dp" />
 
         <TextView
             android:id="@+id/textView37"
@@ -68,14 +68,14 @@
             tools:layout_editor_absoluteX="99dp" />
 
         <EditText
-            android:id="@+id/modify_name"
+            android:id="@+id/text_modify_info_name"
             android:layout_width="70dp"
             android:layout_height="wrap_content"
             android:inputType="text"
             android:text="@string/prompt_name"
             android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-            tools:layout_editor_absoluteX="130dp"
-            tools:ignore="Autofill,LabelFor" />
+            tools:ignore="Autofill,LabelFor"
+            tools:layout_editor_absoluteX="130dp" />
     </LinearLayout>
 
     <TextView
@@ -92,7 +92,7 @@
         app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
 
     <Spinner
-        android:id="@+id/modify_type"
+        android:id="@+id/spinner_modify_info_type"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="4dp"
@@ -114,10 +114,10 @@
         android:textAppearance="@style/TextAppearance.AppCompat.Body1"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="@+id/textView44"
-        app:layout_constraintTop_toBottomOf="@+id/modify_type" />
+        app:layout_constraintTop_toBottomOf="@+id/spinner_modify_info_type" />
 
     <Spinner
-        android:id="@+id/modify_amount"
+        android:id="@+id/spinner_modify_info_amount"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="4dp"
@@ -125,7 +125,7 @@
         android:text="@string/prompt_amount"
         android:textAppearance="@style/TextAppearance.AppCompat.Body1"
         app:layout_constraintBottom_toBottomOf="@+id/textView38"
-        app:layout_constraintEnd_toEndOf="@+id/modify_type"
+        app:layout_constraintEnd_toEndOf="@+id/spinner_modify_info_type"
         app:layout_constraintStart_toEndOf="@+id/textView38"
         app:layout_constraintTop_toTopOf="@+id/textView38" />
 
@@ -138,10 +138,10 @@
         android:textAppearance="@style/TextAppearance.AppCompat.Body1"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="@+id/textView38"
-        app:layout_constraintTop_toBottomOf="@+id/modify_amount" />
+        app:layout_constraintTop_toBottomOf="@+id/spinner_modify_info_amount" />
 
     <Spinner
-        android:id="@+id/modify_year"
+        android:id="@+id/spinner_modify_info_year"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="4dp"
@@ -149,7 +149,7 @@
         android:text="@string/prompt_year"
         android:textAppearance="@style/TextAppearance.AppCompat.Body1"
         app:layout_constraintBottom_toBottomOf="@+id/textView39"
-        app:layout_constraintEnd_toEndOf="@+id/modify_amount"
+        app:layout_constraintEnd_toEndOf="@+id/spinner_modify_info_amount"
         app:layout_constraintStart_toEndOf="@+id/textView39"
         app:layout_constraintTop_toTopOf="@+id/textView39"
         tools:ignore="RtlSymmetry" />
@@ -168,7 +168,7 @@
         app:layout_constraintTop_toBottomOf="@+id/textView39" />
 
     <Button
-        android:id="@+id/button_modify_modify"
+        android:id="@+id/button_modify_info_modify"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
@@ -177,22 +177,22 @@
         android:text="@string/button_modify"
         android:textAppearance="@style/TextAppearance.AppCompat.Menu"
         android:textColor="@color/colorWhite"
-        app:layout_constraintEnd_toStartOf="@+id/button_modify_cancel"
+        app:layout_constraintEnd_toStartOf="@+id/button_modify_info_cancel"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView35" />
 
     <Button
-        android:id="@+id/button_modify_cancel"
+        android:id="@+id/button_modify_info_cancel"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:background="@drawable/round_button"
         android:text="@string/button_cancel"
         android:textAppearance="@style/TextAppearance.AppCompat.Menu"
         android:textColor="@color/colorWhite"
-        app:layout_constraintBottom_toBottomOf="@+id/button_modify_modify"
+        app:layout_constraintBottom_toBottomOf="@+id/button_modify_info_modify"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.524"
-        app:layout_constraintStart_toEndOf="@+id/button_modify_modify"
-        app:layout_constraintTop_toTopOf="@+id/button_modify_modify" />
+        app:layout_constraintStart_toEndOf="@+id/button_modify_info_modify"
+        app:layout_constraintTop_toTopOf="@+id/button_modify_info_modify" />
 
 </android.support.constraint.ConstraintLayout>

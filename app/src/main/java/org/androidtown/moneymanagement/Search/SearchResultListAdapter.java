@@ -16,16 +16,20 @@ public class SearchResultListAdapter extends RecyclerView.Adapter<RecyclerView.V
 
     public static class MyViewHolder extends RecyclerView.ViewHolder {
 
-        TextView mPyearView, mPtypeView, mPamountView, mSupportView;
+        TextView mYearView;
+        TextView mTypeView;
+        TextView mAmountView;
+        TextView mSupportView;
 
         MyViewHolder(View view) {
             super(view);
-            mPyearView = view.findViewById(R.id.result_pyear);
-            mPtypeView = view.findViewById(R.id.result_ptype);
-            mPamountView = view.findViewById(R.id.result_pamount);
-            mSupportView = view.findViewById(R.id.result_support);
+            mYearView = view.findViewById(R.id.text_list_search_result_year);
+            mTypeView = view.findViewById(R.id.text_list_search_result_type);
+            mAmountView = view.findViewById(R.id.text_list_search_result_amount);
+            mSupportView = view.findViewById(R.id.text_list_search_result_support);
         }
     }
+
 
     private ArrayList<Student> students;
 
@@ -36,7 +40,8 @@ public class SearchResultListAdapter extends RecyclerView.Adapter<RecyclerView.V
     @NonNull
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View v = LayoutInflater.from(parent.getContext())
+        View v = LayoutInflater
+                .from(parent.getContext())
                 .inflate(R.layout.list_search_result, parent, false);
 
         return new MyViewHolder(v);
@@ -45,11 +50,12 @@ public class SearchResultListAdapter extends RecyclerView.Adapter<RecyclerView.V
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
         MyViewHolder myViewHolder = (MyViewHolder) holder;
+
         Student student = students.get(position);
 
-        myViewHolder.mPamountView.setText(student.amount);
-        myViewHolder.mPtypeView.setText(student.type);
-        myViewHolder.mPyearView.setText(student.year);
+        myViewHolder.mYearView.setText(student.year);
+        myViewHolder.mTypeView.setText(student.type);
+        myViewHolder.mAmountView.setText(student.amount);
         myViewHolder.mSupportView.setText(student.support);
     }
 

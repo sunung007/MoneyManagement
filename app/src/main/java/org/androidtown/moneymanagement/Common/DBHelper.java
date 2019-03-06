@@ -11,6 +11,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import org.androidtown.moneymanagement.Enroll.EnrollCheckPopup;
 import org.androidtown.moneymanagement.Enroll.EnrollFragment;
+import org.androidtown.moneymanagement.Enroll.EnrollNewbieActivity;
 import org.androidtown.moneymanagement.Manage.DeleteCheckPopup;
 import org.androidtown.moneymanagement.Manage.ManageFragment;
 import org.androidtown.moneymanagement.Manage.ModifyCheckPopup;
@@ -222,6 +223,94 @@ public class DBHelper {
             }
         }
     }
+
+    public static class EnrollMultiTask extends AsyncTask<Void, Void, Boolean> {
+
+        int totalNum;
+        int studentsNum;
+
+        String curYear;
+        ArrayList<String> students;
+
+        Mode mode;
+
+
+        public EnrollMultiTask(int _year, ArrayList<String> _students, Mode _mode) {
+            curYear = String.valueOf(_year);
+            students = new ArrayList<>(_students);
+            mode = _mode;
+
+            studentsNum = _students.size();
+        }
+
+
+        @Override
+        protected Boolean doInBackground(Void... voids) {
+            if(curYear == null || students == null)
+                return false;
+
+
+            valueEventListener = new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    totalNum = (int) dataSnapshot.getChildrenCount();
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+                    totalNum = 0;
+                }
+            };
+            conditionRef.addListenerForSingleValueEvent(valueEventListener);
+
+
+            try {
+                long startTime = System.currentTimeMillis();
+                long progressTime;
+
+                while (totalNum < 1) {
+                    Thread.sleep(500);
+                    progressTime = System.currentTimeMillis();
+                    if (progressTime - startTime > 3000) {
+                        return false;
+                    }
+                }
+            } catch (Exception e) {
+                return false;
+            } finally {
+                conditionRef.removeEventListener(valueEventListener);
+            }
+
+
+            String curIndex;
+            String sid = curYear;
+            String amount = "8만원";
+            String year = curYear + "년도";
+            String type = "전액납부";
+
+            for (int i = 0; i < studentsNum; i++) {
+                curIndex = String.valueOf(totalNum + i);
+
+                conditionRef.child(curIndex).setValue(curIndex);
+                conditionRef.child(curIndex).child("Sname").setValue(students.get(i));
+                conditionRef.child(curIndex).child("Sid").setValue(sid);
+                conditionRef.child(curIndex).child("Pamount").setValue(amount);
+                conditionRef.child(curIndex).child("Pyear").setValue(year);
+                conditionRef.child(curIndex).child("Ptype").setValue(type);
+            }
+
+            return true;
+        }
+
+
+        @Override
+        protected void onPostExecute(Boolean aBoolean) {
+            if(mode == Mode.ENROLL_NEWBIE_ACTIVITY) {
+                EnrollNewbieActivity.onPost(aBoolean);
+            }
+        }
+    }
+
 
     public static class DeleteTask extends AsyncTask<Void, Void, Boolean> {
         private int curIndex;
